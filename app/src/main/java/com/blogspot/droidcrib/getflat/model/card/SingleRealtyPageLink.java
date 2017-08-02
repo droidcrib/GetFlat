@@ -1,5 +1,5 @@
 
-package com.blogspot.droidcrib.getflat.model;
+package com.blogspot.droidcrib.getflat.model.card;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

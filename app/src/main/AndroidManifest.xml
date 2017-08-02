@@ -19,7 +19,17 @@
             android:value="Apartments.db" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.blogspot.droidcrib.getflat.model.ApiRecord" />
+            android:value="com.blogspot.droidcrib.getflat.model.ActionElementsLabels,
+                com.blogspot.droidcrib.getflat.model.AdvertisementFeatures,
+                com.blogspot.droidcrib.getflat.model.Card,
+                com.blogspot.droidcrib.getflat.model.Description,
+                com.blogspot.droidcrib.getflat.model.Geo,
+                com.blogspot.droidcrib.getflat.model.HouseFeature,
+                com.blogspot.droidcrib.getflat.model.Photo,
+                com.blogspot.droidcrib.getflat.model.RealtyFeature,
+                com.blogspot.droidcrib.getflat.model.SingleRealtyPageLink,
+                com.blogspot.droidcrib.getflat.model.SourceLink,
+                com.blogspot.droidcrib.getflat.model.Time" />
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />

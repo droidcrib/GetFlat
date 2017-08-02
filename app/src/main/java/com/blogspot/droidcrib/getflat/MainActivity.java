@@ -9,9 +9,12 @@ import android.widget.Button;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import okhttp3.OkHttpClient;
+
+import static com.blogspot.droidcrib.getflat.utils.Parser.getPureJSON;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         mResp = response;
-                        com.blogspot.droidcrib.getflat.utils.Parser.getPureJSON(mResp);
+                        JsonDecoder.getCards(getPureJSON(mResp));
                     }
 
                     @Override
