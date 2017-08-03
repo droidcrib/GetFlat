@@ -18,13 +18,17 @@ public class JsonDecoder {
         super();
     }
 
-    public static void getCards(String json){
+    public static void getCards(String json) {
         Message message = GsonSingleton.getInstance().fromJson(json, Message.class);
         List<Card> categoriesList = message.getCards();
 
         for (Card card : categoriesList) {
             Log.d(TAG, "getCards: " + card.toString());
-//            card.insert();
+            card.insert();
+            card.geo.insert(card);
+            if (card.geo.address != null) {
+                card.geo.address.insert(card);
+            }
 //            Log.d(TAG, "getCards: ");
 //            card.geo.insert(card);
 //            card.geo.address.insert(card);

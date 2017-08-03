@@ -2,71 +2,103 @@
 package com.blogspot.droidcrib.getflat.model;
 
 import java.util.List;
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Card {
+@Table(name = "Cards", id = "_id")
+public class Card extends Model {
 
+    @Column(name = "type")
     @SerializedName("type")
     @Expose
-    private String type;
+    public String type;
+    @Column(name = "pageId")
     @SerializedName("pageId")
     @Expose
-    private Integer pageId;
+    public Integer pageId;
+    @Column(name = "totalAdvertisementsCount")
     @SerializedName("totalAdvertisementsCount")
     @Expose
-    private Integer totalAdvertisementsCount;
+    public Integer totalAdvertisementsCount;
+    @Column(name = "isFavourite")
     @SerializedName("isFavourite")
     @Expose
-    private Object isFavourite;
+    public Boolean isFavourite;
+    @Column(name = "isVisited")
     @SerializedName("isVisited")
     @Expose
-    private Object isVisited;
+    public Boolean isVisited;
+    @Column(name = "geo")
     @SerializedName("geo")
     @Expose
-    private Geo geo;
+    public Geo geo;
+    @Column(name = "price")
     @SerializedName("price")
     @Expose
-    private String price;
+    public String price;
+    @Column(name = "priceSqm")
     @SerializedName("priceSqm")
     @Expose
-    private String priceSqm;
+    public String priceSqm;
+    @Column(name = "doShowPriceSqm")
     @SerializedName("doShowPriceSqm")
     @Expose
-    private Boolean doShowPriceSqm;
+    public Boolean doShowPriceSqm;
+    @Column(name = "time")
     @SerializedName("time")
     @Expose
-    private Time time;
+    public Time time;
+    @Column(name = "photo")
     @SerializedName("photo")
     @Expose
-    private Photo photo;
+    public Photo photo;
+    @Column(name = "imagesCount")
     @SerializedName("imagesCount")
     @Expose
-    private Integer imagesCount;
+    public Integer imagesCount;
+    @Column(name = "sourceLink")
     @SerializedName("sourceLink")
     @Expose
-    private SourceLink sourceLink;
+    public SourceLink sourceLink;
+    @Column(name = "singleRealtyPageLink")
     @SerializedName("singleRealtyPageLink")
     @Expose
-    private SingleRealtyPageLink singleRealtyPageLink;
+    public SingleRealtyPageLink singleRealtyPageLink;
+    @Column(name = "advertisementFeatures")
     @SerializedName("advertisementFeatures")
     @Expose
-    private AdvertisementFeatures advertisementFeatures;
+    public AdvertisementFeatures advertisementFeatures;
+    @Column(name = "realtyFeatures")
     @SerializedName("realtyFeatures")
     @Expose
-    private List<RealtyFeature> realtyFeatures = null;
+    public List<RealtyFeature> realtyFeatures = null;
+    @Column(name = "houseFeatures")
     @SerializedName("houseFeatures")
     @Expose
-    private List<HouseFeature> houseFeatures = null;
+    public List<HouseFeature> houseFeatures = null;
+    @Column(name = "description")
     @SerializedName("description")
     @Expose
-    private Description description;
+    public Description description;
+    @Column(name = "actionElementsLabels")
     @SerializedName("actionElementsLabels")
     @Expose
-    private ActionElementsLabels actionElementsLabels;
+    public ActionElementsLabels actionElementsLabels;
+    @Column(name = "actionOtherContactsUrl")
     @SerializedName("actionOtherContactsUrl")
     @Expose
-    private String actionOtherContactsUrl;
+    public String actionOtherContactsUrl;
+
+
+    public void insert(){
+        this.save();
+    }
+
+
 
     public String getType() {
         return type;
@@ -96,7 +128,7 @@ public class Card {
         return isFavourite;
     }
 
-    public void setIsFavourite(Object isFavourite) {
+    public void setIsFavourite(Boolean isFavourite) {
         this.isFavourite = isFavourite;
     }
 
@@ -104,7 +136,7 @@ public class Card {
         return isVisited;
     }
 
-    public void setIsVisited(Object isVisited) {
+    public void setIsVisited(Boolean isVisited) {
         this.isVisited = isVisited;
     }
 

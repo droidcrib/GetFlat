@@ -1,34 +1,35 @@
 
 package com.blogspot.droidcrib.getflat.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Geo {
+@Table(name = "Geos", id = "_id")
+public class Geo extends Model {
 
     @SerializedName("address")
     @Expose
-    private Address address;
-
-    @Override
-    public String toString() {
-        return "Geo{" +
-                "\n  address=" + address +
-                ",\n   district=" + district +
-                ",\n   microdistrict=" + microdistrict +
-                ",\n   building=" + building +
-                '}';
-    }
-
+    public Address address;
     @SerializedName("district")
     @Expose
-    private District district;
+    public District district;
     @SerializedName("microdistrict")
     @Expose
-    private Microdistrict microdistrict;
+    public Microdistrict microdistrict;
     @SerializedName("building")
     @Expose
-    private Object building;
+    public String building;
+    @Column(name = "Card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    public Card card;
+
+    public void insert(Card card){
+        this.card = card;
+        this.save();
+    }
+
 
     public Address getAddress() {
         return address;
@@ -54,12 +55,22 @@ public class Geo {
         this.microdistrict = microdistrict;
     }
 
-    public Object getBuilding() {
+    public String getBuilding() {
         return building;
     }
 
-    public void setBuilding(Object building) {
+    public void setBuilding(String building) {
         this.building = building;
+    }
+
+    @Override
+    public String toString() {
+        return "Geo{" +
+                "\n  address=" + address +
+                ",\n   district=" + district +
+                ",\n   microdistrict=" + microdistrict +
+                ",\n   building=" + building +
+                '}';
     }
 
 }
