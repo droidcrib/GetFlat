@@ -4,7 +4,7 @@ package com.blogspot.droidcrib.getflat.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class District {
+public class Microdistrict {
 
     @SerializedName("name")
     @Expose
@@ -31,7 +31,7 @@ public class District {
 
     @Override
     public String toString() {
-        return "District{" +
+        return "Microdistrict{" +
                 "\n        name='" + name + '\'' +
                 ",\n       searchUrl='" + searchUrl + '\'' +
                 '}';

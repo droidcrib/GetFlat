@@ -8,22 +8,33 @@ public class Geo {
 
     @SerializedName("address")
     @Expose
-    private Object address;
+    private Address address;
+
+    @Override
+    public String toString() {
+        return "Geo{" +
+                "\n  address=" + address +
+                ",\n   district=" + district +
+                ",\n   microdistrict=" + microdistrict +
+                ",\n   building=" + building +
+                '}';
+    }
+
     @SerializedName("district")
     @Expose
     private District district;
     @SerializedName("microdistrict")
     @Expose
-    private Object microdistrict;
+    private Microdistrict microdistrict;
     @SerializedName("building")
     @Expose
     private Object building;
 
-    public Object getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Object address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -35,11 +46,11 @@ public class Geo {
         this.district = district;
     }
 
-    public Object getMicrodistrict() {
+    public Microdistrict getMicrodistrict() {
         return microdistrict;
     }
 
-    public void setMicrodistrict(Object microdistrict) {
+    public void setMicrodistrict(Microdistrict microdistrict) {
         this.microdistrict = microdistrict;
     }
 
@@ -51,13 +62,4 @@ public class Geo {
         this.building = building;
     }
 
-    @Override
-    public String toString() {
-        return "Geo{" +
-                "\naddress=" + address +
-                ",\n district=" + district +
-                ",\n microdistrict=" + microdistrict +
-                ",\n building=" + building +
-                '}';
-    }
 }
