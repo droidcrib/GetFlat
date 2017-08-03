@@ -1,7 +1,6 @@
 
-package com.blogspot.droidcrib.getflat.model.card;
+package com.blogspot.droidcrib.getflat.model;
 
-import com.blogspot.droidcrib.getflat.model.GaBaseAttributes;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

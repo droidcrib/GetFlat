@@ -2,8 +2,6 @@
 package com.blogspot.droidcrib.getflat.model;
 
 import java.util.List;
-
-import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

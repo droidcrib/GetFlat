@@ -1,7 +1,6 @@
 
-package com.blogspot.droidcrib.getflat.model.card;
+package com.blogspot.droidcrib.getflat.model;
 
-import com.blogspot.droidcrib.getflat.model.District;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -52,4 +51,13 @@ public class Geo {
         this.building = building;
     }
 
+    @Override
+    public String toString() {
+        return "Geo{" +
+                "\naddress=" + address +
+                ",\n district=" + district +
+                ",\n microdistrict=" + microdistrict +
+                ",\n building=" + building +
+                '}';
+    }
 }

@@ -1,8 +1,6 @@
 
-package com.blogspot.droidcrib.getflat.model.card;
+package com.blogspot.droidcrib.getflat.model;
 
-import com.blogspot.droidcrib.getflat.model.IsExclusive;
-import com.blogspot.droidcrib.getflat.model.IsOwner;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

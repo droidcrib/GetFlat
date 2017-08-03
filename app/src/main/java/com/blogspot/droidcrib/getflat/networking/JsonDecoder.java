@@ -2,7 +2,7 @@ package com.blogspot.droidcrib.getflat.networking;
 
 import android.util.Log;
 
-import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.Card;
 import com.blogspot.droidcrib.getflat.model.Message;
 
 import java.util.List;
@@ -24,7 +24,12 @@ public class JsonDecoder {
 
         for (Card card : categoriesList) {
             Log.d(TAG, "getCards: " + card.toString());
-            card.insert();
+//            card.insert();
+//            Log.d(TAG, "getCards: ");
+//            card.geo.insert(card);
+//            card.geo.address.insert(card);
+//            card.geo.district.insert(card);
+//            card.geo.microdistrict.insert(card);
             // TODO: save data to database
         }
     }
