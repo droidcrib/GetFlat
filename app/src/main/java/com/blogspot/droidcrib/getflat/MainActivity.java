@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 .addQueryParameter("district", "1")
                 .addQueryParameter("roomCount", "1")
                 .addQueryParameter("areaTotalMin", "25")
-                .addQueryParameter("priceMax", "4000")
+                //.addQueryParameter("priceMax", "4000")
                 .addQueryParameter("currency", "2")
                 .build()
                 .getAsString(new StringRequestListener() {

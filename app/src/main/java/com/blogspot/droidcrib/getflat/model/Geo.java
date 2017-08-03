@@ -21,7 +21,7 @@ public class Geo extends Model {
     public Microdistrict microdistrict;
     @SerializedName("building")
     @Expose
-    public String building;
+    public Object building;
     @Column(name = "Card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
 
@@ -55,11 +55,11 @@ public class Geo extends Model {
         this.microdistrict = microdistrict;
     }
 
-    public String getBuilding() {
+    public Object getBuilding() {
         return building;
     }
 
-    public void setBuilding(String building) {
+    public void setBuilding(Object building) {
         this.building = building;
     }
 

@@ -29,9 +29,13 @@ public class JsonDecoder {
             if (card.geo.address != null) {
                 card.geo.address.insert(card);
             }
-//            Log.d(TAG, "getCards: ");
-//            card.geo.insert(card);
-//            card.geo.address.insert(card);
+            if (card.geo.district != null) {
+                card.geo.district.insert(card);
+            }
+            if (card.geo.microdistrict != null) {
+                card.geo.microdistrict.insert(card);
+            }
+
 //            card.geo.district.insert(card);
 //            card.geo.microdistrict.insert(card);
             // TODO: save data to database
