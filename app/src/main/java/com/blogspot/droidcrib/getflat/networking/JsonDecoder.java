@@ -38,6 +38,8 @@ public class JsonDecoder {
             if (card.geo.building != null) {
                 card.geo.building.insert(card);
             }
+            card.photo.insert(card);
+
 
 //            card.geo.district.insert(card);
 //            card.geo.microdistrict.insert(card);
