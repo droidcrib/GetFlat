@@ -2,103 +2,71 @@
 package com.blogspot.droidcrib.getflat.model;
 
 import java.util.List;
-
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Table(name = "Cards", id = "_id")
-public class Card extends Model {
+public class Card {
 
-    @Column(name = "type")
     @SerializedName("type")
     @Expose
-    public String type;
-    @Column(name = "pageId")
+    private String type;
     @SerializedName("pageId")
     @Expose
-    public Integer pageId;
-    @Column(name = "totalAdvertisementsCount")
+    private Integer pageId;
     @SerializedName("totalAdvertisementsCount")
     @Expose
-    public Integer totalAdvertisementsCount;
-    @Column(name = "isFavourite")
+    private Integer totalAdvertisementsCount;
     @SerializedName("isFavourite")
     @Expose
-    public Boolean isFavourite;
-    @Column(name = "isVisited")
+    private Object isFavourite;
     @SerializedName("isVisited")
     @Expose
-    public Boolean isVisited;
-    @Column(name = "geo")
+    private Object isVisited;
     @SerializedName("geo")
     @Expose
-    public Geo geo;
-    @Column(name = "price")
+    private Geo geo;
     @SerializedName("price")
     @Expose
-    public String price;
-    @Column(name = "priceSqm")
+    private String price;
     @SerializedName("priceSqm")
     @Expose
-    public String priceSqm;
-    @Column(name = "doShowPriceSqm")
+    private String priceSqm;
     @SerializedName("doShowPriceSqm")
     @Expose
-    public Boolean doShowPriceSqm;
-    @Column(name = "time")
+    private Boolean doShowPriceSqm;
     @SerializedName("time")
     @Expose
-    public Time time;
-    @Column(name = "photo")
+    private Time time;
     @SerializedName("photo")
     @Expose
-    public Photo photo;
-    @Column(name = "imagesCount")
+    private Photo photo;
     @SerializedName("imagesCount")
     @Expose
-    public Integer imagesCount;
-    @Column(name = "sourceLink")
+    private Integer imagesCount;
     @SerializedName("sourceLink")
     @Expose
-    public SourceLink sourceLink;
-    @Column(name = "singleRealtyPageLink")
+    private SourceLink sourceLink;
     @SerializedName("singleRealtyPageLink")
     @Expose
-    public SingleRealtyPageLink singleRealtyPageLink;
-    @Column(name = "advertisementFeatures")
+    private SingleRealtyPageLink singleRealtyPageLink;
     @SerializedName("advertisementFeatures")
     @Expose
-    public AdvertisementFeatures advertisementFeatures;
-    @Column(name = "realtyFeatures")
+    private AdvertisementFeatures advertisementFeatures;
     @SerializedName("realtyFeatures")
     @Expose
-    public List<RealtyFeature> realtyFeatures = null;
-    @Column(name = "houseFeatures")
+    private List<RealtyFeature> realtyFeatures = null;
     @SerializedName("houseFeatures")
     @Expose
-    public List<HouseFeature> houseFeatures = null;
-    @Column(name = "description")
+    private List<HouseFeature> houseFeatures = null;
     @SerializedName("description")
     @Expose
-    public Description description;
-    @Column(name = "actionElementsLabels")
+    private Description description;
     @SerializedName("actionElementsLabels")
     @Expose
-    public ActionElementsLabels actionElementsLabels;
-    @Column(name = "actionOtherContactsUrl")
+    private ActionElementsLabels actionElementsLabels;
     @SerializedName("actionOtherContactsUrl")
     @Expose
-    public String actionOtherContactsUrl;
-
-
-    public void insert(){
-        this.save();
-    }
-
-
+    private String actionOtherContactsUrl;
 
     public String getType() {
         return type;
@@ -128,7 +96,7 @@ public class Card extends Model {
         return isFavourite;
     }
 
-    public void setIsFavourite(Boolean isFavourite) {
+    public void setIsFavourite(Object isFavourite) {
         this.isFavourite = isFavourite;
     }
 
@@ -136,7 +104,7 @@ public class Card extends Model {
         return isVisited;
     }
 
-    public void setIsVisited(Boolean isVisited) {
+    public void setIsVisited(Object isVisited) {
         this.isVisited = isVisited;
     }
 
@@ -264,25 +232,25 @@ public class Card extends Model {
     public String toString() {
         return "Card{" +
                 "type='" + type + '\'' +
-                ",\n pageId=" + pageId +
-                ",\n totalAdvertisementsCount=" + totalAdvertisementsCount +
-                ",\n isFavourite=" + isFavourite +
-                ",\n isVisited=" + isVisited +
-                ",\n geo=" + geo +
-                ",\n price='" + price + '\'' +
-                ",\n priceSqm='" + priceSqm + '\'' +
-                ",\n doShowPriceSqm=" + doShowPriceSqm +
-                ",\n time=" + time +
-                ",\n photo=" + photo +
-                ",\n imagesCount=" + imagesCount +
-                ",\n sourceLink=" + sourceLink +
-                ",\n singleRealtyPageLink=" + singleRealtyPageLink +
-                ",\n advertisementFeatures=" + advertisementFeatures +
-                ",\n realtyFeatures=" + realtyFeatures +
-                ",\n houseFeatures=" + houseFeatures +
-                ",\n description=" + description +
-                ",\n actionElementsLabels=" + actionElementsLabels +
-                ",\n actionOtherContactsUrl='" + actionOtherContactsUrl + '\'' +
+                ",\n  pageId=" + pageId +
+                ",\n  totalAdvertisementsCount=" + totalAdvertisementsCount +
+                ",\n  isFavourite=" + isFavourite +
+                ",\n  isVisited=" + isVisited +
+                ",\n  geo=" + geo +
+                ",\n  price='" + price + '\'' +
+                ",\n  priceSqm='" + priceSqm + '\'' +
+                ",\n  doShowPriceSqm=" + doShowPriceSqm +
+                ",\n  time=" + time +
+                ",\n  photo=" + photo +
+                ",\n  imagesCount=" + imagesCount +
+                ",\n  sourceLink=" + sourceLink +
+                ",\n  singleRealtyPageLink=" + singleRealtyPageLink +
+                ",\n  advertisementFeatures=" + advertisementFeatures +
+                ",\n  realtyFeatures=" + realtyFeatures +
+                ",\n  houseFeatures=" + houseFeatures +
+                ",\n  description=" + description +
+                ",\n  actionElementsLabels=" + actionElementsLabels +
+                ",\n  actionOtherContactsUrl='" + actionOtherContactsUrl + '\'' +
                 '}';
     }
 }

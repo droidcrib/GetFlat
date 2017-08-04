@@ -8,16 +8,16 @@ public class IsExclusive {
 
     @SerializedName("value")
     @Expose
-    private Object value;
+    private Boolean value;
     @SerializedName("valueLabel")
     @Expose
     private Object valueLabel;
 
-    public Object getValue() {
+    public Boolean getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(Boolean value) {
         this.value = value;
     }
 

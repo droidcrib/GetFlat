@@ -24,17 +24,17 @@ public class JsonDecoder {
 
         for (Card card : categoriesList) {
             Log.d(TAG, "getCards: " + card.toString());
-            card.insert();
-            card.geo.insert(card);
-            if (card.geo.address != null) {
-                card.geo.address.insert(card);
-            }
-            if (card.geo.district != null) {
-                card.geo.district.insert(card);
-            }
-            if (card.geo.microdistrict != null) {
-                card.geo.microdistrict.insert(card);
-            }
+//            card.insert();
+//            card.geo.insert(card);
+//            if (card.geo.address != null) {
+//                card.geo.address.insert(card);
+//            }
+//            if (card.geo.district != null) {
+//                card.geo.district.insert(card);
+//            }
+//            if (card.geo.microdistrict != null) {
+//                card.geo.microdistrict.insert(card);
+//            }
 
 //            card.geo.district.insert(card);
 //            card.geo.microdistrict.insert(card);

@@ -1,53 +1,20 @@
 
 package com.blogspot.droidcrib.getflat.model;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Table(name = "Addresses", id = "_id")
-public class Address extends Model{
+public class Address {
 
-    @Column(name = "streetOrBuilding")
     @SerializedName("streetOrBuilding")
     @Expose
-    public String streetOrBuilding;
-    @Column(name = "streetOrBuildingFull")
+    private String streetOrBuilding;
     @SerializedName("streetOrBuildingFull")
     @Expose
-    public String streetOrBuildingFull;
-    @Column(name = "house")
+    private String streetOrBuildingFull;
     @SerializedName("house")
     @Expose
-    public String house;
-    @Column(name = "geo", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public Geo geo;
-
-
-    public void insert(Card card){
-        this.geo = card.geo;
-        this.save();
-    }
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "\n        streetOrBuilding='" + streetOrBuilding + '\'' +
-                ",\n       streetOrBuildingFull='" + streetOrBuildingFull + '\'' +
-                ",\n       house='" + house + '\'' +
-                '}';
-    }
+    private String house;
 
     public String getStreetOrBuilding() {
         return streetOrBuilding;
@@ -73,4 +40,12 @@ public class Address extends Model{
         this.house = house;
     }
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "\n streetOrBuilding='" + streetOrBuilding + '\'' +
+                ",\n streetOrBuildingFull='" + streetOrBuildingFull + '\'' +
+                ",\n house='" + house + '\'' +
+                '}';
+    }
 }

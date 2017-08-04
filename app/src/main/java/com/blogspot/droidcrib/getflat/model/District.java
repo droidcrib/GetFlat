@@ -1,33 +1,17 @@
 
 package com.blogspot.droidcrib.getflat.model;
 
-import android.graphics.PorterDuff;
-
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Table(name = "Districts", id = "_id")
-public class District extends Model {
+public class District {
 
-    @Column(name = "name")
     @SerializedName("name")
     @Expose
-    public String name;
-    @Column(name = "searchUrl")
+    private String name;
     @SerializedName("searchUrl")
     @Expose
-    public String searchUrl;
-    @Column(name = "geo", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public Geo geo;
-
-    public void insert(Card card){
-        this.geo = card.geo;
-        this.save();
-    }
-
+    private String searchUrl;
 
     public String getName() {
         return name;
@@ -48,8 +32,8 @@ public class District extends Model {
     @Override
     public String toString() {
         return "District{" +
-                "\n        name='" + name + '\'' +
-                ",\n       searchUrl='" + searchUrl + '\'' +
+                "\n name='" + name + '\'' +
+                ",\n searchUrl='" + searchUrl + '\'' +
                 '}';
     }
 }
