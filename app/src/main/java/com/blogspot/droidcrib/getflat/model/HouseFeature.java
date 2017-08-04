@@ -13,11 +13,11 @@ public class HouseFeature extends Model {
     @Column(name = "type")
     @SerializedName("type")
     @Expose
-    private String type;
+    public String type;
     @Column(name = "value")
     @SerializedName("value")
     @Expose
-    private String value;
+    public String value;
     @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
 
