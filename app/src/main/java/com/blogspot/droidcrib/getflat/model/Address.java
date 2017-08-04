@@ -1,20 +1,34 @@
 
 package com.blogspot.droidcrib.getflat.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Address {
+@Table(name = "Addresses", id = "_id")
+public class Address extends Model {
 
+    @Column(name = "streetOrBuilding")
     @SerializedName("streetOrBuilding")
     @Expose
-    private String streetOrBuilding;
+    public String streetOrBuilding;
+    @Column(name = "streetOrBuildingFull")
     @SerializedName("streetOrBuildingFull")
     @Expose
-    private String streetOrBuildingFull;
+    public String streetOrBuildingFull;
+    @Column(name = "house")
     @SerializedName("house")
     @Expose
-    private String house;
+    public String house;
+    @Column(name = "geo", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    public Geo geo;
+
+    public void insert(Card card){
+        this.geo = card.geo;
+        this.save();
+    }
 
     public String getStreetOrBuilding() {
         return streetOrBuilding;

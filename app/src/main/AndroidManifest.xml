@@ -27,6 +27,7 @@
                 com.blogspot.droidcrib.getflat.model.Address,
                 com.blogspot.droidcrib.getflat.model.District,
                 com.blogspot.droidcrib.getflat.model.Microdistrict,
+                com.blogspot.droidcrib.getflat.model.Building,
                 com.blogspot.droidcrib.getflat.model.HouseFeature,
                 com.blogspot.droidcrib.getflat.model.Photo,
                 com.blogspot.droidcrib.getflat.model.RealtyFeature,
