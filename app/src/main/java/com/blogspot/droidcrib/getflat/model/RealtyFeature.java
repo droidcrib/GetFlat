@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Table(name = "RealtyFeatures", id = "_id")
-public class RealtyFeature extends Model{
+public class RealtyFeature extends Model {
 
     @Column(name = "type")
     @SerializedName("type")
@@ -21,7 +21,7 @@ public class RealtyFeature extends Model{
     @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
 
-    public void insert(Card card){
+    public void insert(Card card) {
         this.card = card;
         this.save();
     }

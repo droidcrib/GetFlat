@@ -21,7 +21,7 @@ public class HouseFeature extends Model {
     @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
 
-    public void insert(Card card){
+    public void insert(Card card) {
         this.card = card;
         this.save();
     }

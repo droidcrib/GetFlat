@@ -3,7 +3,9 @@ package com.blogspot.droidcrib.getflat.networking;
 import android.util.Log;
 
 import com.blogspot.droidcrib.getflat.model.Card;
+import com.blogspot.droidcrib.getflat.model.HouseFeature;
 import com.blogspot.droidcrib.getflat.model.Message;
+import com.blogspot.droidcrib.getflat.model.RealtyFeature;
 
 import java.util.List;
 
@@ -18,12 +20,12 @@ public class JsonDecoder {
         super();
     }
 
-    public static void getCards(String json) {
+    public static void getCardsJSON(String json) {
         Message message = GsonSingleton.getInstance().fromJson(json, Message.class);
         List<Card> categoriesList = message.getCards();
 
         for (Card card : categoriesList) {
-            Log.d(TAG, "getCards: " + card.toString());
+            Log.d(TAG, "getCardsJSON: " + card.toString());
             card.insert();
             card.geo.insert(card);
             if (card.geo.address != null) {
@@ -39,12 +41,18 @@ public class JsonDecoder {
                 card.geo.building.insert(card);
             }
             card.photo.insert(card);
+            card.description.insert(card);
+            card.sourceLink.insert(card);
+            card.time.insert(card);
 
-
-//            card.geo.district.insert(card);
-//            card.geo.microdistrict.insert(card);
-            // TODO: save data to database
+            List<HouseFeature> hf = card.houseFeatures;
+            for (HouseFeature feature : hf) {
+                feature.insert(card);
+            }
+            List<RealtyFeature> rf = card.realtyFeatures;
+            for (RealtyFeature feature : rf) {
+                feature.insert(card);
+            }
         }
     }
-
 }

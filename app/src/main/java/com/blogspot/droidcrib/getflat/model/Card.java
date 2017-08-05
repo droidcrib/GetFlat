@@ -93,10 +93,9 @@ public class Card extends Model {
     @Expose
     public String actionOtherContactsUrl;
 
-    public void insert(){
+    public void insert() {
         this.save();
     }
-
 
 
     public String getType() {

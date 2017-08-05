@@ -1,23 +1,40 @@
 
 package com.blogspot.droidcrib.getflat.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SourceLink {
+@Table(name = "SourceLinks", id = "_id")
+public class SourceLink extends Model {
 
+    @Column(name = "labelSiteName")
     @SerializedName("labelSiteName")
     @Expose
-    private String labelSiteName;
+    public String labelSiteName;
+    @Column(name = "labelMore")
     @SerializedName("labelMore")
     @Expose
-    private String labelMore;
+    public String labelMore;
+    @Column(name = "url")
     @SerializedName("url")
     @Expose
-    private String url;
+    public String url;
+    @Column(name = "gaBaseAttributes")
     @SerializedName("gaBaseAttributes")
     @Expose
-    private GaBaseAttributes gaBaseAttributes;
+    public GaBaseAttributes gaBaseAttributes;
+
+    @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    public Card card;
+
+    public void insert(Card card) {
+        this.card = card;
+        this.save();
+    }
+
 
     public String getLabelSiteName() {
         return labelSiteName;

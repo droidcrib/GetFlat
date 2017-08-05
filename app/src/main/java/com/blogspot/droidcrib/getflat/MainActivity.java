@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         mResp = response;
-                        JsonDecoder.getCards(getPureJSON(mResp));
+                        JsonDecoder.getCardsJSON(getPureJSON(mResp));
                     }
 
                     @Override
