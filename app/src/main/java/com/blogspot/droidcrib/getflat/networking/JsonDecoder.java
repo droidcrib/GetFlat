@@ -2,10 +2,10 @@ package com.blogspot.droidcrib.getflat.networking;
 
 import android.util.Log;
 
-import com.blogspot.droidcrib.getflat.model.Card;
-import com.blogspot.droidcrib.getflat.model.HouseFeature;
-import com.blogspot.droidcrib.getflat.model.Message;
-import com.blogspot.droidcrib.getflat.model.RealtyFeature;
+import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.card.HouseFeature;
+import com.blogspot.droidcrib.getflat.model.card.Message;
+import com.blogspot.droidcrib.getflat.model.card.RealtyFeature;
 
 import java.util.List;
 

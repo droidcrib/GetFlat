@@ -1,5 +1,5 @@
 
-package com.blogspot.droidcrib.getflat.model;
+package com.blogspot.droidcrib.getflat.model.card;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

@@ -1,7 +1,13 @@
 
-package com.blogspot.droidcrib.getflat.model;
+package com.blogspot.droidcrib.getflat.model.card;
 
 import java.util.List;
+
+import com.blogspot.droidcrib.getflat.model.AdditionalRealtyDescription;
+import com.blogspot.droidcrib.getflat.model.BaikonurUpperBlockConfig;
+import com.blogspot.droidcrib.getflat.model.ComplaintBoxConfig;
+import com.blogspot.droidcrib.getflat.model.User;
+import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -1,11 +1,14 @@
 
-package com.blogspot.droidcrib.getflat.model;
+package com.blogspot.droidcrib.getflat.model.card;
 
 import java.util.List;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.blogspot.droidcrib.getflat.model.ActionElementsLabels;
+import com.blogspot.droidcrib.getflat.model.AdvertisementFeatures;
+import com.blogspot.droidcrib.getflat.model.SingleRealtyPageLink;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

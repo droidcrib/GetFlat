@@ -1,5 +1,5 @@
 
-package com.blogspot.droidcrib.getflat.model;
+package com.blogspot.droidcrib.getflat.model.card;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -7,8 +7,8 @@ import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Table(name = "Microdistricts", id = "_id")
-public class Microdistrict extends Model{
+@Table(name = "Buildings", id = "_id")
+public class Building extends Model {
 
     @Column(name = "name")
     @SerializedName("name")
@@ -45,7 +45,7 @@ public class Microdistrict extends Model{
 
     @Override
     public String toString() {
-        return "Microdistrict{" +
+        return "Building{" +
                 "\n name='" + name + '\'' +
                 ",\n searchUrl='" + searchUrl + '\'' +
                 '}';
