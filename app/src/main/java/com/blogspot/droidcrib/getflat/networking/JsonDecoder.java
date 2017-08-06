@@ -20,7 +20,7 @@ public class JsonDecoder {
         super();
     }
 
-    public static void getCardsJSON(String json) {
+    public static List<Card> getCardsJSON(String json) {
         Message message = GsonSingleton.getInstance().fromJson(json, Message.class);
         List<Card> categoriesList = message.getCards();
 
@@ -54,5 +54,6 @@ public class JsonDecoder {
                 feature.insert(card);
             }
         }
+        return categoriesList;
     }
 }

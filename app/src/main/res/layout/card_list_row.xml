@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
+
+
+    <ImageView
+        android:id="@+id/id_list_row_photo"
+        android:layout_width="match_parent"
+        android:layout_height="156dp"
+
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_comment_black_48dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_list_row_photo"
+        android:layout_marginLeft="16dp"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:hint="Address"
+                android:scrollHorizontally="true"
+                android:textColor="@color/primary_text"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:hint="District"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_microdistrict"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:hint="MIcrodistrict"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:hint="Price"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_rooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:hint="lat"
+                android:lines="1"
+                android:maxLength="9"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/id_list_row_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:hint="lon"
+                android:lines="1"
+                android:maxLength="9"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_meters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:hint="lat"
+                android:lines="1"
+                android:maxLength="9"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/id_list_row_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:hint="lon"
+                android:lines="1"
+                android:maxLength="9"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_floor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:hint="lat"
+                android:lines="1"
+                android:maxLength="9"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/id_list_row_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:hint="lon"
+                android:lines="1"
+                android:maxLength="9"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="16dp"
+                android:alpha="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_comment_black_48dp" />
+
+            <TextView
+                android:id="@+id/id_list_row_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:hint="Description"
+                android:scrollHorizontally="true"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

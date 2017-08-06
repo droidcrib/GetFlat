@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.ui.adapters.MainTabsPagerAdapter;
+import com.blogspot.droidcrib.getflat.ui.fragments.ApartmentsListFragment;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import okhttp3.OkHttpClient;
@@ -39,10 +41,13 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mFab;
     private int mPagePosition;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // Adding an Network Interceptor for Debugging purpose
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
@@ -59,9 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         //  Setup TabLayout
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.ic_call_white_24dp));
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.ic_alarm_white_24dp));
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.ic_message_white_24dp));
+        mTabLayout.addTab(mTabLayout.newTab().setText("All"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Favourites"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //  Setup ViewPager
@@ -113,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Button Pressed");
-                request();
+               ApartmentsListFragment.getInstance().request();
 
             }
         });
@@ -122,27 +126,27 @@ public class MainActivity extends AppCompatActivity {
 
     //district=1&roomCount=1&areaTotalMin=25&priceMax=4000&currency=2
 
-    private void request() {
-        AndroidNetworking.get("https://www.lun.ua/{addr}")
-                .addPathParameter("addr", "аренда-квартир-киев")
-                .addQueryParameter("district", "1")
-                .addQueryParameter("roomCount", "1")
-                .addQueryParameter("areaTotalMin", "25")
-                //.addQueryParameter("priceMax", "4000")
-                .addQueryParameter("currency", "2")
-                .build()
-                .getAsString(new StringRequestListener() {
-                    @Override
-                    public void onResponse(String response) {
-                        mResp = response;
-                        JsonDecoder.getCardsJSON(getPureJSON(mResp));
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        Log.d(TAG, "onError: " + anError.toString());
-                    }
-                })
-        ;
-    }
+//    private void request() {
+//        AndroidNetworking.get("https://www.lun.ua/{addr}")
+//                .addPathParameter("addr", "аренда-квартир-киев")
+//                .addQueryParameter("district", "1")
+//                .addQueryParameter("roomCount", "1")
+//                .addQueryParameter("areaTotalMin", "25")
+//                //.addQueryParameter("priceMax", "4000")
+//                .addQueryParameter("currency", "2")
+//                .build()
+//                .getAsString(new StringRequestListener() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        mResp = response;
+//                        JsonDecoder.getCardsJSON(getPureJSON(mResp));
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError anError) {
+//                        Log.d(TAG, "onError: " + anError.toString());
+//                    }
+//                })
+//        ;
+//    }
 }

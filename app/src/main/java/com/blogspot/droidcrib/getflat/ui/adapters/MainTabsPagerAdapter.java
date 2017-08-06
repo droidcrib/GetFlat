@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import com.blogspot.droidcrib.getflat.ui.fragments.ApartmentsListFragment;
+
 /**
  *
  */
@@ -19,7 +21,7 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.mNumOfTabs = numOfTabs;
 //        registeredFragments.put(0, CallsListFragment.getInstance());
-//        registeredFragments.put(1, AlarmsListFragment.getInstance());
+//        registeredFragments.put(1, ApartmentsListFragment.getInstance());
 //        registeredFragments.put(2, NotesListFragment.getInstance());
     }
 
@@ -27,9 +29,9 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-           //     return CallsListFragment.getInstance();
+                return ApartmentsListFragment.getInstance();
             case 1:
-          //      return  AlarmsListFragment.getInstance();
+          //      return  ApartmentsListFragment.getInstance();
             case 2:
             //    return NotesListFragment.getInstance();
 
