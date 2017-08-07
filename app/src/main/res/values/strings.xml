@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Get Flat</string>
 
+    <string-array name="citylist">
+        <item>Киев</item>
+    </string-array>
+
+    <string-array name="districtlist">
+        <item>Голосеевский</item>
+        <item>Дарницкий</item>
+        <item>Соломенский</item>
+    </string-array>
+
+
     <string name="action_settings">Settings</string>
     <string name="incoming">Incoming</string>
     <string name="outgoing">Outgoing</string>
@@ -38,9 +49,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="empty_list_message">There is nothing to show here yet. Do something and you get something. Or not.</string>
-
-    <string name="new_alarm_created_message">New reminder set</string>
 
     <string name="context_menu_edit"> Edit </string>
     <string name="context_menu_delete"> Delete </string>

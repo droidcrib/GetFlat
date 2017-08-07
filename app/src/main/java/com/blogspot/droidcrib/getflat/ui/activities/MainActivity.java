@@ -1,6 +1,7 @@
 package com.blogspot.droidcrib.getflat.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -116,9 +117,8 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Button Pressed");
-               ApartmentsListFragment.getInstance().request();
-
+                Intent i = new Intent(MainActivity.this, SelectionActivity.class);
+                startActivity(i);
             }
         });
     }

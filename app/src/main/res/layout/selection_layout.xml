@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.activities.SelectionActivity">
+    android:orientation="vertical">
 
     <Spinner
         android:id="@+id/spinner_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:entries="@array/citylist">
 
     </Spinner>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="horizontal">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:checked="true"
             android:layout_weight="1"
+            android:checked="true"
             android:text="District" />
 
         <RadioButton
@@ -51,27 +49,27 @@
         android:id="@+id/spinner_district"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:entries="@array/districtlist">
 
     </Spinner>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
->
+        android:orientation="horizontal">
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New building"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="New building" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Near subway"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="Near subway" />
     </LinearLayout>
 
     <Spinner
@@ -106,14 +104,14 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="With photo"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="With photo" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No fee"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="No fee" />
 
         <CheckBox
             android:layout_width="wrap_content"
