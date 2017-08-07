@@ -20,7 +20,7 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
     public MainTabsPagerAdapter(FragmentManager fm, int numOfTabs) {
         super(fm);
         this.mNumOfTabs = numOfTabs;
-//        registeredFragments.put(0, CallsListFragment.getInstance());
+//        registeredFragments.put(0, ApartmentsListFragment.getInstance());
 //        registeredFragments.put(1, ApartmentsListFragment.getInstance());
 //        registeredFragments.put(2, NotesListFragment.getInstance());
     }
@@ -46,21 +46,21 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        Fragment fragment = (Fragment) super.instantiateItem(container, position);
-        registeredFragments.put(position, fragment);
-        return fragment;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        registeredFragments.remove(position);
-        super.destroyItem(container, position, object);
-    }
-
-    public Fragment getRegisteredFragment(int position) {
-        return registeredFragments.get(position);
-    }
+//    @Override
+//    public Object instantiateItem(ViewGroup container, int position) {
+//        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+//        registeredFragments.put(position, fragment);
+//        return fragment;
+//    }
+//
+//    @Override
+//    public void destroyItem(ViewGroup container, int position, Object object) {
+//        registeredFragments.remove(position);
+//        super.destroyItem(container, position, object);
+//    }
+//
+//    public Fragment getRegisteredFragment(int position) {
+//        return registeredFragments.get(position);
+//    }
 
 }

@@ -45,17 +45,21 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     private List<Card> mCardsList;
     private RecyclerView mRecyclerView;
     private CardsAdapter mAdapter;
+
+
     private long mRecordId;
     private Parcelable state;
     private TextView mEmptyView;
 
-    private static final String TAG = "RestTest";
+    private static final String TAG = "ApartmentsListFragment";
     private String mResp;
 
     //
     // Provides instance of ApartmentsListFragment
     //
     public static ApartmentsListFragment getInstance() {
+
+        Log.d(TAG, "getInstance: ");
 
         if (sApartmentsListFragment == null) {
             sApartmentsListFragment = new ApartmentsListFragment();
@@ -67,20 +71,24 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        Log.d(TAG, "onStart: ");
+//        EventBus.getDefault().register(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
 
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
-        mRecyclerView = (RecyclerView)v.findViewById(R.id.recycler_view_all_apartments);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
+
 
         return v;
     }
@@ -88,6 +96,11 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: ");
+
+        request();
+
+
 //
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
@@ -114,7 +127,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
 
@@ -219,13 +232,13 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
                     public void onResponse(String response) {
                         mResp = response;
                         mCardsList = JsonDecoder.getCardsJSON(getPureJSON(mResp));
-
                         mAdapter = new CardsAdapter(mCardsList);
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+                        Log.d(TAG, "onResponse: adapter " + mAdapter);
+
+                        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                         mRecyclerView.setLayoutManager(mLayoutManager);
                         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
                         mRecyclerView.setAdapter(mAdapter);
-
                     }
 
                     @Override

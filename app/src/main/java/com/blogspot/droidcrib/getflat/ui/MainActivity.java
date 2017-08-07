@@ -65,31 +65,31 @@ public class MainActivity extends AppCompatActivity {
         //  Setup TabLayout
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mTabLayout.addTab(mTabLayout.newTab().setText("All"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Favourites"));
+        //mTabLayout.addTab(mTabLayout.newTab().setText("Favourites"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //  Setup ViewPager
         mViewPager = (ViewPager) findViewById(R.id.pager);
-//        adapter = new MainTabsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
-//        mViewPager.setAdapter(adapter);
-//        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout) {
-//            @Override
-//            public void onPageSelected(int position) {
-//                super.onPageSelected(position);
-//                mPagePosition = position;
-//                if (position == 0) {
-//                    mFab.setVisibility(View.INVISIBLE);
-//                }
-//                if (position == 1) {
-//                    mFab.setVisibility(View.VISIBLE);
-//                    mFab.setImageResource(R.drawable.ic_alarm_add_white_24dp);
-//                }
-//                if (position == 2) {
-//                    mFab.setVisibility(View.VISIBLE);
-//                    mFab.setImageResource(R.drawable.ic_note_add_white_24dp);
-//                }
-//            }
-//        });
+        adapter = new MainTabsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
+        mViewPager.setAdapter(adapter);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout) {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                mPagePosition = position;
+                if (position == 0) {
+                    mFab.setVisibility(View.INVISIBLE);
+                }
+                if (position == 1) {
+                    mFab.setVisibility(View.VISIBLE);
+                    mFab.setImageResource(R.drawable.ic_alarm_add_white_24dp);
+                }
+                if (position == 2) {
+                    mFab.setVisibility(View.VISIBLE);
+                    mFab.setImageResource(R.drawable.ic_note_add_white_24dp);
+                }
+            }
+        });
 
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

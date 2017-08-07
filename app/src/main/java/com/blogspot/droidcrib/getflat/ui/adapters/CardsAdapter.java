@@ -36,7 +36,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         Card card = cardList.get(position);
         holder.address.setText(card.geo.address.getStreetOrBuilding() + " " +card.geo.address.house);
         holder.district.setText(card.geo.district.name);
-        holder.microdistrict.setText(card.geo.microdistrict.name);
+        holder.microdistrict.setText("card.geo.microdistrict.name");
         holder.price.setText(card.price);
         holder.rooms.setText("4 rooms");
         holder.project.setText("good project");
