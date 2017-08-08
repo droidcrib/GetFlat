@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">Get Flat</string>
 
+    <string name="rent_flat">Аренда квартир</string>
+    <string name="rent_room">Аренда комнат</string>
+    <string name="sale_flat">Продажа квартир</string>
+    <string name="sale_house">Продажа домов</string>
+
+    <string name="action_rent">Аренда</string>
+    <string name="action_sale">Продажа</string>
+
+
+
+
+
+
+
+
     <string-array name="citylist">
         <item>Киев</item>
     </string-array>
