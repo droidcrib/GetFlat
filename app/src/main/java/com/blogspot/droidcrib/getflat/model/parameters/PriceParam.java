@@ -5,11 +5,13 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Rooms", id = "_id")
-public class Rooms extends Model {
+@Table(name = "Prices", id = "_id")
+public class PriceParam extends Model {
 
-    @Column(name = "roomCount")
-    public String roomCount;
+    @Column(name = "priceMax")
+    public String priceMax;
+    @Column(name = "priceMin")
+    public String priceMin;
     @Column(name = "serverid")
     public String serverid;
 }

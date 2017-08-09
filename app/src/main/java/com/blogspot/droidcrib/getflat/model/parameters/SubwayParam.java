@@ -6,7 +6,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = "Subways", id = "_id")
-public class Subway extends Model {
+public class SubwayParam extends Model {
 
     @Column(name = "subway")
     public String subway;
@@ -16,5 +16,5 @@ public class Subway extends Model {
     public String lineid;
 
     @Column(name = "city", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public City city;
+    public CityParam city;
 }

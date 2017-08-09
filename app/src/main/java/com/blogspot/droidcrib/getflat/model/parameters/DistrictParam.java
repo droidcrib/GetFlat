@@ -5,8 +5,8 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Districts", id = "_id")
-public class District extends Model {
+@Table(name = "CityDistricts", id = "_id")
+public class DistrictParam extends Model {
 
     @Column(name = "district")
     public String district;
@@ -14,5 +14,5 @@ public class District extends Model {
     public String serverid;
 
     @Column(name = "city", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public City city;
+    public CityParam city;
 }

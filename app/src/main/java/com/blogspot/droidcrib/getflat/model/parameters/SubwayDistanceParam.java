@@ -6,7 +6,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 @Table(name = "SubwayDistances", id = "_id")
-public class SubwayDistance extends Model {
+public class SubwayDistanceParam extends Model {
 
     @Column(name = "subwayDistanceMax")
     public String subwayDistanceMax;

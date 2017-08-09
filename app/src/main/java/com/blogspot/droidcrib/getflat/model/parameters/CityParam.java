@@ -10,7 +10,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Table(name = "Cities", id = "_id")
-public class City extends Model {
+public class CityParam extends Model {
 
     @Column(name = "name")
     public String name;

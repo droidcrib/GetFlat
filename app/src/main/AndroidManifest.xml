@@ -34,13 +34,13 @@
                 com.blogspot.droidcrib.getflat.model.card.SingleRealtyPageLink,
                 com.blogspot.droidcrib.getflat.model.card.SourceLink,
                 com.blogspot.droidcrib.getflat.model.card.Time,
-                com.blogspot.droidcrib.getflat.model.parameters.Area
-                com.blogspot.droidcrib.getflat.model.parameters.City
-                com.blogspot.droidcrib.getflat.model.parameters.District
-                com.blogspot.droidcrib.getflat.model.parameters.Price
-                com.blogspot.droidcrib.getflat.model.parameters.Rooms
-                com.blogspot.droidcrib.getflat.model.parameters.Subway
-                com.blogspot.droidcrib.getflat.model.parameters.SubwayDistance"
+                com.blogspot.droidcrib.getflat.model.parameters.AreaParam
+                com.blogspot.droidcrib.getflat.model.parameters.CityParam
+                com.blogspot.droidcrib.getflat.model.parameters.DistrictParam
+                com.blogspot.droidcrib.getflat.model.parameters.PriceParam
+                com.blogspot.droidcrib.getflat.model.parameters.RoomsParam
+                com.blogspot.droidcrib.getflat.model.parameters.SubwayParam
+                com.blogspot.droidcrib.getflat.model.parameters.SubwayDistanceParam"
 
             />
         <meta-data
