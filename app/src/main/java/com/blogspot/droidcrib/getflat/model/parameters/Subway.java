@@ -5,11 +5,11 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Metros", id = "_id")
-public class Metro extends Model {
+@Table(name = "Subways", id = "_id")
+public class Subway extends Model {
 
-    @Column(name = "name")
-    public String name;
+    @Column(name = "subway")
+    public String subway;
     @Column(name = "serverid")
     public String serverid;
     @Column(name = "lineid")

@@ -8,8 +8,8 @@ import com.activeandroid.annotation.Table;
 @Table(name = "Districts", id = "_id")
 public class District extends Model {
 
-    @Column(name = "name")
-    public String name;
+    @Column(name = "district")
+    public String district;
     @Column(name = "serverid")
     public String serverid;
 

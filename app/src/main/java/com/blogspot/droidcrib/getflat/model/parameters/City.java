@@ -14,12 +14,6 @@ public class City extends Model {
 
     @Column(name = "name")
     public String name;
-
-//    @Column(name = "geo", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-//    public Geo geo;
-//
-//    public void insert(Card card) {
-//        this.geo = card.geo;
-//        this.save();
-//    }
+    @Column(name = "serverid")
+    public String serverid;
 }
