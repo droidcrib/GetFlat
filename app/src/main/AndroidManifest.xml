@@ -21,19 +21,28 @@
             android:name="AA_MODELS"
             android:value="com.blogspot.droidcrib.getflat.model.ActionElementsLabels,
                 com.blogspot.droidcrib.getflat.model.AdvertisementFeatures,
-                com.blogspot.droidcrib.getflat.model.Card,
-                com.blogspot.droidcrib.getflat.model.Description,
-                com.blogspot.droidcrib.getflat.model.Geo,
-                com.blogspot.droidcrib.getflat.model.Address,
-                com.blogspot.droidcrib.getflat.model.District,
-                com.blogspot.droidcrib.getflat.model.Microdistrict,
-                com.blogspot.droidcrib.getflat.model.Building,
-                com.blogspot.droidcrib.getflat.model.HouseFeature,
-                com.blogspot.droidcrib.getflat.model.Photo,
-                com.blogspot.droidcrib.getflat.model.RealtyFeature,
-                com.blogspot.droidcrib.getflat.model.SingleRealtyPageLink,
-                com.blogspot.droidcrib.getflat.model.SourceLink,
-                com.blogspot.droidcrib.getflat.model.Time" />
+                com.blogspot.droidcrib.getflat.model.card.Card,
+                com.blogspot.droidcrib.getflat.model.card.Description,
+                com.blogspot.droidcrib.getflat.model.card.Geo,
+                com.blogspot.droidcrib.getflat.model.card.Address,
+                com.blogspot.droidcrib.getflat.model.card.District,
+                com.blogspot.droidcrib.getflat.model.card.Microdistrict,
+                com.blogspot.droidcrib.getflat.model.card.Building,
+                com.blogspot.droidcrib.getflat.model.card.HouseFeature,
+                com.blogspot.droidcrib.getflat.model.card.Photo,
+                com.blogspot.droidcrib.getflat.model.card.RealtyFeature,
+                com.blogspot.droidcrib.getflat.model.card.SingleRealtyPageLink,
+                com.blogspot.droidcrib.getflat.model.card.SourceLink,
+                com.blogspot.droidcrib.getflat.model.card.Time,
+                com.blogspot.droidcrib.getflat.model.parameters.Area
+                com.blogspot.droidcrib.getflat.model.parameters.City
+                com.blogspot.droidcrib.getflat.model.parameters.District
+                com.blogspot.droidcrib.getflat.model.parameters.Price
+                com.blogspot.droidcrib.getflat.model.parameters.Rooms
+                com.blogspot.droidcrib.getflat.model.parameters.Subway
+                com.blogspot.droidcrib.getflat.model.parameters.SubwayDistance"
+
+            />
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
