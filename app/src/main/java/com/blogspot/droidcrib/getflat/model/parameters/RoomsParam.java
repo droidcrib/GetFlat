@@ -5,7 +5,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Rooms", id = "_id")
+@Table(name = "RoomsParams", id = "_id")
 public class RoomsParam extends Model {
 
     @Column(name = "roomCount")

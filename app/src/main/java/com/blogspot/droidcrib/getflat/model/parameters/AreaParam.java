@@ -5,7 +5,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Areas", id = "_id")
+@Table(name = "AreaParams", id = "_id")
 public class AreaParam extends Model {
 
     @Column(name = "areaTotalMin")

@@ -25,7 +25,7 @@ public class JsonDecoder {
         List<Card> categoriesList = message.getCards();
 
 
-        // Save cards to database
+         //Save cards to database
         for (Card card : categoriesList) {
             Log.d(TAG, "getCardsJSON: " + card.toString());
             card.insert();
