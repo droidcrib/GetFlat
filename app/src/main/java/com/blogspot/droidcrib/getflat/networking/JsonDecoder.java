@@ -24,6 +24,8 @@ public class JsonDecoder {
         Message message = GsonSingleton.getInstance().fromJson(json, Message.class);
         List<Card> categoriesList = message.getCards();
 
+
+        // Save cards to database
         for (Card card : categoriesList) {
             Log.d(TAG, "getCardsJSON: " + card.toString());
             card.insert();
