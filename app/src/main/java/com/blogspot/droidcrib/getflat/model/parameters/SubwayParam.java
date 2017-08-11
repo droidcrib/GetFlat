@@ -4,6 +4,9 @@ package com.blogspot.droidcrib.getflat.model.parameters;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+
+import java.util.List;
 
 @Table(name = "SubwayParams", id = "_id")
 public class SubwayParam extends Model {
@@ -17,4 +20,10 @@ public class SubwayParam extends Model {
 
     @Column(name = "city", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public CityParam city;
+
+    public List<SubwayParam> queryAll(){
+        return new Select()
+                .from(SubwayParam.class)
+                .execute();
+    }
 }
