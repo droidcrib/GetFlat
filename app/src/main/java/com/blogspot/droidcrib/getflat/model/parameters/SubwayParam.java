@@ -21,9 +21,14 @@ public class SubwayParam extends Model {
     @Column(name = "city", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public CityParam city;
 
-    public List<SubwayParam> queryAll(){
+    public static List<SubwayParam> queryAll(){
         return new Select()
                 .from(SubwayParam.class)
                 .execute();
+    }
+
+    @Override
+    public String toString() {
+        return subway;
     }
 }

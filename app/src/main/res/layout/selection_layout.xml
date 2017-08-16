@@ -18,31 +18,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="District" />
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Metro" />
+            <RadioButton
+                android:id="@+id/radiobutton_district"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="District" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Street" />
+            <RadioButton
+                android:id="@+id/radiobutton_metro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Metro" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Address" />
+        </RadioGroup>
     </LinearLayout>
 
     <Spinner
@@ -60,12 +56,14 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/checkbox_new_building"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="New building" />
 
         <CheckBox
+            android:id="@+id/checkbox_near_subway"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -102,18 +100,21 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/checkbox_with_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="With photo" />
 
         <CheckBox
+            android:id="@+id/checkbox_no_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="No fee" />
 
         <CheckBox
+            android:id="@+id/checkbox_no_brokers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

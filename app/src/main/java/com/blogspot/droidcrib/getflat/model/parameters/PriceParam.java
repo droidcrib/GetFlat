@@ -18,9 +18,14 @@ public class PriceParam extends Model {
     @Column(name = "serverid")
     public String serverid;
 
-    public List<PriceParam> queryAll(){
+    public static List<PriceParam> queryAll(){
         return new Select()
                 .from(PriceParam.class)
                 .execute();
+    }
+
+    @Override
+    public String toString() {
+        return priceMax;
     }
 }

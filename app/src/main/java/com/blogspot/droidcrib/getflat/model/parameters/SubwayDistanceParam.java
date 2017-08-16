@@ -17,10 +17,15 @@ public class SubwayDistanceParam extends Model {
     @Column(name = "serverid")
     public String serverid;
 
-    public List<SubwayDistanceParam> queryAll(){
+    public static List<SubwayDistanceParam> queryAll(){
         return new Select()
                 .from(SubwayDistanceParam.class)
                 .execute();
+    }
+
+    @Override
+    public String toString() {
+        return subwayDistanceMax;
     }
 
 }

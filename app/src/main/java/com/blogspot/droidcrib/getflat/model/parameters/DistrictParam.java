@@ -19,9 +19,14 @@ public class DistrictParam extends Model {
     @Column(name = "city", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public CityParam city;
 
-    public List<DistrictParam> queryAll(){
+    public static  List<DistrictParam> queryAll(){
         return new Select()
                 .from(DistrictParam.class)
                 .execute();
+    }
+
+    @Override
+    public String toString() {
+        return district;
     }
 }

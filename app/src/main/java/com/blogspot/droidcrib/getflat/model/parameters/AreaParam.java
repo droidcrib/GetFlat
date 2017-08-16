@@ -17,9 +17,14 @@ public class AreaParam extends Model {
     public String serverid;
 
 
-    public List<AreaParam> queryAll(){
+    public static List<AreaParam> queryAll(){
         return new Select()
                 .from(AreaParam.class)
                 .execute();
+    }
+
+    @Override
+    public String toString() {
+        return areaTotalMin;
     }
 }

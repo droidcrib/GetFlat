@@ -21,9 +21,14 @@ public class CityParam extends Model {
     public String serverid;
 
 
-    public List<CityParam> queryAll(){
+    public static List<CityParam> queryAll(){
         return new Select()
                 .from(CityParam.class)
                 .execute();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
