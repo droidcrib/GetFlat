@@ -30,6 +30,11 @@ import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_S
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_WITH_PHOTO;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_RADIO_DISTRICT;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_RADIO_METRO;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_AREA;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_CITY;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_DISTRICT;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_PRICE;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_ROOMS;
 import static com.blogspot.droidcrib.getflat.contract.Constants.SHARED_PREFS;
 
 /**
@@ -48,12 +53,18 @@ public class SelectionActivity extends AppCompatActivity {
     private CheckBox mCheckBoxNoFee;
     private CheckBox mCheckBoxNoBrokers;
     private SharedPreferences mPrefs;
+    private List<AreaParam> mAreas;
+    private List<DistrictParam> mDistricts;
+    private List<RoomsParam> mRooms;
+    private List<CityParam> mCities;
+    private List<PriceParam> mPrices;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+
 
         Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
         Spinner spinnerDistrict = (Spinner) findViewById(R.id.spinner_district);
@@ -69,35 +80,28 @@ public class SelectionActivity extends AppCompatActivity {
         mCheckBoxNoBrokers = (CheckBox) findViewById(R.id.checkbox_no_brokers);
 
         // Setup spinners
-        List<AreaParam> areas = AreaParam.queryAll();
-        List<DistrictParam> districts = DistrictParam.queryAll();
-        List<RoomsParam> rooms = RoomsParam.queryAll();
-        List<CityParam> cities = CityParam.queryAll();
-        List<PriceParam> prices = PriceParam.queryAll();
+        mAreas = AreaParam.queryAll();
+        mDistricts = DistrictParam.queryAll();
+        mRooms = RoomsParam.queryAll();
+        mCities = CityParam.queryAll();
+        mPrices = PriceParam.queryAll();
 
-        ArrayAdapter<AreaParam> areaAdapter = new ArrayAdapter<AreaParam>(this, android.R.layout.simple_spinner_item, areas);
-        ArrayAdapter<DistrictParam> districtAdapter = new ArrayAdapter<DistrictParam>(this, android.R.layout.simple_spinner_item, districts);
-        ArrayAdapter<RoomsParam> roomAdapter = new ArrayAdapter<RoomsParam>(this, android.R.layout.simple_spinner_item, rooms);
-        ArrayAdapter<CityParam> cityAdapter = new ArrayAdapter<CityParam>(this, android.R.layout.simple_spinner_item, cities);
-        ArrayAdapter<PriceParam> priceAdapter = new ArrayAdapter<PriceParam>(this, android.R.layout.simple_spinner_item, prices);
+        ArrayAdapter<AreaParam> areaAdapter = new ArrayAdapter<AreaParam>(this, android.R.layout.simple_spinner_item, mAreas);
+        ArrayAdapter<DistrictParam> districtAdapter = new ArrayAdapter<DistrictParam>(this, android.R.layout.simple_spinner_item, mDistricts);
+        ArrayAdapter<RoomsParam> roomAdapter = new ArrayAdapter<RoomsParam>(this, android.R.layout.simple_spinner_item, mRooms);
+        ArrayAdapter<CityParam> cityAdapter = new ArrayAdapter<CityParam>(this, android.R.layout.simple_spinner_item, mCities);
+        ArrayAdapter<PriceParam> priceAdapter = new ArrayAdapter<PriceParam>(this, android.R.layout.simple_spinner_item, mPrices);
 
         spinnerArea.setAdapter(areaAdapter);
         spinnerDistrict.setAdapter(districtAdapter);
         spinnerRooms.setAdapter(roomAdapter);
         spinnerPrice.setAdapter(priceAdapter);
         spinnerCity.setAdapter(cityAdapter);
-        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
+        spinnerArea.setOnItemSelectedListener(spinnerItemSelectedListener);
+        spinnerDistrict.setOnItemSelectedListener(spinnerItemSelectedListener);
+        spinnerRooms.setOnItemSelectedListener(spinnerItemSelectedListener);
+        spinnerPrice.setOnItemSelectedListener(spinnerItemSelectedListener);
+        spinnerCity.setOnItemSelectedListener(spinnerItemSelectedListener);
 
         // Setup radiobuttons
         mRadioButtonDistrict.setOnClickListener(radioButtonClickListener);
@@ -108,6 +112,7 @@ public class SelectionActivity extends AppCompatActivity {
         mCheckBoxNearSubway.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxWithPhoto.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxWithPhoto.setChecked(true);
+        mPrefs.edit().putBoolean(PREFS_CHECKBOX_WITH_PHOTO, mCheckBoxWithPhoto.isChecked()).apply();
         mCheckBoxNoFee.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxNoBrokers.setOnCheckedChangeListener(checkedChangeListener);
 
@@ -164,8 +169,6 @@ public class SelectionActivity extends AppCompatActivity {
                     Log.d(TAG, "onCheckedChanged: no brockers " + mCheckBoxNoBrokers.isChecked());
                     mPrefs.edit().putBoolean(PREFS_CHECKBOX_NO_BROKERS, mCheckBoxNoBrokers.isChecked()).apply();
                     break;
-
-
                 default:
                     break;
             }
@@ -175,35 +178,39 @@ public class SelectionActivity extends AppCompatActivity {
     AdapterView.OnItemSelectedListener spinnerItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            Spinner spinner = (Spinner) view;
+            Spinner spinner = (Spinner) adapterView;
             switch (spinner.getId()) {
-                case R.id.:
-
+                case R.id.spinner_city:
+                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mCities.get(i).toString());
+                    mPrefs.edit().putString(PREFS_SPINNER_CITY, mCities.get(i).toString()).apply();
                     break;
-                case R.id.:
-
+                case R.id.spinner_district:
+                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mDistricts.get(i).toString());
+                    mPrefs.edit().putString(PREFS_SPINNER_DISTRICT, mDistricts.get(i).toString()).apply();
                     break;
-                case R.id.:
-
+                case R.id.spinner_rooms:
+                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mRooms.get(i).toString());
+                    mPrefs.edit().putString(PREFS_SPINNER_ROOMS, mRooms.get(i).toString()).apply();
                     break;
-                case R.id.:
-
+                case R.id.spinner_area:
+                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mAreas.get(i).toString());
+                    mPrefs.edit().putString(PREFS_SPINNER_AREA, mAreas.get(i).toString()).apply();
                     break;
-                case R.id.:
-
+                case R.id.spinner_price:
+                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mPrices.get(i).toString());
+                    mPrefs.edit().putString(PREFS_SPINNER_PRICE, mPrices.get(i).toString()).apply();
                     break;
 
                 default:
                     break;
             }
-
-            @Override
-            public void onNothingSelected (AdapterView < ? > adapterView){
-
-            }
         }
 
-        ;
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    };
 
 
-    }
+}

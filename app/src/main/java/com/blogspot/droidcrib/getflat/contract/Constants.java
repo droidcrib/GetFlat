@@ -8,11 +8,11 @@ public class Constants {
 
     public static final String SHARED_PREFS = "com.blogspot.droidcrib.getflat.contract.SHARED_PREFS";
 
-    public static final String PREFS_CITY = "com.blogspot.droidcrib.getflat.contract.PREFS_CITY";
-    public static final String PREFS_DISTRICT = "com.blogspot.droidcrib.getflat.contract.PREFS_DISTRICT";
-    public static final String PREFS_ROOMS = "com.blogspot.droidcrib.getflat.contract.PREFS_ROOMS";
-    public static final String PREFS_AREA = "com.blogspot.droidcrib.getflat.contract.PREFS_AREA";
-    public static final String PREFS_PRICE = "com.blogspot.droidcrib.getflat.contract.PREFS_PRICE";
+    public static final String PREFS_SPINNER_CITY = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_CITY";
+    public static final String PREFS_SPINNER_DISTRICT = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_DISTRICT";
+    public static final String PREFS_SPINNER_ROOMS = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_ROOMS";
+    public static final String PREFS_SPINNER_AREA = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_AREA";
+    public static final String PREFS_SPINNER_PRICE = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_PRICE";
     public static final String PREFS_RADIO_DISTRICT = "com.blogspot.droidcrib.getflat.contract.PREFS_RADIO_DISTRICT";
     public static final String PREFS_RADIO_METRO = "com.blogspot.droidcrib.getflat.contract.PREFS_RADIO_METRO";
     public static final String PREFS_CHECKBOX_BUILDING = "com.blogspot.droidcrib.getflat.contract.PREFS_CHECKBOX_BUILDING";
