@@ -20,13 +20,14 @@ import com.blogspot.droidcrib.getflat.model.parameters.CityParam;
 import com.blogspot.droidcrib.getflat.model.parameters.DistrictParam;
 import com.blogspot.droidcrib.getflat.model.parameters.PriceParam;
 import com.blogspot.droidcrib.getflat.model.parameters.RoomsParam;
+import com.blogspot.droidcrib.getflat.networking.RestClient;
 
 import java.util.List;
 
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_BUILDING;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_NO_BROKERS;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_NO_FEE;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_SUBWAY;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_NEAR_SUBWAY;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_WITH_PHOTO;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_RADIO_DISTRICT;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_RADIO_METRO;
@@ -64,6 +65,8 @@ public class SelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+
+        RestClient.getQueryParameters(this);
 
 
         Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
@@ -111,10 +114,38 @@ public class SelectionActivity extends AppCompatActivity {
         mCheckBoxNewBuilding.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxNearSubway.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxWithPhoto.setOnCheckedChangeListener(checkedChangeListener);
-        mCheckBoxWithPhoto.setChecked(true);
-        mPrefs.edit().putBoolean(PREFS_CHECKBOX_WITH_PHOTO, mCheckBoxWithPhoto.isChecked()).apply();
+//        mCheckBoxWithPhoto.setChecked(true);
+//        mPrefs.edit().putString(PREFS_CHECKBOX_WITH_PHOTO, mCheckBoxWithPhoto.isChecked() ? "1" : "0").apply();
         mCheckBoxNoFee.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxNoBrokers.setOnCheckedChangeListener(checkedChangeListener);
+
+
+        // Set last defined values
+        // checkboxes
+        String s = mPrefs.getString(PREFS_CHECKBOX_BUILDING, "0");
+        mCheckBoxNewBuilding.setChecked(s.equals("1"));
+        s = mPrefs.getString(PREFS_CHECKBOX_NEAR_SUBWAY, "0");
+        mCheckBoxNearSubway.setChecked(s.equals("1"));
+        s = mPrefs.getString(PREFS_CHECKBOX_WITH_PHOTO, "0");
+        mCheckBoxWithPhoto.setChecked(s.equals("1"));
+        s = mPrefs.getString(PREFS_CHECKBOX_NO_BROKERS, "0");
+        mCheckBoxNoBrokers.setChecked(s.equals("1"));
+        s = mPrefs.getString(PREFS_CHECKBOX_NO_FEE, "0");
+        mCheckBoxNoFee.setChecked(s.equals("1"));
+        // radio
+        s = mPrefs.getString(PREFS_RADIO_DISTRICT, "0");
+        mRadioButtonDistrict.setChecked(s.equals("1"));
+        s = mPrefs.getString(PREFS_RADIO_METRO, "0");
+        mRadioButtonMetro.setChecked(s.equals("1"));
+
+        // spinners
+        mPrefs.getString(PREFS_SPINNER_DISTRICT, "0");
+//        PARAM_SUBWAY, prefs.getString(, "0"));
+//        PARAM_SUBWAY_DISTANCE_MAX, prefs.getString(, "0"));
+
+        mPrefs.getString(PREFS_SPINNER_ROOMS, "0");
+        mPrefs.getString(PREFS_SPINNER_AREA, "0");
+        mPrefs.getString(PREFS_SPINNER_PRICE, "0");
 
 
     }
@@ -127,15 +158,15 @@ public class SelectionActivity extends AppCompatActivity {
                 case R.id.radiobutton_district:
                     Log.d(TAG, "onClick: DISTRICT radiobutton selected " + mRadioButtonDistrict.isChecked());
                     Log.d(TAG, "onClick: METRO radiobutton selected " + mRadioButtonMetro.isChecked());
-                    mPrefs.edit().putBoolean(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked()).apply();
-                    mPrefs.edit().putBoolean(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked()).apply();
+                    mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
+                    mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
 
                     break;
                 case R.id.radiobutton_metro:
                     Log.d(TAG, "onClick: DISTRICT radiobutton selected " + mRadioButtonDistrict.isChecked());
                     Log.d(TAG, "onClick: METRO radiobutton selected " + mRadioButtonMetro.isChecked());
-                    mPrefs.edit().putBoolean(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked()).apply();
-                    mPrefs.edit().putBoolean(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked()).apply();
+                    mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
+                    mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
                     break;
 
                 default:
@@ -151,23 +182,23 @@ public class SelectionActivity extends AppCompatActivity {
             switch (checkBox.getId()) {
                 case R.id.checkbox_new_building:
                     Log.d(TAG, "onCheckedChanged: new building " + mCheckBoxNewBuilding.isChecked());
-                    mPrefs.edit().putBoolean(PREFS_CHECKBOX_BUILDING, mCheckBoxNewBuilding.isChecked()).apply();
+                    mPrefs.edit().putString(PREFS_CHECKBOX_BUILDING, mCheckBoxNewBuilding.isChecked() ? "1" : "0").apply();
                     break;
                 case R.id.checkbox_near_subway:
                     Log.d(TAG, "onCheckedChanged: near subway " + mCheckBoxNearSubway.isChecked());
-                    mPrefs.edit().putBoolean(PREFS_CHECKBOX_SUBWAY, mCheckBoxNearSubway.isChecked()).apply();
+                    mPrefs.edit().putString(PREFS_CHECKBOX_NEAR_SUBWAY, mCheckBoxNearSubway.isChecked() ? "1" : "0").apply();
                     break;
                 case R.id.checkbox_with_photo:
                     Log.d(TAG, "onCheckedChanged: with photo " + mCheckBoxWithPhoto.isChecked());
-                    mPrefs.edit().putBoolean(PREFS_CHECKBOX_WITH_PHOTO, mCheckBoxWithPhoto.isChecked()).apply();
+                    mPrefs.edit().putString(PREFS_CHECKBOX_WITH_PHOTO, mCheckBoxWithPhoto.isChecked() ? "1" : "0").apply();
                     break;
                 case R.id.checkbox_no_fee:
                     Log.d(TAG, "onCheckedChanged: no feee " + mCheckBoxNoFee.isChecked());
-                    mPrefs.edit().putBoolean(PREFS_CHECKBOX_NO_FEE, mCheckBoxNoFee.isChecked()).apply();
+                    mPrefs.edit().putString(PREFS_CHECKBOX_NO_FEE, mCheckBoxNoFee.isChecked() ? "1" : "0").apply();
                     break;
                 case R.id.checkbox_no_brokers:
                     Log.d(TAG, "onCheckedChanged: no brockers " + mCheckBoxNoBrokers.isChecked());
-                    mPrefs.edit().putBoolean(PREFS_CHECKBOX_NO_BROKERS, mCheckBoxNoBrokers.isChecked()).apply();
+                    mPrefs.edit().putString(PREFS_CHECKBOX_NO_BROKERS, mCheckBoxNoBrokers.isChecked() ? "1" : "0").apply();
                     break;
                 default:
                     break;
@@ -208,7 +239,6 @@ public class SelectionActivity extends AppCompatActivity {
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-
         }
     };
 
