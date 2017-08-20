@@ -138,15 +138,22 @@ public class SelectionActivity extends AppCompatActivity {
         s = mPrefs.getString(PREFS_RADIO_METRO, "0");
         mRadioButtonMetro.setChecked(s.equals("1"));
 
+        if (mRadioButtonDistrict.isChecked()) {
+            //TODO: set values for district or metro spinner
+        }
+
         // spinners
-        mPrefs.getString(PREFS_SPINNER_DISTRICT, "0");
+        int i = mPrefs.getInt(PREFS_SPINNER_DISTRICT, 0);
+        spinnerDistrict.setSelection(i);
 //        PARAM_SUBWAY, prefs.getString(, "0"));
 //        PARAM_SUBWAY_DISTANCE_MAX, prefs.getString(, "0"));
 
-        mPrefs.getString(PREFS_SPINNER_ROOMS, "0");
-        mPrefs.getString(PREFS_SPINNER_AREA, "0");
-        mPrefs.getString(PREFS_SPINNER_PRICE, "0");
-
+        i = mPrefs.getInt(PREFS_SPINNER_ROOMS, 0);
+        spinnerRooms.setSelection(i);
+        i = mPrefs.getInt(PREFS_SPINNER_AREA, 0);
+        spinnerArea.setSelection(i);
+        i = mPrefs.getInt(PREFS_SPINNER_PRICE, 0);
+        spinnerPrice.setSelection(i);
 
     }
 
@@ -213,23 +220,23 @@ public class SelectionActivity extends AppCompatActivity {
             switch (spinner.getId()) {
                 case R.id.spinner_city:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mCities.get(i).toString());
-                    mPrefs.edit().putString(PREFS_SPINNER_CITY, mCities.get(i).toString()).apply();
+                    mPrefs.edit().putInt(PREFS_SPINNER_CITY, i).apply();
                     break;
                 case R.id.spinner_district:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mDistricts.get(i).toString());
-                    mPrefs.edit().putString(PREFS_SPINNER_DISTRICT, mDistricts.get(i).toString()).apply();
+                    mPrefs.edit().putInt(PREFS_SPINNER_DISTRICT, i).apply();
                     break;
                 case R.id.spinner_rooms:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mRooms.get(i).toString());
-                    mPrefs.edit().putString(PREFS_SPINNER_ROOMS, mRooms.get(i).toString()).apply();
+                    mPrefs.edit().putInt(PREFS_SPINNER_ROOMS, i).apply();
                     break;
                 case R.id.spinner_area:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mAreas.get(i).toString());
-                    mPrefs.edit().putString(PREFS_SPINNER_AREA, mAreas.get(i).toString()).apply();
+                    mPrefs.edit().putInt(PREFS_SPINNER_AREA, i).apply();
                     break;
                 case R.id.spinner_price:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mPrices.get(i).toString());
-                    mPrefs.edit().putString(PREFS_SPINNER_PRICE, mPrices.get(i).toString()).apply();
+                    mPrefs.edit().putInt(PREFS_SPINNER_PRICE, i).apply();
                     break;
 
                 default:

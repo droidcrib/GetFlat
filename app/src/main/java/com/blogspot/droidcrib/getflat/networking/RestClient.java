@@ -50,13 +50,13 @@ public class RestClient {
         parametersMap.put(PARAM_WITHOUT_BROKERS, prefs.getString(PREFS_CHECKBOX_NO_BROKERS, "0"));
         parametersMap.put(PARAM_WITHOUT_FEE, prefs.getString(PREFS_CHECKBOX_NO_FEE, "0"));
 
-        parametersMap.put(PARAM_DISTRICT, prefs.getString(PREFS_SPINNER_DISTRICT, "0"));
+        parametersMap.put(PARAM_DISTRICT, String.valueOf(prefs.getInt(PREFS_SPINNER_DISTRICT, 0)));
 //        parametersMap.put(PARAM_SUBWAY, prefs.getString(, "0"));
 //        parametersMap.put(PARAM_SUBWAY_DISTANCE_MAX, prefs.getString(, "0"));
 
-        parametersMap.put(PARAM_ROOM_COUNT, prefs.getString(PREFS_SPINNER_ROOMS, "0"));
-        parametersMap.put(PARAM_AREA_TOTAL_MIN, prefs.getString(PREFS_SPINNER_AREA, "0"));
-        parametersMap.put(PARAM_PRICE_MAX, prefs.getString(PREFS_SPINNER_PRICE, "0"));
+        parametersMap.put(PARAM_ROOM_COUNT, String.valueOf(prefs.getInt(PREFS_SPINNER_ROOMS, 0)));
+        parametersMap.put(PARAM_AREA_TOTAL_MIN, String.valueOf(prefs.getInt(PREFS_SPINNER_AREA, 0)));
+        parametersMap.put(PARAM_PRICE_MAX, String.valueOf(prefs.getInt(PREFS_SPINNER_PRICE, 0)));
         parametersMap.put(PARAM_CURRENCY, "2");// Use UAH
 //        parametersMap.put(PARAM_SECONDARY_ONLY, prefs.getString(, "0"));
         //use these two together
