@@ -10,6 +10,8 @@ public class Constants {
     public static final String SHARED_PREFS = "com.blogspot.droidcrib.getflat.contract.SHARED_PREFS";
     public static final String PREFS_SPINNER_CITY = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_CITY";
     public static final String PREFS_SPINNER_DISTRICT = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_DISTRICT";
+    public static final String PREFS_SPINNER_SUBWAY = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_SUBWAY";
+    public static final String PREFS_SPINNER_SUBWAY_DISTANCE = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_SUBWAY_DISTANCE";
     public static final String PREFS_SPINNER_ROOMS = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_ROOMS";
     public static final String PREFS_SPINNER_AREA = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_AREA";
     public static final String PREFS_SPINNER_PRICE = "com.blogspot.droidcrib.getflat.contract.PREFS_SPINNER_PRICE";

@@ -20,6 +20,8 @@ import com.blogspot.droidcrib.getflat.model.parameters.CityParam;
 import com.blogspot.droidcrib.getflat.model.parameters.DistrictParam;
 import com.blogspot.droidcrib.getflat.model.parameters.PriceParam;
 import com.blogspot.droidcrib.getflat.model.parameters.RoomsParam;
+import com.blogspot.droidcrib.getflat.model.parameters.SubwayDistanceParam;
+import com.blogspot.droidcrib.getflat.model.parameters.SubwayParam;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 
 import java.util.List;
@@ -36,6 +38,8 @@ import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_CI
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_DISTRICT;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_PRICE;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_ROOMS;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_SUBWAY;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_SUBWAY_DISTANCE;
 import static com.blogspot.droidcrib.getflat.contract.Constants.SHARED_PREFS;
 
 /**
@@ -59,6 +63,8 @@ public class SelectionActivity extends AppCompatActivity {
     private List<RoomsParam> mRooms;
     private List<CityParam> mCities;
     private List<PriceParam> mPrices;
+    private List<SubwayParam> mSubways;
+    private List<SubwayDistanceParam> mSubwayDistances;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +80,8 @@ public class SelectionActivity extends AppCompatActivity {
         Spinner spinnerRooms = (Spinner) findViewById(R.id.spinner_rooms);
         Spinner spinnerArea = (Spinner) findViewById(R.id.spinner_area);
         Spinner spinnerPrice = (Spinner) findViewById(R.id.spinner_price);
+        Spinner spinnerSubway = (Spinner) findViewById(R.id.spinner_subway);
+        Spinner spinnerSubwayDistance = (Spinner) findViewById(R.id.spinner_subway_distance);
         mRadioButtonDistrict = (RadioButton) findViewById(R.id.radiobutton_district);
         mRadioButtonMetro = (RadioButton) findViewById(R.id.radiobutton_metro);
         mCheckBoxNewBuilding = (CheckBox) findViewById(R.id.checkbox_new_building);
@@ -88,23 +96,32 @@ public class SelectionActivity extends AppCompatActivity {
         mRooms = RoomsParam.queryAll();
         mCities = CityParam.queryAll();
         mPrices = PriceParam.queryAll();
+        mSubways = SubwayParam.queryAll();
+        mSubwayDistances = SubwayDistanceParam.queryAll();
 
         ArrayAdapter<AreaParam> areaAdapter = new ArrayAdapter<AreaParam>(this, android.R.layout.simple_spinner_item, mAreas);
         ArrayAdapter<DistrictParam> districtAdapter = new ArrayAdapter<DistrictParam>(this, android.R.layout.simple_spinner_item, mDistricts);
         ArrayAdapter<RoomsParam> roomAdapter = new ArrayAdapter<RoomsParam>(this, android.R.layout.simple_spinner_item, mRooms);
         ArrayAdapter<CityParam> cityAdapter = new ArrayAdapter<CityParam>(this, android.R.layout.simple_spinner_item, mCities);
         ArrayAdapter<PriceParam> priceAdapter = new ArrayAdapter<PriceParam>(this, android.R.layout.simple_spinner_item, mPrices);
+        ArrayAdapter<SubwayParam> subwayAdapter = new ArrayAdapter<SubwayParam>(this, android.R.layout.simple_spinner_item, mSubways);
+        ArrayAdapter<SubwayDistanceParam> subwayDistanceAdapter = new ArrayAdapter<SubwayDistanceParam>(this, android.R.layout.simple_spinner_item, mSubwayDistances);
 
         spinnerArea.setAdapter(areaAdapter);
         spinnerDistrict.setAdapter(districtAdapter);
         spinnerRooms.setAdapter(roomAdapter);
         spinnerPrice.setAdapter(priceAdapter);
         spinnerCity.setAdapter(cityAdapter);
+        spinnerSubway.setAdapter(subwayAdapter);
+        spinnerSubwayDistance.setAdapter(subwayDistanceAdapter);
+
         spinnerArea.setOnItemSelectedListener(spinnerItemSelectedListener);
         spinnerDistrict.setOnItemSelectedListener(spinnerItemSelectedListener);
         spinnerRooms.setOnItemSelectedListener(spinnerItemSelectedListener);
         spinnerPrice.setOnItemSelectedListener(spinnerItemSelectedListener);
         spinnerCity.setOnItemSelectedListener(spinnerItemSelectedListener);
+        spinnerSubway.setOnItemSelectedListener(spinnerItemSelectedListener);
+        spinnerSubwayDistance.setOnItemSelectedListener(spinnerItemSelectedListener);
 
         // Setup radiobuttons
         mRadioButtonDistrict.setOnClickListener(radioButtonClickListener);
@@ -145,6 +162,11 @@ public class SelectionActivity extends AppCompatActivity {
         // spinners
         int i = mPrefs.getInt(PREFS_SPINNER_DISTRICT, 0);
         spinnerDistrict.setSelection(i);
+        i = mPrefs.getInt(PREFS_SPINNER_SUBWAY, 0);
+        spinnerSubway.setSelection(i);
+        i = mPrefs.getInt(PREFS_SPINNER_SUBWAY_DISTANCE, 0);
+        spinnerSubwayDistance.setSelection(i);
+
 //        PARAM_SUBWAY, prefs.getString(, "0"));
 //        PARAM_SUBWAY_DISTANCE_MAX, prefs.getString(, "0"));
 
@@ -237,6 +259,14 @@ public class SelectionActivity extends AppCompatActivity {
                 case R.id.spinner_price:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mPrices.get(i).toString());
                     mPrefs.edit().putInt(PREFS_SPINNER_PRICE, i).apply();
+                    break;
+                case R.id.spinner_subway:
+                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mSubways.get(i).toString());
+                    mPrefs.edit().putInt(PREFS_SPINNER_SUBWAY, i).apply();
+                    break;
+                case R.id.spinner_subway_distance:
+                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mSubwayDistances.get(i).toString());
+                    mPrefs.edit().putInt(PREFS_SPINNER_SUBWAY_DISTANCE, i).apply();
                     break;
 
                 default:
