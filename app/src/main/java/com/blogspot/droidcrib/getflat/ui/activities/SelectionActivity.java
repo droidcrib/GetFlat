@@ -65,6 +65,9 @@ public class SelectionActivity extends AppCompatActivity {
     private List<PriceParam> mPrices;
     private List<SubwayParam> mSubways;
     private List<SubwayDistanceParam> mSubwayDistances;
+    Spinner spinnerSubway;
+    Spinner spinnerSubwayDistance;
+    Spinner spinnerDistrict;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,12 +79,12 @@ public class SelectionActivity extends AppCompatActivity {
 
 
         Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
-        Spinner spinnerDistrict = (Spinner) findViewById(R.id.spinner_district);
+        spinnerDistrict = (Spinner) findViewById(R.id.spinner_district);
         Spinner spinnerRooms = (Spinner) findViewById(R.id.spinner_rooms);
         Spinner spinnerArea = (Spinner) findViewById(R.id.spinner_area);
         Spinner spinnerPrice = (Spinner) findViewById(R.id.spinner_price);
-        Spinner spinnerSubway = (Spinner) findViewById(R.id.spinner_subway);
-        Spinner spinnerSubwayDistance = (Spinner) findViewById(R.id.spinner_subway_distance);
+        spinnerSubway = (Spinner) findViewById(R.id.spinner_subway);
+        spinnerSubwayDistance = (Spinner) findViewById(R.id.spinner_subway_distance);
         mRadioButtonDistrict = (RadioButton) findViewById(R.id.radiobutton_district);
         mRadioButtonMetro = (RadioButton) findViewById(R.id.radiobutton_metro);
         mCheckBoxNewBuilding = (CheckBox) findViewById(R.id.checkbox_new_building);
@@ -155,9 +158,6 @@ public class SelectionActivity extends AppCompatActivity {
         s = mPrefs.getString(PREFS_RADIO_METRO, "0");
         mRadioButtonMetro.setChecked(s.equals("1"));
 
-        if (mRadioButtonDistrict.isChecked()) {
-            //TODO: set values for district or metro spinner
-        }
 
         // spinners
         int i = mPrefs.getInt(PREFS_SPINNER_DISTRICT, 0);
@@ -177,6 +177,11 @@ public class SelectionActivity extends AppCompatActivity {
         i = mPrefs.getInt(PREFS_SPINNER_PRICE, 0);
         spinnerPrice.setSelection(i);
 
+        if (mRadioButtonDistrict.isChecked()) {
+            spinnerSubway.setVisibility(View.GONE);
+            spinnerSubwayDistance.setVisibility(View.GONE);
+        }
+
     }
 
     View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
@@ -189,6 +194,9 @@ public class SelectionActivity extends AppCompatActivity {
                     Log.d(TAG, "onClick: METRO radiobutton selected " + mRadioButtonMetro.isChecked());
                     mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
                     mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
+                    spinnerSubway.setVisibility(View.GONE);
+                    spinnerSubwayDistance.setVisibility(View.GONE);
+                    spinnerDistrict.setVisibility(View.VISIBLE);
 
                     break;
                 case R.id.radiobutton_metro:
@@ -196,6 +204,9 @@ public class SelectionActivity extends AppCompatActivity {
                     Log.d(TAG, "onClick: METRO radiobutton selected " + mRadioButtonMetro.isChecked());
                     mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
                     mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
+                    spinnerSubway.setVisibility(View.VISIBLE);
+                    spinnerSubwayDistance.setVisibility(View.VISIBLE);
+                    spinnerDistrict.setVisibility(View.GONE);
                     break;
 
                 default:
