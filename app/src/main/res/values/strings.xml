@@ -10,123 +10,17 @@
     <string name="action_sale">Продажа</string>
 
 
-
-
-
-
-
-
-    <string-array name="citylist">
-        <item>Киев</item>
-    </string-array>
-
-    <string-array name="districtlist">
-        <item>Голосеевский</item>
-        <item>Дарницкий</item>
-        <item>Деснянский</item>
-        <item>Днепровский</item>
-        <item>Оболонский</item>
-        <item>Печерский</item>
-        <item>Подольский</item>
-        <item>Святошинский</item>
-        <item>Соломенский</item>
-        <item>Шевченковский</item>
-        <item>Академгородок</item>
-        <item>Александровская Слободка</item>
-        <item>Багриновая гора</item>
-        <item>Байковая гора</item>
-        <item>Батыева Гора</item>
-        <item>Беличи</item>
-        <item>Беличье поле</item>
-        <item>Березняки</item>
-        <item>Берковец</item>
-        <item>Бортничи</item>
-        <item>Борщаговка</item>
-        <item>Быковня</item>
-        <item>Верхняя Теличка</item>
-        <item>Ветряные Горы</item>
-        <item>Виноградарь</item>
-        <item>Воскресенка</item>
-        <item>Вышгородский массив</item>
-        <item>Галаганы</item>
-        <item>Голосеево</item>
-        <item>Дачи Осокорки</item>
-        <item>ДВРЗ</item>
-        <item>Демеевка</item>
-        <item>Добрый путь</item>
-        <item>Железнодорожный</item>
-        <item>Жуляны</item>
-        <item>Замковище</item>
-        <item>Зверинец</item>
-        <item>Исторический центр</item>
-        <item>Кадетский Гай</item>
-        <item>Караваевы дачи</item>
-        <item>Катериновка</item>
-        <item>Китаево</item>
-        <item>Комсомольский</item>
-        <item>Конча-Заспа</item>
-        <item>Корчеватое</item>
-        <item>КПИ</item>
-        <item>Кудрявец</item>
-        <item>Куреневка</item>
-        <item>Левобережный массив</item>
-        <item>Лесной</item>
-        <item>Липки</item>
-        <item>Лукьяновка</item>
-        <item>Минский</item>
-        <item>Мостицкий массив</item>
-        <item>Мышеловка</item>
-        <item>Нивки</item>
-        <item>Нижние сады</item>
-        <item>Нижний Печерск</item>
-        <item>Никольская Борщаговка</item>
-        <item>Никольская Слободка</item>
-        <item>Новая Дарница</item>
-        <item>Новобеличи</item>
-        <item>Новое строение</item>
-        <item>Оболонь</item>
-        <item>Осокорки</item>
-        <item>Отрадный</item>
-        <item>Паньковщина</item>
-        <item>Первомайский массив</item>
-        <item>Петровка</item>
-        <item>Печерск</item>
-        <item>Пирогов</item>
-        <item>Подол</item>
-        <item>Позняки</item>
-        <item>Приорка</item>
-        <item>Пуща-Водица</item>
-        <item>Радужный</item>
-        <item>Русановка</item>
-        <item>Русановские сады</item>
-        <item>Рыбальский остров</item>
-        <item>Саперная Слободка</item>
-        <item>Святошино</item>
-        <item>Село Троещина</item>
-        <item>Село Шевченко</item>
-        <item>Совки</item>
-        <item>Солдатская слободка</item>
-        <item>Соломенка</item>
-        <item>Соцгород</item>
-        <item>Старая Дарница</item>
-        <item>Старый Киев</item>
-        <item>Сырец</item>
-        <item>Татарка</item>
-        <item>Теремки</item>
-        <item>Теремки-1</item>
-        <item>Теремки-2</item>
-        <item>Троещина</item>
-        <item>Феофания</item>
-        <item>Харьковский</item>
-        <item>Царское село</item>
-        <item>Чапаевка</item>
-        <item>Черепанова гора</item>
-        <item>Чёрная гора</item>
-        <item>Чоколовка</item>
-        <item>Ширма</item>
-        <item>Шулявка</item>
-        <item>Южная Борщаговка</item>
-    </string-array>
+    <string name="label_city">Город</string>
+    <string name="label_district">Район</string>
+    <string name="label_metro">Метро</string>
+    <string name="label_new_building">новый дом</string>
+    <string name="label_near_subway">возле метро</string>
+    <string name="label_rooms">Количество комнат</string>
+    <string name="label_area">Площадь, м2</string>
+    <string name="label_price">Цена</string>
+    <string name="label_with_photo">с фото</string>
+    <string name="label_no_fee">без комиссии</string>
+    <string name="label_no_brokers">без посредников</string>
 
 
     <string name="action_settings">Settings</string>
