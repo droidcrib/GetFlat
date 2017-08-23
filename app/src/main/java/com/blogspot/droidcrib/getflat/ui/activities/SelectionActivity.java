@@ -18,28 +18,27 @@ import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.model.parameters.AreaParam;
 import com.blogspot.droidcrib.getflat.model.parameters.CityParam;
 import com.blogspot.droidcrib.getflat.model.parameters.DistrictParam;
+import com.blogspot.droidcrib.getflat.model.parameters.ParamsMap;
 import com.blogspot.droidcrib.getflat.model.parameters.PriceParam;
 import com.blogspot.droidcrib.getflat.model.parameters.RoomsParam;
 import com.blogspot.droidcrib.getflat.model.parameters.SubwayDistanceParam;
 import com.blogspot.droidcrib.getflat.model.parameters.SubwayParam;
-import com.blogspot.droidcrib.getflat.networking.RestClient;
 
 import java.util.List;
 
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_BUILDING;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_NO_BROKERS;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_NO_FEE;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_NEAR_SUBWAY;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_CHECKBOX_WITH_PHOTO;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_AREA_TOTAL_MIN;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_DISTRICT;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_HAS_PHOTOS;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_NEAR_SUBWAY;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_NEW_BIULDING;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_PRICE_MAX;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_ROOM_COUNT;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_SUBWAY;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_SUBWAY_DISTANCE_MAX;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_WITHOUT_BROKERS;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_WITHOUT_FEE;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_RADIO_DISTRICT;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_RADIO_METRO;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_AREA;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_CITY;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_DISTRICT;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_PRICE;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_ROOMS;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_SUBWAY;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PREFS_SPINNER_SUBWAY_DISTANCE;
 import static com.blogspot.droidcrib.getflat.contract.Constants.SHARED_PREFS;
 
 /**
@@ -75,7 +74,20 @@ public class SelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selection);
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
-        RestClient.getQueryParameters(this);
+//        RestClient.getQueryParameters(this);
+        List<ParamsMap> list = ParamsMap.queryAll();
+        for (ParamsMap paramsMap : list) {
+            Log.d(TAG, "List<ParamsMap>: " + paramsMap);
+        }
+
+        ParamsMap.updateParameter(PARAM_NEW_BIULDING, "1");
+        ParamsMap.updateParameter(PARAM_DISTRICT, "bnp", 3);
+
+
+        List<ParamsMap> list1 = ParamsMap.queryAll();
+        for (ParamsMap paramsMap : list1) {
+            Log.d(TAG, "updated List<ParamsMap>: " + paramsMap);
+        }
 
 
         Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
@@ -142,40 +154,23 @@ public class SelectionActivity extends AppCompatActivity {
 
         // Set last defined values
         // checkboxes
-        String s = mPrefs.getString(PREFS_CHECKBOX_BUILDING, "0");
-        mCheckBoxNewBuilding.setChecked(s.equals("1"));
-        s = mPrefs.getString(PREFS_CHECKBOX_NEAR_SUBWAY, "0");
-        mCheckBoxNearSubway.setChecked(s.equals("1"));
-        s = mPrefs.getString(PREFS_CHECKBOX_WITH_PHOTO, "0");
-        mCheckBoxWithPhoto.setChecked(s.equals("1"));
-        s = mPrefs.getString(PREFS_CHECKBOX_NO_BROKERS, "0");
-        mCheckBoxNoBrokers.setChecked(s.equals("1"));
-        s = mPrefs.getString(PREFS_CHECKBOX_NO_FEE, "0");
-        mCheckBoxNoFee.setChecked(s.equals("1"));
+        mCheckBoxNewBuilding.setChecked(ParamsMap.getValue(PARAM_NEW_BIULDING).equals("1"));
+        mCheckBoxNearSubway.setChecked(ParamsMap.getValue(PARAM_NEAR_SUBWAY).equals("1"));
+        mCheckBoxWithPhoto.setChecked(ParamsMap.getValue(PARAM_HAS_PHOTOS).equals("1"));
+        mCheckBoxNoBrokers.setChecked(ParamsMap.getValue(PARAM_WITHOUT_BROKERS).equals("1"));
+        mCheckBoxNoFee.setChecked(ParamsMap.getValue(PARAM_WITHOUT_FEE).equals("1"));
         // radio
-        s = mPrefs.getString(PREFS_RADIO_DISTRICT, "0");
+        String s = mPrefs.getString(PREFS_RADIO_DISTRICT, "0");
         mRadioButtonDistrict.setChecked(s.equals("1"));
         s = mPrefs.getString(PREFS_RADIO_METRO, "0");
         mRadioButtonMetro.setChecked(s.equals("1"));
-
-
         // spinners
-        int i = mPrefs.getInt(PREFS_SPINNER_DISTRICT, 0);
-        spinnerDistrict.setSelection(i);
-        i = mPrefs.getInt(PREFS_SPINNER_SUBWAY, 0);
-        spinnerSubway.setSelection(i);
-        i = mPrefs.getInt(PREFS_SPINNER_SUBWAY_DISTANCE, 0);
-        spinnerSubwayDistance.setSelection(i);
-
-//        PARAM_SUBWAY, prefs.getString(, "0"));
-//        PARAM_SUBWAY_DISTANCE_MAX, prefs.getString(, "0"));
-
-        i = mPrefs.getInt(PREFS_SPINNER_ROOMS, 0);
-        spinnerRooms.setSelection(i);
-        i = mPrefs.getInt(PREFS_SPINNER_AREA, 0);
-        spinnerArea.setSelection(i);
-        i = mPrefs.getInt(PREFS_SPINNER_PRICE, 0);
-        spinnerPrice.setSelection(i);
+        spinnerDistrict.setSelection(ParamsMap.getPos(PARAM_DISTRICT));
+        spinnerSubway.setSelection(ParamsMap.getPos(PARAM_SUBWAY));
+        spinnerSubwayDistance.setSelection(ParamsMap.getPos(PARAM_SUBWAY_DISTANCE_MAX));
+        spinnerRooms.setSelection(ParamsMap.getPos(PARAM_ROOM_COUNT));
+        spinnerArea.setSelection(ParamsMap.getPos(PARAM_AREA_TOTAL_MIN));
+        spinnerPrice.setSelection(ParamsMap.getPos(PARAM_PRICE_MAX));
 
         if (mRadioButtonDistrict.isChecked()) {
             spinnerSubway.setVisibility(View.GONE);
@@ -222,23 +217,23 @@ public class SelectionActivity extends AppCompatActivity {
             switch (checkBox.getId()) {
                 case R.id.checkbox_new_building:
                     Log.d(TAG, "onCheckedChanged: new building " + mCheckBoxNewBuilding.isChecked());
-                    mPrefs.edit().putString(PREFS_CHECKBOX_BUILDING, mCheckBoxNewBuilding.isChecked() ? "1" : "0").apply();
+                    ParamsMap.updateParameter(PARAM_NEW_BIULDING, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
                     break;
                 case R.id.checkbox_near_subway:
                     Log.d(TAG, "onCheckedChanged: near subway " + mCheckBoxNearSubway.isChecked());
-                    mPrefs.edit().putString(PREFS_CHECKBOX_NEAR_SUBWAY, mCheckBoxNearSubway.isChecked() ? "1" : "0").apply();
+                    ParamsMap.updateParameter(PARAM_NEAR_SUBWAY, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
                     break;
                 case R.id.checkbox_with_photo:
                     Log.d(TAG, "onCheckedChanged: with photo " + mCheckBoxWithPhoto.isChecked());
-                    mPrefs.edit().putString(PREFS_CHECKBOX_WITH_PHOTO, mCheckBoxWithPhoto.isChecked() ? "1" : "0").apply();
+                    ParamsMap.updateParameter(PARAM_HAS_PHOTOS, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
                     break;
                 case R.id.checkbox_no_fee:
-                    Log.d(TAG, "onCheckedChanged: no feee " + mCheckBoxNoFee.isChecked());
-                    mPrefs.edit().putString(PREFS_CHECKBOX_NO_FEE, mCheckBoxNoFee.isChecked() ? "1" : "0").apply();
+                    Log.d(TAG, "onCheckedChanged: no fee " + mCheckBoxNoFee.isChecked());
+                    ParamsMap.updateParameter(PARAM_WITHOUT_FEE, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
                     break;
                 case R.id.checkbox_no_brokers:
-                    Log.d(TAG, "onCheckedChanged: no brockers " + mCheckBoxNoBrokers.isChecked());
-                    mPrefs.edit().putString(PREFS_CHECKBOX_NO_BROKERS, mCheckBoxNoBrokers.isChecked() ? "1" : "0").apply();
+                    Log.d(TAG, "onCheckedChanged: no brokers " + mCheckBoxNoBrokers.isChecked());
+                    ParamsMap.updateParameter(PARAM_WITHOUT_BROKERS, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
                     break;
                 default:
                     break;
@@ -253,31 +248,30 @@ public class SelectionActivity extends AppCompatActivity {
             switch (spinner.getId()) {
                 case R.id.spinner_city:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mCities.get(i).toString());
-                    mPrefs.edit().putInt(PREFS_SPINNER_CITY, i).apply();
                     break;
                 case R.id.spinner_district:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mDistricts.get(i).toString());
-                    mPrefs.edit().putInt(PREFS_SPINNER_DISTRICT, i).apply();
+                    ParamsMap.updateParameter(PARAM_DISTRICT, mDistricts.get(i).serverid, i);
                     break;
                 case R.id.spinner_rooms:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mRooms.get(i).toString());
-                    mPrefs.edit().putInt(PREFS_SPINNER_ROOMS, i).apply();
+                    ParamsMap.updateParameter(PARAM_ROOM_COUNT, mDistricts.get(i).serverid, i);
                     break;
                 case R.id.spinner_area:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mAreas.get(i).toString());
-                    mPrefs.edit().putInt(PREFS_SPINNER_AREA, i).apply();
+                    ParamsMap.updateParameter(PARAM_AREA_TOTAL_MIN, mDistricts.get(i).serverid, i);
                     break;
                 case R.id.spinner_price:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mPrices.get(i).toString());
-                    mPrefs.edit().putInt(PREFS_SPINNER_PRICE, i).apply();
+                    ParamsMap.updateParameter(PARAM_PRICE_MAX, mDistricts.get(i).serverid, i);
                     break;
                 case R.id.spinner_subway:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mSubways.get(i).toString());
-                    mPrefs.edit().putInt(PREFS_SPINNER_SUBWAY, i).apply();
+                    ParamsMap.updateParameter(PARAM_SUBWAY, mDistricts.get(i).serverid, i);
                     break;
                 case R.id.spinner_subway_distance:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mSubwayDistances.get(i).toString());
-                    mPrefs.edit().putInt(PREFS_SPINNER_SUBWAY_DISTANCE, i).apply();
+                    ParamsMap.updateParameter(PARAM_SUBWAY_DISTANCE_MAX, mDistricts.get(i).serverid, i);
                     break;
 
                 default:

@@ -40,6 +40,7 @@
                 com.blogspot.droidcrib.getflat.model.parameters.PriceParam,
                 com.blogspot.droidcrib.getflat.model.parameters.RoomsParam,
                 com.blogspot.droidcrib.getflat.model.parameters.SubwayParam,
+                com.blogspot.droidcrib.getflat.model.parameters.ParamsMap,
                 com.blogspot.droidcrib.getflat.model.parameters.SubwayDistanceParam"
 
             />
