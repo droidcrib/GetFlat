@@ -23,6 +23,13 @@ public class AreaParam extends Model {
                 .execute();
     }
 
+    public static AreaParam queryServerIdByRowId(long id){
+        return new Select()
+                .from(AreaParam.class)
+                .where("_id = ?", id)
+                .executeSingle();
+    }
+
     @Override
     public String toString() {
         return areaTotalMin;
