@@ -1,12 +1,12 @@
 package com.blogspot.droidcrib.getflat.ui.fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,10 +25,8 @@ import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
+import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -219,13 +217,11 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 
 
     public void request() {
+        ArrayMap<String, String> params = RestClient.getQueryParameters(getActivity());
+
         AndroidNetworking.get("https://www.lun.ua/{addr}")
                 .addPathParameter("addr", "аренда-квартир-киев")
-                .addQueryParameter("district", "1")
-                .addQueryParameter("roomCount", "1")
-                .addQueryParameter("areaTotalMin", "25")
-                //.addQueryParameter("priceMax", "4000")
-                .addQueryParameter("currency", "2")
+                .addQueryParameter(params)
                 .build()
                 .getAsString(new StringRequestListener() {
                     @Override

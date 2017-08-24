@@ -27,6 +27,7 @@ import com.blogspot.droidcrib.getflat.model.parameters.SubwayParam;
 import java.util.List;
 
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_AREA_TOTAL_MIN;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_CURRENCY;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_DISTRICT;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_HAS_PHOTOS;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_NEAR_SUBWAY;
@@ -73,22 +74,6 @@ public class SelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-
-////        RestClient.getQueryParameters(this);
-//        List<ParamsMap> list = ParamsMap.queryAll();
-//        for (ParamsMap paramsMap : list) {
-//            Log.d(TAG, "List<ParamsMap>: " + paramsMap);
-//        }
-//
-////        ParamsMap.updateParameter(PARAM_NEW_BIULDING, "1");
-////        ParamsMap.updateParameter(PARAM_DISTRICT, "bnp", 3);
-//
-//
-//        List<ParamsMap> list1 = ParamsMap.queryAll();
-//        for (ParamsMap paramsMap : list1) {
-//            Log.d(TAG, "updated List<ParamsMap>: " + paramsMap);
-//        }
-
 
         Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
         spinnerDistrict = (Spinner) findViewById(R.id.spinner_district);
@@ -260,6 +245,11 @@ public class SelectionActivity extends AppCompatActivity {
                 case R.id.spinner_price:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mPrices.get(i).toString());
                     ParamsMap.updateParameter(PARAM_PRICE_MAX, mPrices.get(i).serverid, i);
+                    if (i == 0) {
+                        ParamsMap.updateParameter(PARAM_CURRENCY, "0");
+                    } else {
+                        ParamsMap.updateParameter(PARAM_CURRENCY, "2");
+                    }
                     break;
                 case R.id.spinner_subway:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mSubways.get(i).toString());
