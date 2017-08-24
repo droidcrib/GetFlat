@@ -21,6 +21,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
+import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.MainTabsPagerAdapter;
 import com.blogspot.droidcrib.getflat.ui.fragments.ApartmentsListFragment;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -42,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mFab;
     private int mPagePosition;
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RestClient.getQueryParameters(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

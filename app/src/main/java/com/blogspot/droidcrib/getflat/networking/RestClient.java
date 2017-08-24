@@ -7,6 +7,9 @@ import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
 import com.blogspot.droidcrib.getflat.model.parameters.AreaParam;
+import com.blogspot.droidcrib.getflat.model.parameters.ParamsMap;
+
+import java.util.List;
 
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_AREA_TOTAL_MIN;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_CURRENCY;
@@ -37,42 +40,16 @@ public class RestClient {
     public static ArrayMap<String, String> getQueryParameters(Context context) {
 
         SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        ArrayMap<String, String> parametersMap = new ArrayMap<>();
-
-        // читаем все параметры из преференс в мап потом в цикле проходим по мап и удаляем все, у которых
-        // значения равны -1
-
-        // значене это колонка serverId. переделать ниже
-//        parametersMap.put(PARAM_NEW_BIULDING, prefs.getString(PREFS_CHECKBOX_BUILDING, "0"));
-//        parametersMap.put(PARAM_NEAR_SUBWAY, prefs.getString(PREFS_CHECKBOX_NEAR_SUBWAY, "0"));
-//        parametersMap.put(PARAM_HAS_PHOTOS, prefs.getString(PREFS_CHECKBOX_WITH_PHOTO, "0"));
-//        parametersMap.put(PARAM_WITHOUT_BROKERS, prefs.getString(PREFS_CHECKBOX_NO_BROKERS, "0"));
-//        parametersMap.put(PARAM_WITHOUT_FEE, prefs.getString(PREFS_CHECKBOX_NO_FEE, "0"));
-//        parametersMap.put(PARAM_CURRENCY, "2");// Use UAH
-//
-//        int distrIndex = prefs.getInt(PREFS_SPINNER_DISTRICT, 1);
-//        int subwayIndex = prefs.getInt(PREFS_SPINNER_SUBWAY, 1);
-//        int subwayDistIndex = prefs.getInt(PREFS_SPINNER_SUBWAY_DISTANCE, 1);
-//        int roomsIndex = prefs.getInt(PREFS_SPINNER_ROOMS, 1);
-//        int areaIndex = prefs.getInt(PREFS_SPINNER_AREA, 1);
-//        int priceIndex =   prefs.getInt(PREFS_SPINNER_PRICE, 1);
-//
-//        Log.d(TAG, "========================= queryServerIdByRowId: " + AreaParam.queryServerIdByRowId(areaIndex));
-//
-//        parametersMap.put(PARAM_DISTRICT, String.valueOf(prefs.getInt(PREFS_SPINNER_DISTRICT, 0)));
-//        parametersMap.put(PARAM_SUBWAY, String.valueOf(prefs.getInt(PREFS_SPINNER_SUBWAY, 0)));
-//        parametersMap.put(PARAM_SUBWAY_DISTANCE_MAX, String.valueOf(prefs.getInt(PREFS_SPINNER_SUBWAY_DISTANCE, 0)));
-//        parametersMap.put(PARAM_ROOM_COUNT, String.valueOf(prefs.getInt(PREFS_SPINNER_ROOMS, 0)));
-//        parametersMap.put(PARAM_AREA_TOTAL_MIN, String.valueOf(prefs.getInt(PREFS_SPINNER_AREA, 0)));
-//        parametersMap.put(PARAM_PRICE_MAX, String.valueOf(prefs.getInt(PREFS_SPINNER_PRICE, 0)));
-
-//        parametersMap.put(PARAM_SECONDARY_ONLY, prefs.getString(, "0"));
-        //use these two together
-
-        for (android.support.v4.util.ArrayMap.Entry<String, String> pair : parametersMap.entrySet()) {
-            Log.d(TAG, "getQueryParameters: " + pair.getKey() + " " + pair.getValue());
+        ArrayMap<String, String> queryParams = new ArrayMap<>();
+        List<ParamsMap> list = ParamsMap.queryAll();
+        for (ParamsMap params : list) {
+            if(!params.value.equals("0")){
+                queryParams.put(params.param, params.value);
+            }
         }
 
-        return parametersMap;
+
+        Log.d(TAG, "List<ParamsMap>: " + queryParams);
+        return queryParams;
     }
 }
