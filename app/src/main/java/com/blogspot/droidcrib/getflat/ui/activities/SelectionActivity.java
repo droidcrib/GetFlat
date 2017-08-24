@@ -74,20 +74,20 @@ public class SelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selection);
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
-//        RestClient.getQueryParameters(this);
-        List<ParamsMap> list = ParamsMap.queryAll();
-        for (ParamsMap paramsMap : list) {
-            Log.d(TAG, "List<ParamsMap>: " + paramsMap);
-        }
-
-        ParamsMap.updateParameter(PARAM_NEW_BIULDING, "1");
-        ParamsMap.updateParameter(PARAM_DISTRICT, "bnp", 3);
-
-
-        List<ParamsMap> list1 = ParamsMap.queryAll();
-        for (ParamsMap paramsMap : list1) {
-            Log.d(TAG, "updated List<ParamsMap>: " + paramsMap);
-        }
+////        RestClient.getQueryParameters(this);
+//        List<ParamsMap> list = ParamsMap.queryAll();
+//        for (ParamsMap paramsMap : list) {
+//            Log.d(TAG, "List<ParamsMap>: " + paramsMap);
+//        }
+//
+////        ParamsMap.updateParameter(PARAM_NEW_BIULDING, "1");
+////        ParamsMap.updateParameter(PARAM_DISTRICT, "bnp", 3);
+//
+//
+//        List<ParamsMap> list1 = ParamsMap.queryAll();
+//        for (ParamsMap paramsMap : list1) {
+//            Log.d(TAG, "updated List<ParamsMap>: " + paramsMap);
+//        }
 
 
         Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);
@@ -146,8 +146,6 @@ public class SelectionActivity extends AppCompatActivity {
         mCheckBoxNewBuilding.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxNearSubway.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxWithPhoto.setOnCheckedChangeListener(checkedChangeListener);
-//        mCheckBoxWithPhoto.setChecked(true);
-//        mPrefs.edit().putString(PREFS_CHECKBOX_WITH_PHOTO, mCheckBoxWithPhoto.isChecked() ? "1" : "0").apply();
         mCheckBoxNoFee.setOnCheckedChangeListener(checkedChangeListener);
         mCheckBoxNoBrokers.setOnCheckedChangeListener(checkedChangeListener);
 
@@ -160,10 +158,14 @@ public class SelectionActivity extends AppCompatActivity {
         mCheckBoxNoBrokers.setChecked(ParamsMap.getValue(PARAM_WITHOUT_BROKERS).equals("1"));
         mCheckBoxNoFee.setChecked(ParamsMap.getValue(PARAM_WITHOUT_FEE).equals("1"));
         // radio
-        String s = mPrefs.getString(PREFS_RADIO_DISTRICT, "0");
-        mRadioButtonDistrict.setChecked(s.equals("1"));
-        s = mPrefs.getString(PREFS_RADIO_METRO, "0");
-        mRadioButtonMetro.setChecked(s.equals("1"));
+
+        if (mPrefs.getString(PREFS_RADIO_METRO, "0").equals("1")) {
+            mRadioButtonMetro.setChecked(true);
+            setSubwayVisible();
+        } else {
+            mRadioButtonDistrict.setChecked(true);
+            setDistrictVisible();
+        }
         // spinners
         spinnerDistrict.setSelection(ParamsMap.getPos(PARAM_DISTRICT));
         spinnerSubway.setSelection(ParamsMap.getPos(PARAM_SUBWAY));
@@ -185,23 +187,15 @@ public class SelectionActivity extends AppCompatActivity {
             RadioButton rb = (RadioButton) v;
             switch (rb.getId()) {
                 case R.id.radiobutton_district:
-                    Log.d(TAG, "onClick: DISTRICT radiobutton selected " + mRadioButtonDistrict.isChecked());
-                    Log.d(TAG, "onClick: METRO radiobutton selected " + mRadioButtonMetro.isChecked());
                     mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
                     mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
-                    spinnerSubway.setVisibility(View.GONE);
-                    spinnerSubwayDistance.setVisibility(View.GONE);
-                    spinnerDistrict.setVisibility(View.VISIBLE);
+                    setDistrictVisible();
 
                     break;
                 case R.id.radiobutton_metro:
-                    Log.d(TAG, "onClick: DISTRICT radiobutton selected " + mRadioButtonDistrict.isChecked());
-                    Log.d(TAG, "onClick: METRO radiobutton selected " + mRadioButtonMetro.isChecked());
                     mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
                     mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
-                    spinnerSubway.setVisibility(View.VISIBLE);
-                    spinnerSubwayDistance.setVisibility(View.VISIBLE);
-                    spinnerDistrict.setVisibility(View.GONE);
+                    setSubwayVisible();
                     break;
 
                 default:
@@ -221,19 +215,19 @@ public class SelectionActivity extends AppCompatActivity {
                     break;
                 case R.id.checkbox_near_subway:
                     Log.d(TAG, "onCheckedChanged: near subway " + mCheckBoxNearSubway.isChecked());
-                    ParamsMap.updateParameter(PARAM_NEAR_SUBWAY, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
+                    ParamsMap.updateParameter(PARAM_NEAR_SUBWAY, mCheckBoxNearSubway.isChecked() ? "1" : "0");
                     break;
                 case R.id.checkbox_with_photo:
                     Log.d(TAG, "onCheckedChanged: with photo " + mCheckBoxWithPhoto.isChecked());
-                    ParamsMap.updateParameter(PARAM_HAS_PHOTOS, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
+                    ParamsMap.updateParameter(PARAM_HAS_PHOTOS, mCheckBoxWithPhoto.isChecked() ? "1" : "0");
                     break;
                 case R.id.checkbox_no_fee:
                     Log.d(TAG, "onCheckedChanged: no fee " + mCheckBoxNoFee.isChecked());
-                    ParamsMap.updateParameter(PARAM_WITHOUT_FEE, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
+                    ParamsMap.updateParameter(PARAM_WITHOUT_FEE, mCheckBoxNoFee.isChecked() ? "1" : "0");
                     break;
                 case R.id.checkbox_no_brokers:
                     Log.d(TAG, "onCheckedChanged: no brokers " + mCheckBoxNoBrokers.isChecked());
-                    ParamsMap.updateParameter(PARAM_WITHOUT_BROKERS, mCheckBoxNewBuilding.isChecked() ? "1" : "0");
+                    ParamsMap.updateParameter(PARAM_WITHOUT_BROKERS, mCheckBoxNoBrokers.isChecked() ? "1" : "0");
                     break;
                 default:
                     break;
@@ -250,28 +244,28 @@ public class SelectionActivity extends AppCompatActivity {
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mCities.get(i).toString());
                     break;
                 case R.id.spinner_district:
-                    Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mDistricts.get(i).toString());
+                    Log.d(TAG, "onItemSelected: position = " + i + " serverid = " + mDistricts.get(i).serverid + " item name = " + mDistricts.get(i).toString());
                     ParamsMap.updateParameter(PARAM_DISTRICT, mDistricts.get(i).serverid, i);
                     break;
                 case R.id.spinner_rooms:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mRooms.get(i).toString());
-                    ParamsMap.updateParameter(PARAM_ROOM_COUNT, mDistricts.get(i).serverid, i);
+                    ParamsMap.updateParameter(PARAM_ROOM_COUNT, mRooms.get(i).serverid, i);
                     break;
                 case R.id.spinner_area:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mAreas.get(i).toString());
-                    ParamsMap.updateParameter(PARAM_AREA_TOTAL_MIN, mDistricts.get(i).serverid, i);
+                    ParamsMap.updateParameter(PARAM_AREA_TOTAL_MIN, mAreas.get(i).serverid, i);
                     break;
                 case R.id.spinner_price:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mPrices.get(i).toString());
-                    ParamsMap.updateParameter(PARAM_PRICE_MAX, mDistricts.get(i).serverid, i);
+                    ParamsMap.updateParameter(PARAM_PRICE_MAX, mPrices.get(i).serverid, i);
                     break;
                 case R.id.spinner_subway:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mSubways.get(i).toString());
-                    ParamsMap.updateParameter(PARAM_SUBWAY, mDistricts.get(i).serverid, i);
+                    ParamsMap.updateParameter(PARAM_SUBWAY, mSubways.get(i).serverid, i);
                     break;
                 case R.id.spinner_subway_distance:
                     Log.d(TAG, "onItemSelected: position = " + i + " id = " + l + " item name = " + mSubwayDistances.get(i).toString());
-                    ParamsMap.updateParameter(PARAM_SUBWAY_DISTANCE_MAX, mDistricts.get(i).serverid, i);
+                    ParamsMap.updateParameter(PARAM_SUBWAY_DISTANCE_MAX, mSubwayDistances.get(i).serverid, i);
                     break;
 
                 default:
@@ -284,5 +278,17 @@ public class SelectionActivity extends AppCompatActivity {
         }
     };
 
+
+    private void setDistrictVisible() {
+        spinnerSubway.setVisibility(View.GONE);
+        spinnerSubwayDistance.setVisibility(View.GONE);
+        spinnerDistrict.setVisibility(View.VISIBLE);
+    }
+
+    private void setSubwayVisible() {
+        spinnerSubway.setVisibility(View.VISIBLE);
+        spinnerSubwayDistance.setVisibility(View.VISIBLE);
+        spinnerDistrict.setVisibility(View.GONE);
+    }
 
 }
