@@ -162,9 +162,11 @@ public class SelectionActivity extends AppCompatActivity {
         if (mPrefs.getString(PREFS_RADIO_METRO, "0").equals("1")) {
             mRadioButtonMetro.setChecked(true);
             setSubwayVisible();
+
         } else {
             mRadioButtonDistrict.setChecked(true);
             setDistrictVisible();
+
         }
         // spinners
         spinnerDistrict.setSelection(ParamsMap.getPos(PARAM_DISTRICT));
@@ -283,12 +285,15 @@ public class SelectionActivity extends AppCompatActivity {
         spinnerSubway.setVisibility(View.GONE);
         spinnerSubwayDistance.setVisibility(View.GONE);
         spinnerDistrict.setVisibility(View.VISIBLE);
+        ParamsMap.updateParameter(PARAM_SUBWAY, "0", 0);
+        ParamsMap.updateParameter(PARAM_SUBWAY_DISTANCE_MAX, "0", 0);
     }
 
     private void setSubwayVisible() {
         spinnerSubway.setVisibility(View.VISIBLE);
         spinnerSubwayDistance.setVisibility(View.VISIBLE);
         spinnerDistrict.setVisibility(View.GONE);
+        ParamsMap.updateParameter(PARAM_DISTRICT, "0", 0);
     }
 
 }

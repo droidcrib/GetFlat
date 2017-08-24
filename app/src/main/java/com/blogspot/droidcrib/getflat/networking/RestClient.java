@@ -39,7 +39,6 @@ public class RestClient {
 
     public static ArrayMap<String, String> getQueryParameters(Context context) {
 
-        SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         ArrayMap<String, String> queryParams = new ArrayMap<>();
         List<ParamsMap> list = ParamsMap.queryAll();
         for (ParamsMap params : list) {
@@ -47,8 +46,6 @@ public class RestClient {
                 queryParams.put(params.param, params.value);
             }
         }
-
-
         Log.d(TAG, "List<ParamsMap>: " + queryParams);
         return queryParams;
     }
