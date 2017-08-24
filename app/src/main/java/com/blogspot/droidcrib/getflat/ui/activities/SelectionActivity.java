@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.application.App;
 import com.blogspot.droidcrib.getflat.model.parameters.AreaParam;
 import com.blogspot.droidcrib.getflat.model.parameters.CityParam;
 import com.blogspot.droidcrib.getflat.model.parameters.DistrictParam;
@@ -72,6 +73,14 @@ public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        App app = (com.blogspot.droidcrib.getflat.application.App)getApplication();
+
+
+
+
+
+
         setContentView(R.layout.activity_selection);
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 

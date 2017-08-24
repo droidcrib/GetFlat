@@ -23,10 +23,15 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -49,7 +54,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     private Parcelable state;
     private TextView mEmptyView;
 
-    private static final String TAG = "ApartmentsListFragment";
+    private static final String TAG = "AppThis";
     private String mResp;
 
     //
@@ -76,7 +81,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart: ");
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -96,7 +101,9 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         super.onResume();
         Log.d(TAG, "onResume: ");
 
-        request();
+        EventBus.getDefault().post(new NewNetworkRequestEvent("аренда-квартир-киев", RestClient.getQueryParameters(getActivity())));
+
+//        request();
 
 
 //
@@ -125,7 +132,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onStop() {
         super.onStop();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
 
@@ -243,5 +250,10 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
                     }
                 })
         ;
+    }
+
+    @Subscribe
+    public void onEvent(NewNetworkResponseEvent event) {
+        Log.i(TAG, "FRAGMENT onResponse: " + event.getResponse().length());
     }
 }
