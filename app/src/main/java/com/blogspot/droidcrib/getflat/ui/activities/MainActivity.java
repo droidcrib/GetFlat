@@ -1,6 +1,28 @@
 package com.blogspot.droidcrib.getflat.ui.activities;
 
-import android.content.Context;
+//TODO: бесконечный скролинг
+//TODO: загружать картинки во вьюшки
+//TODO: проверка дубликатов при вставке
+//TODO: зарегистрировать сетевой колбек в апликейшене
+//TODO: дизайн ленты
+//TODO: закладка "favorites"
+//TODO: закладка карта - показывать выбранные по критериям
+//TODO: при изменении критериев стираем все записи, кроме тех, что были отмечены как "favorites" и тех, для которых есть заметка
+//TODO: новая таблица для заметок
+//TODO: макет для landscape
+//TODO: макеты для планшета
+//TODO: макеты для маленьких экранов
+//TODO: уведомление "вы вероятно сейчас смотрите ...."
+//TODO: проверка новых объявлений через каждые ххх минут
+//TODO: интеграция с вайбер: получение уедомлений о новых, отправка объявления контакту
+//TODO: боковое меню
+//TODO: Добавить города
+//TODO: реклама как позиция в ленте
+//TODO: цветовая схема
+
+
+
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,25 +32,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.R;
-import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.MainTabsPagerAdapter;
-import com.blogspot.droidcrib.getflat.ui.fragments.ApartmentsListFragment;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import okhttp3.OkHttpClient;
-
-import static com.blogspot.droidcrib.getflat.utils.Parser.getPureJSON;
 
 public class MainActivity extends AppCompatActivity {
 
