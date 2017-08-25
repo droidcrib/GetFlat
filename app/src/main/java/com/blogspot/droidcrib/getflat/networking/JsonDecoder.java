@@ -1,5 +1,6 @@
 package com.blogspot.droidcrib.getflat.networking;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.blogspot.droidcrib.getflat.model.card.Card;

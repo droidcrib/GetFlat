@@ -174,6 +174,10 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         return super.onContextItemSelected(item);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // Loaders
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
@@ -202,10 +206,6 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 //        stickyList.setAdapter(null);
     }
 
-//    @Subscribe
-//    public void onEvent(NewCallEvent event) {
-//        getLoaderManager().restartLoader(0, null, this);
-//    }
 
 //    /**
 //     * Removes record from database and correspondent data directory from storage
@@ -223,38 +223,22 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 //    }
 
 
-    public void request() {
-        ArrayMap<String, String> params = RestClient.getQueryParameters(getActivity());
 
-        AndroidNetworking.get("https://www.lun.ua/{addr}")
-                .addPathParameter("addr", "аренда-квартир-киев")
-                .addQueryParameter(params)
-                .build()
-                .getAsString(new StringRequestListener() {
-                    @Override
-                    public void onResponse(String response) {
-                        mResp = response;
-                        mCardsList = JsonDecoder.getCardsFromJSON(getPureJSON(mResp));
-//                        mCardsList = JsonDecoder.getCardsFromJSON(getPureJSON(mResp));
-                        mAdapter = new CardsAdapter(mCardsList);
-                        Log.d(TAG, "onResponse: adapter " + mAdapter);
-
-                        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                        mRecyclerView.setLayoutManager(mLayoutManager);
-                        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                        mRecyclerView.setAdapter(mAdapter);
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        Log.d(TAG, "onError: " + anError.toString());
-                    }
-                })
-        ;
-    }
 
     @Subscribe
     public void onEvent(NewNetworkResponseEvent event) {
         Log.i(TAG, "FRAGMENT onResponse: " + event.getResponse().length());
+        mCardsList = JsonDecoder.getCardsFromJSON(getPureJSON(event.getResponse()));
+        mAdapter = new CardsAdapter(mCardsList);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
     }
+
+//    @Subscribe
+//    public void onEvent(DatabaseUpdatedEvent event) {
+    // TODO: restart loader when database updated
+//        getLoaderManager().restartLoader(0, null, this);
+//    }
 }

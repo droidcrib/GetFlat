@@ -61,20 +61,12 @@ public class App extends com.activeandroid.app.Application implements StringRequ
         EventBus.getDefault().unregister(this);
     }
 
-    // addr = "аренда-квартир-киев"
-//    private void networkRequest(String addr, ArrayMap<String, String> params) {
-//        AndroidNetworking.get("https://www.lun.ua/{addr}")
-//                .addPathParameter("addr", addr)
-//                .addQueryParameter(params)
-//                .build()
-//                .getAsString(this);
-//    }
-
 
     @Override
     public void onResponse(String response) {
         EventBus.getDefault().post(new NewNetworkResponseEvent(response));
         Log.i(TAG, "APPLICATION onResponse: " + response.length());
+        // TODO: start updating database from here
     }
 
     @Override
