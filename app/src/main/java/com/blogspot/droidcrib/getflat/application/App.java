@@ -71,13 +71,13 @@ public class App extends com.activeandroid.app.Application implements StringRequ
     }
 
     // addr = "аренда-квартир-киев"
-    private void networkRequest(String addr, ArrayMap<String, String> params) {
-        AndroidNetworking.get("https://www.lun.ua/{addr}")
-                .addPathParameter("addr", addr)
-                .addQueryParameter(params)
-                .build()
-                .getAsString(this);
-    }
+//    private void networkRequest(String addr, ArrayMap<String, String> params) {
+//        AndroidNetworking.get("https://www.lun.ua/{addr}")
+//                .addPathParameter("addr", addr)
+//                .addQueryParameter(params)
+//                .build()
+//                .getAsString(this);
+//    }
 
 
     @Override
@@ -91,8 +91,9 @@ public class App extends com.activeandroid.app.Application implements StringRequ
         Log.e(TAG, "onError: " + anError.toString());
     }
 
+
     @Subscribe
     public void onEvent(NewNetworkRequestEvent event) {
-        networkRequest(event.getAddr(), event.getParams());
+        RestClient.getRequest(event.getAddr(), event.getParams(), this);
     }
 }

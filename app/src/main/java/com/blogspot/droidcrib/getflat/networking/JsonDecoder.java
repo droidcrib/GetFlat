@@ -8,6 +8,8 @@ import com.blogspot.droidcrib.getflat.model.card.Message;
 import com.blogspot.droidcrib.getflat.model.card.RealtyFeature;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by BulanovA on 02.08.2017.
@@ -20,14 +22,14 @@ public class JsonDecoder {
         super();
     }
 
-    public static List<Card> getCardsJSON(String json) {
+    public static List<Card> getCardsFromJSON(String json) {
         Message message = GsonSingleton.getInstance().fromJson(json, Message.class);
         List<Card> categoriesList = message.getCards();
 
 
         //Save cards to database
         for (Card card : categoriesList) {
-            Log.d(TAG, "getCardsJSON: " + card.toString());
+            Log.d(TAG, "getCardsFromJSON: " + card.toString());
             card.insert();
             card.geo.insert(card);
             if (card.geo.address != null) {
@@ -57,5 +59,21 @@ public class JsonDecoder {
             }
         }
         return categoriesList;
+    }
+
+    public static String getPureJSON(final String httpResponse) {
+
+        Pattern p = Pattern.compile("(__APP_INITIAL_STATE__\\s+=\\s+)(.+)(;)");
+        Matcher m = p.matcher(httpResponse);
+        if (m.find()) {
+            Log.d(TAG, "MATCH");
+//                    Log.d(TAG, "getPureJSON: " + m.group(2));
+//                    saveHtmlFile(m.group(2));
+        } else {
+            Log.d(TAG, "NO MATCH");
+        }
+
+
+        return m.group(2);
     }
 }

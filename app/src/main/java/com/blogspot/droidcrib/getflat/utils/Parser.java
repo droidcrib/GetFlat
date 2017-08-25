@@ -37,24 +37,24 @@ public class Parser {
         return m.group(2);
     }
 
-    public static void saveHtmlFile(String html) {
-
-        String path = Environment.getExternalStorageDirectory().getPath();
-        String fileName = "testfile";//DateFormat.format("dd_MM_yyyy_hh_mm_ss", System.currentTimeMillis()).toString();
-        fileName = fileName + ".html";
-        File file = new File(path, fileName);
-        //String html = "<html><head><title>Title</title></head><body>This is random text.</body></html>";
-
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            byte[] data = html.getBytes();
-            out.write(data);
-            out.close();
-            Log.e(TAG, "File Save : " + file.getPath());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void saveHtmlFile(String html) {
+//
+//        String path = Environment.getExternalStorageDirectory().getPath();
+//        String fileName = "testfile";//DateFormat.format("dd_MM_yyyy_hh_mm_ss", System.currentTimeMillis()).toString();
+//        fileName = fileName + ".html";
+//        File file = new File(path, fileName);
+//        //String html = "<html><head><title>Title</title></head><body>This is random text.</body></html>";
+//
+//        try {
+//            FileOutputStream out = new FileOutputStream(file);
+//            byte[] data = html.getBytes();
+//            out.write(data);
+//            out.close();
+//            Log.e(TAG, "File Save : " + file.getPath());
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

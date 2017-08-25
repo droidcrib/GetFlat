@@ -234,7 +234,8 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
                     @Override
                     public void onResponse(String response) {
                         mResp = response;
-                        mCardsList = JsonDecoder.getCardsJSON(getPureJSON(mResp));
+                        mCardsList = JsonDecoder.getCardsFromJSON(getPureJSON(mResp));
+//                        mCardsList = JsonDecoder.getCardsFromJSON(getPureJSON(mResp));
                         mAdapter = new CardsAdapter(mCardsList);
                         Log.d(TAG, "onResponse: adapter " + mAdapter);
 

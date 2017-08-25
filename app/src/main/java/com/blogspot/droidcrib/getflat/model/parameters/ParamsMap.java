@@ -29,6 +29,13 @@ public class ParamsMap extends Model {
                 .execute();
     }
 
+    public static List<ParamsMap> queryAllActive() {
+        return new Select()
+                .from(ParamsMap.class)
+                .where("value not like ?", "0")
+                .execute();
+    }
+
     public static String getValue(String paramName) {
         ParamsMap paramsMap = new Select()
                 .from(ParamsMap.class)
