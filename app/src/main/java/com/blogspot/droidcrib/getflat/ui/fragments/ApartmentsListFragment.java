@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,10 +18,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
@@ -35,7 +32,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getPureJSON;
+import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getJSONFromResponse;
 
 
 /**
@@ -227,8 +224,9 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 
     @Subscribe
     public void onEvent(NewNetworkResponseEvent event) {
+        // TODO: move this to onLoadFinished
         Log.i(TAG, "FRAGMENT onResponse: " + event.getResponse().length());
-        mCardsList = JsonDecoder.getCardsFromJSON(getPureJSON(event.getResponse()));
+        mCardsList = JsonDecoder.getCardsFromJSON(getJSONFromResponse(event.getResponse()));
         mAdapter = new CardsAdapter(mCardsList);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -236,9 +234,10 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         mRecyclerView.setAdapter(mAdapter);
     }
 
-//    @Subscribe
-//    public void onEvent(DatabaseUpdatedEvent event) {
-    // TODO: restart loader when database updated
-//        getLoaderManager().restartLoader(0, null, this);
-//    }
+    @Subscribe
+    public void onEvent(DatabaseUpdatedEvent event) {
+     //TODO: restart loader when database updated
+     //   getLoaderManager().restartLoader(0, null, this);
+        Log.d(TAG, "onEvent: FRAGMENT database updater event");
+    }
 }

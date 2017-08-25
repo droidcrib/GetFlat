@@ -7,6 +7,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
+import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
@@ -14,6 +15,8 @@ import com.facebook.stetho.Stetho;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getCardsFromJSON;
+import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getJSONFromResponse;
 
 
 /**
@@ -67,6 +70,7 @@ public class App extends com.activeandroid.app.Application implements StringRequ
         EventBus.getDefault().post(new NewNetworkResponseEvent(response));
         Log.i(TAG, "APPLICATION onResponse: " + response.length());
         // TODO: start updating database from here
+        JsonDecoder.saveCardsToDatabase(getCardsFromJSON(getJSONFromResponse(response)));;
     }
 
     @Override
