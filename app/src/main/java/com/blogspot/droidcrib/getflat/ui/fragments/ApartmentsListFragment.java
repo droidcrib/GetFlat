@@ -35,7 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-import static com.blogspot.droidcrib.getflat.utils.Parser.getPureJSON;
+import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getPureJSON;
 
 
 /**

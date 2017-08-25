@@ -27,7 +27,7 @@ public class RestClient {
         ArrayMap<String, String> queryParams = new ArrayMap<>();
         List<ParamsMap> list = ParamsMap.queryAllActive();
         for (ParamsMap params : list) {
-                queryParams.put(params.param, params.value);
+            queryParams.put(params.param, params.value);
         }
         Log.d(TAG, "List<ParamsMap>: " + list);
         return queryParams;

@@ -1,29 +1,20 @@
 package com.blogspot.droidcrib.getflat.application;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.v4.util.ArrayMap;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
-import com.activeandroid.ActiveAndroid;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
-import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
-import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import static com.blogspot.droidcrib.getflat.contract.Constants.SHARED_PREFS;
-import static com.blogspot.droidcrib.getflat.utils.Parser.getPureJSON;
+
 
 /**
  * Created by BulanovA on 31.07.2017.
