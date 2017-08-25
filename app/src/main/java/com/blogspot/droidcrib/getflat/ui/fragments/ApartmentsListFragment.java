@@ -97,6 +97,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume -- start network request ");
+        RestClient.checkNetworkConnection(getActivity());
 
         RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()));
 

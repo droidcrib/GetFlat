@@ -17,6 +17,9 @@ import com.blogspot.droidcrib.getflat.model.parameters.ParamsMap;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.List;
 
 /**
@@ -55,14 +58,18 @@ public class RestClient {
                 Boolean[] values = new Boolean[2];
                 values[0] = isNetworkAvailable(context);
                 values[1] = isOnline();
+
                 return values;
             }
 
             @Override
             protected void onPostExecute(Boolean[] values) {
                 super.onPostExecute(values);
+                Log.d(TAG, "onPostExecute: 0 " + values[0]);
+                Log.d(TAG, "onPostExecute: 1 " + values[1]);
                 if (values[0]) {
-                    if (values[1]) {
+                    if (values[1]) {Toast.makeText(context, "!!! internet_connected !!!", Toast.LENGTH_LONG).show();
+
                         return;
                     }
                     Toast.makeText(context, "no_internet_connection", Toast.LENGTH_LONG).show();
@@ -84,19 +91,33 @@ public class RestClient {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    // Checking the Internet is Connected
+//    // Checking the Internet is Connected
+//    public static boolean isOnline() {
+//        Runtime runtime = Runtime.getRuntime();
+//        try {
+//            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+//            int exitValue = ipProcess.waitFor();
+//            return (exitValue == 0);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+
+    // TCP/HTTP/DNS (depending on the port, 53=DNS, 80=HTTP, etc.)
     public static boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
         try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return false;
+            int timeoutMs = 1500;
+            Socket sock = new Socket();
+            SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
+
+            sock.connect(sockaddr, timeoutMs);
+            sock.close();
+
+            return true;
+        } catch (IOException e) { return false; }
     }
 
 
