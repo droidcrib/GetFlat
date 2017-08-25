@@ -1,5 +1,6 @@
 package com.blogspot.droidcrib.getflat.application;
 
+import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
@@ -8,7 +9,6 @@ import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
-import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 
@@ -58,6 +58,7 @@ public class App extends com.activeandroid.app.Application implements StringRequ
         EventBus.getDefault().register(this);
     }
 
+
     @Override
     public void onTerminate() {
         super.onTerminate();
@@ -65,22 +66,36 @@ public class App extends com.activeandroid.app.Application implements StringRequ
     }
 
 
+    //
+    // Network calls callbacks
+    //
     @Override
     public void onResponse(String response) {
         EventBus.getDefault().post(new NewNetworkResponseEvent(response));
-        Log.i(TAG, "APPLICATION onResponse: " + response.length());
-        // TODO: start updating database from here
-        JsonDecoder.saveCardsToDatabase(getCardsFromJSON(getJSONFromResponse(response)));;
+        Log.i(TAG, "Network callback onResponse: " + response.length());
+        // Updating database from here
+        JsonDecoder.saveCardsToDatabase(getCardsFromJSON(getJSONFromResponse(response)));
     }
 
     @Override
     public void onError(ANError anError) {
-        Log.e(TAG, "onError: " + anError.toString());
+        Log.e(TAG, "Network callback onError: " + anError.toString());
     }
 
 
+    // Start new network request
     @Subscribe
     public void onEvent(NewNetworkRequestEvent event) {
-        RestClient.getRequest(event.getAddr(), event.getParams(), this);
+        Log.d(TAG, "onEvent -- NewNetworkRequestEvent received");
+        newGetRequest(event.getAddr(), event.getParams());
+    }
+
+    private void newGetRequest(String addr, ArrayMap<String, String> params) {
+        Log.d(TAG, "newGetRequest -- started");
+        AndroidNetworking.get("https://www.lun.ua/{addr}")
+                .addPathParameter("addr", addr)
+                .addQueryParameter(params)
+                .build()
+                .getAsString(this);
     }
 }

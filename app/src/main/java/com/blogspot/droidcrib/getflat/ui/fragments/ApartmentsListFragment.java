@@ -96,12 +96,9 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
+        Log.d(TAG, "onResume -- start network request ");
 
-        EventBus.getDefault().post(new NewNetworkRequestEvent("аренда-квартир-киев", RestClient.getQueryParameters(getActivity())));
-
-//        request();
-
+        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()));
 
 //
 //        // List items long click processing
@@ -220,8 +217,6 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 //    }
 
 
-
-
     @Subscribe
     public void onEvent(NewNetworkResponseEvent event) {
         // TODO: move this to onLoadFinished
@@ -235,9 +230,9 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     }
 
     @Subscribe
-    public void onEvent(DatabaseUpdatedEvent event) {
-     //TODO: restart loader when database updated
-     //   getLoaderManager().restartLoader(0, null, this);
+    public void onEventMainThread(DatabaseUpdatedEvent event) {
+        //TODO: restart loader when database updated
+        //   getLoaderManager().restartLoader(0, null, this);
         Log.d(TAG, "onEvent: FRAGMENT database updater event");
     }
 }

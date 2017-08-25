@@ -7,7 +7,10 @@ import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.model.parameters.ParamsMap;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -33,11 +36,8 @@ public class RestClient {
         return queryParams;
     }
 
-    public static void getRequest(String addr, ArrayMap<String, String> params, StringRequestListener listener) {
-        AndroidNetworking.get("https://www.lun.ua/{addr}")
-                .addPathParameter("addr", addr)
-                .addQueryParameter(params)
-                .build()
-                .getAsString(listener);
+    public static void newGetRequest(String addr, ArrayMap<String, String> params) {
+        EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
+
     }
 }

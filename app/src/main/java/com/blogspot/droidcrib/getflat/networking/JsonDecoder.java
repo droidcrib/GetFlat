@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 
 public class JsonDecoder {
-    public static final String TAG = "JsonDecoder";
+    public static final String TAG = "AppThis";
 
     private JsonDecoder() {
         super();
@@ -29,18 +29,18 @@ public class JsonDecoder {
     public static List<Card> getCardsFromJSON(String json) {
         Message message = GsonSingleton.getInstance().fromJson(json, Message.class);
         List<Card> cardsList = message.getCards();
+        Log.d(TAG, "getCardsFromJSON: "   + cardsList.size());
         return cardsList;
     }
 
 
     public static void saveCardsToDatabase(final List<Card> cardsList) {
-
+        Log.d(TAG, "saveCardsToDatabase: " + cardsList.size());
         new Thread(new Runnable() {
             @Override
             public void run() {
                 //Save cards to database
                 for (Card card : cardsList) {
-                    Log.d(TAG, "getCardsFromJSON: " + card.toString());
                     card.insert();
                     card.geo.insert(card);
                     if (card.geo.address != null) {
@@ -72,7 +72,7 @@ public class JsonDecoder {
                 // TODO: post "finished" event from here
                 EventBus.getDefault().post(new DatabaseUpdatedEvent());
             }
-        });
+        }).start();
     }
 
     public static String getJSONFromResponse(final String httpResponse) {
