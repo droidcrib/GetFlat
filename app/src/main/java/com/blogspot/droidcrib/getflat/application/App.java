@@ -87,14 +87,9 @@ public class App extends com.activeandroid.app.Application implements StringRequ
     @Subscribe
     public void onEvent(NewNetworkRequestEvent event) {
         Log.d(TAG, "onEvent -- NewNetworkRequestEvent received");
-        newGetRequest(event.getAddr(), event.getParams());
-    }
-
-    private void newGetRequest(String addr, ArrayMap<String, String> params) {
-        Log.d(TAG, "newGetRequest -- started");
         AndroidNetworking.get("https://www.lun.ua/{addr}")
-                .addPathParameter("addr", addr)
-                .addQueryParameter(params)
+                .addPathParameter("addr", event.getAddr())
+                .addQueryParameter(event.getParams())
                 .build()
                 .getAsString(this);
     }
