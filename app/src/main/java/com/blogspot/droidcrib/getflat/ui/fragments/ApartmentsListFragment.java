@@ -3,6 +3,7 @@ package com.blogspot.droidcrib.getflat.ui.fragments;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -22,6 +23,7 @@ import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
@@ -97,9 +99,8 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume -- start network request ");
-        RestClient.checkNetworkConnection(getActivity());
 
-        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()));
+            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
 
 //
 //        // List items long click processing
@@ -235,5 +236,12 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         //TODO: restart loader when database updated
         //   getLoaderManager().restartLoader(0, null, this);
         Log.d(TAG, "onEvent: FRAGMENT database updater event");
+    }
+
+    @Subscribe
+    public void onEvent(NoInternetEvent event){
+        Snackbar.make(new View(getActivity()), "No connection", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
     }
 }

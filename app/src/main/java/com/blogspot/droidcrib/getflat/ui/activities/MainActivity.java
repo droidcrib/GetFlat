@@ -21,13 +21,11 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: цветовая схема
 //TODO: клик на кнопке "перейти к объявлению" - открываем сайт объявления в вебвью
 
-
-
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -138,8 +136,10 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SelectionActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(MainActivity.this, SelectionActivity.class);
+//                startActivity(i);
+                Snackbar.make(view, "No connection", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Action", null).show();
             }
         });
     }

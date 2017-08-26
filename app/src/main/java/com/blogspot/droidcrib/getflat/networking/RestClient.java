@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.model.parameters.ParamsMap;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +34,7 @@ public class RestClient {
     }
 
     private static final String TAG = "RestClient";
+    private static boolean returnValue = false;
 
     public static ArrayMap<String, String> getQueryParameters(Context context) {
         ArrayMap<String, String> queryParams = new ArrayMap<>();
@@ -44,13 +46,15 @@ public class RestClient {
         return queryParams;
     }
 
-    public static void newGetRequest(String addr, ArrayMap<String, String> params) {
-        EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
-
+    public static void newGetRequest(String addr, ArrayMap<String, String> params, Context context) {
+        if (RestClient.checkNetworkConnection(context)) {
+            EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
+        } else {
+            EventBus.getDefault().post(new NoInternetEvent());
+        }
     }
 
-    public static void checkNetworkConnection(final Context context) {
-
+    public static boolean checkNetworkConnection(final Context context) {
         new AsyncTask<Void, Void, Boolean[]>() {
 
             @Override
@@ -65,21 +69,19 @@ public class RestClient {
             @Override
             protected void onPostExecute(Boolean[] values) {
                 super.onPostExecute(values);
-                Log.d(TAG, "onPostExecute: 0 " + values[0]);
-                Log.d(TAG, "onPostExecute: 1 " + values[1]);
                 if (values[0]) {
-                    if (values[1]) {Toast.makeText(context, "!!! internet_connected !!!", Toast.LENGTH_LONG).show();
-
+                    if (values[1]) {
+                        Toast.makeText(context, "!!! internet_connected !!!", Toast.LENGTH_LONG).show();
+                        returnValue = true;
                         return;
                     }
                     Toast.makeText(context, "no_internet_connection", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(context, "no_network_connection", Toast.LENGTH_LONG).show();
                 }
-
             }
         }.execute();
-
+        return returnValue;
     }
 
 
@@ -90,21 +92,6 @@ public class RestClient {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
-
-//    // Checking the Internet is Connected
-//    public static boolean isOnline() {
-//        Runtime runtime = Runtime.getRuntime();
-//        try {
-//            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-//            int exitValue = ipProcess.waitFor();
-//            return (exitValue == 0);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
 
     // TCP/HTTP/DNS (depending on the port, 53=DNS, 80=HTTP, etc.)
     public static boolean isOnline() {
@@ -117,7 +104,9 @@ public class RestClient {
             sock.close();
 
             return true;
-        } catch (IOException e) { return false; }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
 
