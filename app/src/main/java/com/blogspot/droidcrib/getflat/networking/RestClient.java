@@ -29,12 +29,17 @@ import java.util.List;
 
 public class RestClient {
 
-    private RestClient() {
-        super();
-    }
 
     private static final String TAG = "RestClient";
     private static boolean returnValue = false;
+    public static boolean isNetworkConnected = true;
+    public static boolean isOnline = true;
+
+
+
+    private RestClient() {
+        super();
+    }
 
     public static ArrayMap<String, String> getQueryParameters(Context context) {
         ArrayMap<String, String> queryParams = new ArrayMap<>();
@@ -47,14 +52,10 @@ public class RestClient {
     }
 
     public static void newGetRequest(String addr, ArrayMap<String, String> params, Context context) {
-        if (RestClient.checkNetworkConnection(context)) {
-            EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
-        } else {
-            EventBus.getDefault().post(new NoInternetEvent());
-        }
+        EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
     }
 
-    public static boolean checkNetworkConnection(final Context context) {
+    public static void checkNetworkConnection(final Context context) {
         new AsyncTask<Void, Void, Boolean[]>() {
 
             @Override
@@ -72,8 +73,7 @@ public class RestClient {
                 if (values[0]) {
                     if (values[1]) {
                         Toast.makeText(context, "!!! internet_connected !!!", Toast.LENGTH_LONG).show();
-                        returnValue = true;
-                        return;
+                         return;
                     }
                     Toast.makeText(context, "no_internet_connection", Toast.LENGTH_LONG).show();
                 } else {
@@ -81,7 +81,6 @@ public class RestClient {
                 }
             }
         }.execute();
-        return returnValue;
     }
 
 

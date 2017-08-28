@@ -71,7 +71,7 @@ public class App extends com.activeandroid.app.Application implements StringRequ
     //
     @Override
     public void onResponse(String response) {
-        EventBus.getDefault().post(new NewNetworkResponseEvent(response));
+        //EventBus.getDefault().post(new NewNetworkResponseEvent(response));
         Log.i(TAG, "Network callback onResponse: " + response.length());
         // Updating database from here
         JsonDecoder.saveCardsToDatabase(getCardsFromJSON(getJSONFromResponse(response)));
