@@ -1,12 +1,17 @@
 package com.blogspot.droidcrib.getflat.ui.adapters;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 
@@ -34,7 +39,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     }
 
     @Override
-    public void onBindViewHolder(CardViewHolder holder, int position) {
+    public void onBindViewHolder(final CardViewHolder holder, int position) {
         Card card = cardList.get(position);
         Log.d(TAG, "onBindViewHolder: Card = " + card.toString());
         if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
@@ -74,6 +79,22 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         if (card.description != null) {
             holder.descriprion.setText(card.description.text);
         }
+        if (card.photo != null) {
+            AndroidNetworking.get(card.photo.url)
+                    .build()
+                    .getAsBitmap(new BitmapRequestListener() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            holder.photo.setImageBitmap(bitmap);
+                            // do anything with bitmap
+                        }
+                        @Override
+                        public void onError(ANError error) {
+                            // handle error
+                        }
+                    });
+//            holder.photo.setImageBitmap();
+        }
     }
 
     @Override
@@ -84,6 +105,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     public class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView street, number, district, microdistrict, price, rooms, project, meters, year,
                 floor, material, descriprion;
+        ImageView photo;
 
         public CardViewHolder(View view) {
             super(view);
@@ -99,6 +121,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             floor = (TextView) view.findViewById(R.id.id_list_row_floor);
             material = (TextView) view.findViewById(R.id.id_list_row_material);
             descriprion = (TextView) view.findViewById(R.id.id_list_row_description);
+            photo = (ImageView) view.findViewById(R.id.id_list_row_photo);
 
         }
     }

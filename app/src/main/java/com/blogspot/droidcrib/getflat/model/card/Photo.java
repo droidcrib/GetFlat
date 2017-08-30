@@ -14,15 +14,15 @@ public class Photo extends Model{
     @Column(name = "title")
     @SerializedName("title")
     @Expose
-    private String title;
+    public String title;
     @Column(name = "url")
     @SerializedName("url")
     @Expose
-    private String url;
+    public String url;
     @Column(name = "url2x")
     @SerializedName("url2x")
     @Expose
-    private String url2x;
+    public String url2x;
     @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
 
