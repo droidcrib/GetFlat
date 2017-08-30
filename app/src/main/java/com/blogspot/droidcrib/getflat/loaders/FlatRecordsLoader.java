@@ -15,9 +15,6 @@ public class FlatRecordsLoader extends DatabaseLoader {
 
     @Override
     public List<Card> loadList() {
-        List<Card> cardsList = Card.queryAll();
-
-
         return Card.queryAll();
     }
 }

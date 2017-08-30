@@ -49,13 +49,11 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     private List<Card> mCardsList;
     private RecyclerView mRecyclerView;
     private CardsAdapter mAdapter;
-
-
     private long mRecordId;
     private Parcelable state;
     private TextView mEmptyView;
 
-    private static final String TAG = "CardTest";
+    private static final String TAG = "AppThis";
     private String mResp;
 
     //
@@ -101,50 +99,8 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume -- start network request ");
+        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
 
-        //RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
-        List<Card> cardsList = Card.queryAll();
-        for (Card card : cardsList) {
-//            card.geo = Geo.getRelatedToCard(card);
-//            if (card.geo.address != null) {
-//                card.geo.address.insert(card);
-//            }
-//            if (card.geo.district != null) {
-//                card.geo.district.insert(card);
-//            }
-//            if (card.geo.microdistrict != null) {
-//                card.geo.microdistrict.insert(card);
-//            }
-//            if (card.geo.building != null) {
-//                card.geo.building.insert(card);
-//            }
-//            card.photo.insert(card);
-//            card.description.insert(card);
-//            card.sourceLink.insert(card);
-//            card.time.insert(card);
-//
-//            List<HouseFeature> hf = card.houseFeatures;
-//            for (HouseFeature feature : hf) {
-//                feature.insert(card);
-//            }
-//            List<RealtyFeature> rf = card.realtyFeatures;
-//            for (RealtyFeature feature : rf) {
-//                feature.insert(card);
-//            }
-
-//            Log.d(TAG, "card: " + card);
-//            Log.d(TAG, "card.geo " + card.geo);
-//            Log.d(TAG, "card.geo.address " + card.geo.address);
-//            Log.d(TAG, "card..photo " + card.photo);
-//            Log.d(TAG, "card..description " + card.description);
-//            Log.d(TAG, "card..sourceLink " + card.sourceLink);
-//            Log.d(TAG, "card..time) " + card.time);
-            Log.d(TAG, "card..houseFeatures) " + card.houseFeatures);
-            Log.d(TAG, "card..realtyFeatures) " + card.realtyFeatures);
-
-        }
-
-//
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
 //        getLoaderManager().restartLoader(0, null, this);
@@ -226,13 +182,13 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onLoadFinished(Loader loader, Object data) {
 
-//        mCardsList = (List<Card>) data;
-//        Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList.size());
-//        mAdapter = new CardsAdapter(mCardsList);
-//        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        mRecyclerView.setAdapter(mAdapter);
+        mCardsList = (List<Card>) data;
+        Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList.size());
+        mAdapter = new CardsAdapter(mCardsList);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
     }
 //        mCardsList = (List<AlarmRecord>) data;
 //        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
@@ -284,8 +240,9 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Subscribe
     public void onEventMainThread(DatabaseUpdatedEvent event) {
         //TODO: restart loader when database updated
-        getLoaderManager().restartLoader(0, null, this);
         Log.d(TAG, "onEvent: FRAGMENT database updater event");
+        getLoaderManager().restartLoader(0, null, this);
+
     }
 
     @Subscribe
