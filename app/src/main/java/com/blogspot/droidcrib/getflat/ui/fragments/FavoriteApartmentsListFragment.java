@@ -139,7 +139,7 @@ public class FavoriteApartmentsListFragment extends Fragment implements LoaderMa
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
-//        return new AlarmRecordsLoader(getActivity());
+//        return new FlatRecordsLoader(getActivity());
         return new Loader(getActivity());
     }
 

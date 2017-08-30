@@ -44,4 +44,11 @@ public class RealtyFeature extends Model {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "RealtyFeature{" +
+                "type='" + type + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

@@ -7,6 +7,8 @@ import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 @Table(name = "Addresses", id = "_id")
 public class Address extends Model {
 
@@ -29,6 +31,8 @@ public class Address extends Model {
         this.geo = card.geo;
         this.save();
     }
+
+
 
     public String getStreetOrBuilding() {
         return streetOrBuilding;

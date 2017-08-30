@@ -1,16 +1,21 @@
 
 package com.blogspot.droidcrib.getflat.model.card;
 
+import android.util.Log;
+
 import java.util.List;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 import com.blogspot.droidcrib.getflat.model.ActionElementsLabels;
 import com.blogspot.droidcrib.getflat.model.AdvertisementFeatures;
 import com.blogspot.droidcrib.getflat.model.SingleRealtyPageLink;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import static com.facebook.stetho.inspector.network.ResponseHandlingInputStream.TAG;
 
 @Table(name = "Cards", id = "_id")
 public class Card extends Model {
@@ -99,6 +104,93 @@ public class Card extends Model {
     public void insert() {
         this.save();
     }
+
+    public static List<Card> queryAll() {
+        List<Card> cardList = new Select()
+                .from(Card.class)
+                .execute();
+
+        for (Card card : cardList) {
+            card.geo = card.getMany(Geo.class, "card").get(0);
+
+//            if (card.geo.address != null) {
+            try {
+                card.geo.address = card.geo.getAddresses().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "address: ", e);
+            }
+            try {
+                card.geo.district = card.geo.getDistricts().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "district: ", e);
+            }
+            try {
+                card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "microdistrict: ", e);
+            }
+            try {
+                card.geo.building = card.geo.getBuildings().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "building: ", e);
+            }
+            try {
+                card.photo = card.getPhotos().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "photo: ", e);
+            }
+
+            try {
+                card.description = card.getDescriptions().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ", e);
+            }
+            try {
+                card.sourceLink = card.getSourceLinks().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ", e);
+            }
+            try {
+                card.time = card.getTimes().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ", e);
+            }
+
+
+                card.houseFeatures = card.getHouseFeatures();
+                card.realtyFeatures = card.getRealtyFeatures();
+
+
+
+
+//            List<HouseFeature> hf = card.houseFeatures;
+//            for (HouseFeature feature : hf) {
+//                feature.insert(card);
+//            }
+//            List<RealtyFeature> rf = card.realtyFeatures;
+//            for (RealtyFeature feature : rf) {
+//                feature.insert(card);
+        }
+
+        return cardList;
+    }
+
+    public List<Photo> getPhotos() {
+        return getMany(Photo.class, "card");
+    }
+    public List<Description> getDescriptions() {
+        return getMany(Description.class, "card");
+    }
+    public List<SourceLink> getSourceLinks() {
+        return getMany(SourceLink.class, "card");
+    }
+    public List<Time> getTimes() {
+        return getMany(Time.class, "card");
+    }
+
+//    public static List<Geo> getGeos() {
+//        return getMany(Geo.class, "card");
+//    }
 
 
     public String getType() {
@@ -222,7 +314,7 @@ public class Card extends Model {
     }
 
     public List<RealtyFeature> getRealtyFeatures() {
-        return realtyFeatures;
+        return getMany(RealtyFeature.class, "card");
     }
 
     public void setRealtyFeatures(List<RealtyFeature> realtyFeatures) {
@@ -230,7 +322,7 @@ public class Card extends Model {
     }
 
     public List<HouseFeature> getHouseFeatures() {
-        return houseFeatures;
+        return getMany(HouseFeature.class, "card");
     }
 
     public void setHouseFeatures(List<HouseFeature> houseFeatures) {

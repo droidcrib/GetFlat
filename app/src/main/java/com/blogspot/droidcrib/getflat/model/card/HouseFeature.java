@@ -43,4 +43,11 @@ public class HouseFeature extends Model {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "HouseFeature{" +
+                "type='" + type + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

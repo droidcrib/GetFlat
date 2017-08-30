@@ -24,7 +24,9 @@ import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
+import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.card.Geo;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
@@ -53,7 +55,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     private Parcelable state;
     private TextView mEmptyView;
 
-    private static final String TAG = "AppThis";
+    private static final String TAG = "CardTest";
     private String mResp;
 
     //
@@ -100,7 +102,47 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         super.onResume();
         Log.d(TAG, "onResume -- start network request ");
 
-            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
+        //RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
+        List<Card> cardsList = Card.queryAll();
+        for (Card card : cardsList) {
+//            card.geo = Geo.getRelatedToCard(card);
+//            if (card.geo.address != null) {
+//                card.geo.address.insert(card);
+//            }
+//            if (card.geo.district != null) {
+//                card.geo.district.insert(card);
+//            }
+//            if (card.geo.microdistrict != null) {
+//                card.geo.microdistrict.insert(card);
+//            }
+//            if (card.geo.building != null) {
+//                card.geo.building.insert(card);
+//            }
+//            card.photo.insert(card);
+//            card.description.insert(card);
+//            card.sourceLink.insert(card);
+//            card.time.insert(card);
+//
+//            List<HouseFeature> hf = card.houseFeatures;
+//            for (HouseFeature feature : hf) {
+//                feature.insert(card);
+//            }
+//            List<RealtyFeature> rf = card.realtyFeatures;
+//            for (RealtyFeature feature : rf) {
+//                feature.insert(card);
+//            }
+
+//            Log.d(TAG, "card: " + card);
+//            Log.d(TAG, "card.geo " + card.geo);
+//            Log.d(TAG, "card.geo.address " + card.geo.address);
+//            Log.d(TAG, "card..photo " + card.photo);
+//            Log.d(TAG, "card..description " + card.description);
+//            Log.d(TAG, "card..sourceLink " + card.sourceLink);
+//            Log.d(TAG, "card..time) " + card.time);
+            Log.d(TAG, "card..houseFeatures) " + card.houseFeatures);
+            Log.d(TAG, "card..realtyFeatures) " + card.realtyFeatures);
+
+        }
 
 //
 //        // List items long click processing
@@ -177,29 +219,37 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
-//        return new AlarmRecordsLoader(getActivity());
-        return new Loader(getActivity());
+        return new FlatRecordsLoader(getActivity());
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onLoadFinished(Loader loader, Object data) {
+
+//        mCardsList = (List<Card>) data;
+//        Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList.size());
+//        mAdapter = new CardsAdapter(mCardsList);
+//        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        mRecyclerView.setAdapter(mAdapter);
+    }
 //        mCardsList = (List<AlarmRecord>) data;
 //        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
 //        stickyList.setAdapter(adapter);
 //        stickyList.setEmptyView(mEmptyView);
-        // Restore previous state (including selected item index and scroll position)
-        if (state != null) {
+    // Restore previous state (including selected item index and scroll position)
+//        if (state != null) {
 //            stickyList.onRestoreInstanceState(state);
-        }
+//        }
 
 //        EventBus.getDefault().post(new AlarmsListLoadFinishedEvent());
 
-    }
 
     @Override
     public void onLoaderReset(Loader loader) {
 //        stickyList.setAdapter(null);
+        mRecyclerView.setAdapter(null);
     }
 
 
@@ -223,25 +273,26 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     public void onEvent(NewNetworkResponseEvent event) {
         // TODO: move this to onLoadFinished
         Log.i(TAG, "FRAGMENT onResponse: " + event.getResponse().length());
-        mCardsList = JsonDecoder.getCardsFromJSON(getJSONFromResponse(event.getResponse()));
-        mAdapter = new CardsAdapter(mCardsList);
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mAdapter);
+//        mCardsList = JsonDecoder.getCardsFromJSON(getJSONFromResponse(event.getResponse()));
+//        mAdapter = new CardsAdapter(mCardsList);
+//        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Subscribe
     public void onEventMainThread(DatabaseUpdatedEvent event) {
         //TODO: restart loader when database updated
-        //   getLoaderManager().restartLoader(0, null, this);
+        getLoaderManager().restartLoader(0, null, this);
         Log.d(TAG, "onEvent: FRAGMENT database updater event");
     }
 
     @Subscribe
-    public void onEvent(NoInternetEvent event){
+    public void onEvent(NoInternetEvent event) {
         Snackbar.make(new View(getActivity()), "No connection", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
 
     }
 }
+

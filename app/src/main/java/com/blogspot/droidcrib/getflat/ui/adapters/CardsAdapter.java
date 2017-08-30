@@ -1,6 +1,7 @@
 package com.blogspot.droidcrib.getflat.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
 
     private List<Card> cardList;
+    private static final String TAG = "CardCheck";
 
     public CardsAdapter(List<Card> cards) {
         this.cardList = cards;
@@ -34,43 +36,44 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     @Override
     public void onBindViewHolder(CardViewHolder holder, int position) {
         Card card = cardList.get(position);
-        if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
-            holder.street.setText(card.geo.address.streetOrBuilding);
-        }
-        if (card.geo.address != null
-                && card.geo.address.house != null) {
-            holder.number.setText(card.geo.address.house);
-        }
-        if (card.geo.district != null && card.geo.district.name != null) {
-            holder.district.setText(card.geo.district.name);
-        }
-        if (card.geo.microdistrict != null && card.geo.microdistrict.name != null) {
-            holder.microdistrict.setText(card.geo.microdistrict.name);
-        }
-        if (card.price != null) {
-            holder.price.setText(card.price);
-        }
-        if (card.realtyFeatures != null && card.realtyFeatures.size() >= 1) {
-            holder.rooms.setText(card.realtyFeatures.get(0).value);
-        }
-        if (card.houseFeatures != null && card.houseFeatures.size() >= 1) {
-            holder.project.setText(card.houseFeatures.get(0).value);
-        }
-        if (card.realtyFeatures != null && card.realtyFeatures.size() >= 2) {
-            holder.meters.setText(card.realtyFeatures.get(1).value);
-        }
-        if (card.houseFeatures != null && card.houseFeatures.size() >= 2) {
-            holder.year.setText(card.houseFeatures.get(1).value);
-        }
-        if (card.realtyFeatures != null && card.realtyFeatures.size() >= 3) {
-            holder.floor.setText(card.realtyFeatures.get(2).value);
-        }
-        if (card.houseFeatures != null && card.houseFeatures.size() >= 3) {
-            holder.material.setText(card.houseFeatures.get(2).value);
-        }
-        if (card.description != null) {
-            holder.descriprion.setText(card.description.text);
-        }
+        Log.d(TAG, "onBindViewHolder: Card = " + card.toString());
+//        if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
+//            holder.street.setText(card.geo.address.streetOrBuilding);
+//        }
+//        if (card.geo.address != null
+//                && card.geo.address.house != null) {
+//            holder.number.setText(card.geo.address.house);
+//        }
+//        if (card.geo.district != null && card.geo.district.name != null) {
+//            holder.district.setText(card.geo.district.name);
+//        }
+//        if (card.geo.microdistrict != null && card.geo.microdistrict.name != null) {
+//            holder.microdistrict.setText(card.geo.microdistrict.name);
+//        }
+//        if (card.price != null) {
+//            holder.price.setText(card.price);
+//        }
+//        if (card.realtyFeatures != null && card.realtyFeatures.size() >= 1) {
+//            holder.rooms.setText(card.realtyFeatures.get(0).value);
+//        }
+//        if (card.houseFeatures != null && card.houseFeatures.size() >= 1) {
+//            holder.project.setText(card.houseFeatures.get(0).value);
+//        }
+//        if (card.realtyFeatures != null && card.realtyFeatures.size() >= 2) {
+//            holder.meters.setText(card.realtyFeatures.get(1).value);
+//        }
+//        if (card.houseFeatures != null && card.houseFeatures.size() >= 2) {
+//            holder.year.setText(card.houseFeatures.get(1).value);
+//        }
+//        if (card.realtyFeatures != null && card.realtyFeatures.size() >= 3) {
+//            holder.floor.setText(card.realtyFeatures.get(2).value);
+//        }
+//        if (card.houseFeatures != null && card.houseFeatures.size() >= 3) {
+//            holder.material.setText(card.houseFeatures.get(2).value);
+//        }
+//        if (card.description != null) {
+//            holder.descriprion.setText(card.description.text);
+//        }
     }
 
     @Override
