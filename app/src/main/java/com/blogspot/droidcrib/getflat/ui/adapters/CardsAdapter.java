@@ -49,33 +49,33 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
                 && card.geo.address.house != null) {
             holder.number.setText(card.geo.address.house);
         }
-        if (card.geo.district != null && card.geo.district.name != null) {
-            holder.district.setText(card.geo.district.name);
-        }
-        if (card.geo.microdistrict != null && card.geo.microdistrict.name != null) {
-            holder.microdistrict.setText(card.geo.microdistrict.name);
-        }
+//        if (card.geo.district != null && card.geo.district.name != null) {
+//            holder.district.setText(card.geo.district.name);
+//        }
+//        if (card.geo.microdistrict != null && card.geo.microdistrict.name != null) {
+//            holder.microdistrict.setText(card.geo.microdistrict.name);
+//        }
         if (card.price != null) {
             holder.price.setText(card.price);
         }
         if (card.realtyFeatures != null && card.realtyFeatures.size() >= 1) {
             holder.rooms.setText(card.realtyFeatures.get(0).value);
         }
-        if (card.houseFeatures != null && card.houseFeatures.size() >= 1) {
-            holder.project.setText(card.houseFeatures.get(0).value);
-        }
+//        if (card.houseFeatures != null && card.houseFeatures.size() >= 1) {
+//            holder.project.setText(card.houseFeatures.get(0).value);
+//        }
         if (card.realtyFeatures != null && card.realtyFeatures.size() >= 2) {
             holder.meters.setText(card.realtyFeatures.get(1).value);
         }
-        if (card.houseFeatures != null && card.houseFeatures.size() >= 2) {
-            holder.year.setText(card.houseFeatures.get(1).value);
-        }
+//        if (card.houseFeatures != null && card.houseFeatures.size() >= 2) {
+//            holder.year.setText(card.houseFeatures.get(1).value);
+//        }
         if (card.realtyFeatures != null && card.realtyFeatures.size() >= 3) {
             holder.floor.setText(card.realtyFeatures.get(2).value);
         }
-        if (card.houseFeatures != null && card.houseFeatures.size() >= 3) {
-            holder.material.setText(card.houseFeatures.get(2).value);
-        }
+//        if (card.houseFeatures != null && card.houseFeatures.size() >= 3) {
+//            holder.material.setText(card.houseFeatures.get(2).value);
+//        }
         if (card.description != null) {
             holder.descriprion.setText(card.description.text);
         }
@@ -111,15 +111,15 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             super(view);
             street = (TextView) view.findViewById(R.id.id_list_row_street);
             number = (TextView) view.findViewById(R.id.id_list_row_number);
-            district = (TextView) view.findViewById(R.id.id_list_row_district);
-            microdistrict = (TextView) view.findViewById(R.id.id_list_row_microdistrict);
+//            district = (TextView) view.findViewById(R.id.id_list_row_district);
+//            microdistrict = (TextView) view.findViewById(R.id.id_list_row_microdistrict);
             price = (TextView) view.findViewById(R.id.id_list_row_price);
             rooms = (TextView) view.findViewById(R.id.id_list_row_rooms);
-            project = (TextView) view.findViewById(R.id.id_list_row_project);
+//            project = (TextView) view.findViewById(R.id.id_list_row_project);
             meters = (TextView) view.findViewById(R.id.id_list_row_meters);
-            year = (TextView) view.findViewById(R.id.id_list_row_year);
+//            year = (TextView) view.findViewById(R.id.id_list_row_year);
             floor = (TextView) view.findViewById(R.id.id_list_row_floor);
-            material = (TextView) view.findViewById(R.id.id_list_row_material);
+//            material = (TextView) view.findViewById(R.id.id_list_row_material);
             descriprion = (TextView) view.findViewById(R.id.id_list_row_description);
             photo = (ImageView) view.findViewById(R.id.id_list_row_photo);
 
