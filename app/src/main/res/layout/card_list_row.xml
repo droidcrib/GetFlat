@@ -36,7 +36,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:alpha="0.5"
-                android:background="@drawable/ic_comment_black_48dp" />
+                android:background="@drawable/ic_location_on_black_48dp" />
 
             <TextView
                 android:id="@+id/id_list_row_street"
@@ -78,7 +78,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:alpha="0.5"
-                android:background="@drawable/ic_comment_black_48dp" />
+                android:background="@drawable/ic_attach_money_black_48dp" />
 
             <TextView
                 android:id="@+id/id_list_row_price"
@@ -107,7 +107,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:alpha="0.5"
-                android:background="@drawable/ic_comment_black_48dp" />
+                android:background="@drawable/ic_home_black_48dp" />
 
             <TextView
                 android:id="@+id/id_list_row_rooms"
@@ -171,7 +171,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:alpha="0.5"
-                android:background="@drawable/ic_comment_black_48dp" />
+                android:background="@drawable/ic_description_black_48dp" />
 
             <TextView
                 android:id="@+id/id_list_row_description"
@@ -198,16 +198,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
                 android:layout_weight="50">
 
                 <ImageView
                     android:id="@+id/favorites"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
                     android:alpha="0.5"
-                    android:background="@drawable/ic_comment_black_48dp"
+                    android:background="@drawable/ic_favorite_border_black_48dp"
                     android:scaleType="fitCenter" />
             </FrameLayout>
 
@@ -215,16 +216,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
                 android:layout_weight="50">
 
                 <ImageView
                     android:id="@+id/remove"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
                     android:alpha="0.5"
-                    android:background="@drawable/ic_comment_black_48dp"
+                    android:background="@drawable/ic_delete_forever_black_48dp"
                     android:scaleType="fitCenter" />
             </FrameLayout>
 
