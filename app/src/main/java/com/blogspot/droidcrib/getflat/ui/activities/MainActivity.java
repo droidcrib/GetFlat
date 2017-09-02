@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         //  Setup TabLayout
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mTabLayout.addTab(mTabLayout.newTab().setText("All"));
-        //mTabLayout.addTab(mTabLayout.newTab().setText("Favourites"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Favourites"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //  Setup ViewPager
@@ -150,31 +150,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    //district=1&roomCount=1&areaTotalMin=25&priceMax=4000&currency=2
-
-//    private void request() {
-//        AndroidNetworking.get("https://www.lun.ua/{addr}")
-//                .addPathParameter("addr", "аренда-квартир-киев")
-//                .addQueryParameter("district", "1")
-//                .addQueryParameter("roomCount", "1")
-//                .addQueryParameter("areaTotalMin", "25")
-//                //.addQueryParameter("priceMax", "4000")
-//                .addQueryParameter("currency", "2")
-//                .build()
-//                .getAsString(new StringRequestListener() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        mResp = response;
-//                        JsonDecoder.getCardsFromJSON(getJSONFromResponse(mResp));
-//                    }
-//
-//                    @Override
-//                    public void onError(ANError anError) {
-//                        Log.d(TAG, "onError: " + anError.toString());
-//                    }
-//                })
-//        ;
-//    }
 }

@@ -3,9 +3,14 @@ package com.blogspot.droidcrib.getflat.ui.fragments;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,9 +20,18 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
+import com.blogspot.droidcrib.getflat.loaders.FavoriteRecordsLoader;
+import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.networking.RestClient;
+import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -26,49 +40,63 @@ import java.util.List;
  * Created by BulanovA on 21.06.2017.
  */
 
-public class FavoriteApartmentsListFragment extends Fragment implements LoaderManager.LoaderCallbacks {
+public class FavoritesListFragment extends Fragment implements LoaderManager.LoaderCallbacks {
 
-    public static FavoriteApartmentsListFragment sApartmentsListFragment;
+    public static FavoritesListFragment sFavoritesListFragment;
     private List<Card> mCardsList;
+    private RecyclerView mRecyclerView;
+    private CardsAdapter mAdapter;
     private long mRecordId;
     private Parcelable state;
     private TextView mEmptyView;
 
+    private static final String TAG = "AppThis";
+    private String mResp;
+
     //
     // Provides instance of ApartmentsListFragment
     //
-    public static FavoriteApartmentsListFragment getInstance() {
+    public static FavoritesListFragment getInstance() {
 
-        if (sApartmentsListFragment == null) {
-            sApartmentsListFragment = new FavoriteApartmentsListFragment();
+        Log.d(TAG, "getInstance: ");
+
+        if (sFavoritesListFragment == null) {
+            sFavoritesListFragment = new FavoritesListFragment();
         }
-        return sApartmentsListFragment;
+        return sFavoritesListFragment;
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart: ");
         EventBus.getDefault().register(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
 
-//        View v = inflater.inflate(R.layout.fragment_sticky_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_list_favorite_apartments, container, false);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_favorite_apartments);
 
-        return new View(getActivity());
+
+        return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//
+        Log.d(TAG, "onResume -- start network request ");
+        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
+
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
 //        getLoaderManager().restartLoader(0, null, this);
@@ -136,38 +164,46 @@ public class FavoriteApartmentsListFragment extends Fragment implements LoaderMa
         return super.onContextItemSelected(item);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // Loaders
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
-//        return new FlatRecordsLoader(getActivity());
-        return new Loader(getActivity());
+        return new FavoriteRecordsLoader(getActivity());
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onLoadFinished(Loader loader, Object data) {
+
+        mCardsList = (List<Card>) data;
+        Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList.size());
+        mAdapter = new CardsAdapter(mCardsList);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
+    }
 //        mCardsList = (List<AlarmRecord>) data;
 //        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
 //        stickyList.setAdapter(adapter);
 //        stickyList.setEmptyView(mEmptyView);
-        // Restore previous state (including selected item index and scroll position)
-        if (state != null) {
+    // Restore previous state (including selected item index and scroll position)
+//        if (state != null) {
 //            stickyList.onRestoreInstanceState(state);
-        }
+//        }
 
 //        EventBus.getDefault().post(new AlarmsListLoadFinishedEvent());
 
-    }
 
     @Override
     public void onLoaderReset(Loader loader) {
 //        stickyList.setAdapter(null);
+        mRecyclerView.setAdapter(null);
     }
 
-//    @Subscribe
-//    public void onEvent(NewCallEvent event) {
-//        getLoaderManager().restartLoader(0, null, this);
-//    }
 
 //    /**
 //     * Removes record from database and correspondent data directory from storage
@@ -183,4 +219,19 @@ public class FavoriteApartmentsListFragment extends Fragment implements LoaderMa
 //            getLoaderManager().restartLoader(0, null, ApartmentsListFragment.this);
 //        }
 //    }
+
+
+
+    @Subscribe
+    public void onEvent(NoInternetEvent event) {
+        Snackbar.make(new View(getActivity()), "No connection", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
+    }
+
+    @Subscribe
+    public void onEvent(NewFavoriteAddedEvent event) {
+        getLoaderManager().restartLoader(0, null, this);
+    }
 }
+

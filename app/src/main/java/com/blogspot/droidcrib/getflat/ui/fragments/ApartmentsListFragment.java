@@ -226,18 +226,6 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 
 
     @Subscribe
-    public void onEvent(NewNetworkResponseEvent event) {
-        // TODO: move this to onLoadFinished
-        Log.i(TAG, "FRAGMENT onResponse: " + event.getResponse().length());
-//        mCardsList = JsonDecoder.getCardsFromJSON(getJSONFromResponse(event.getResponse()));
-//        mAdapter = new CardsAdapter(mCardsList);
-//        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Subscribe
     public void onEventMainThread(DatabaseUpdatedEvent event) {
         //TODO: restart loader when database updated
         Log.d(TAG, "onEvent: FRAGMENT database updater event");

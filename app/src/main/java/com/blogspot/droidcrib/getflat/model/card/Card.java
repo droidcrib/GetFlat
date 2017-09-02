@@ -162,6 +162,63 @@ public class Card extends Model {
         return cardList;
     }
 
+    public static List<Card> queryFavorites() {
+        List<Card> cardList = new Select()
+                .from(Card.class)
+                .where("isFavourite = ?", true)
+                .execute();
+
+        for (Card card : cardList) {
+            card.geo = card.getMany(Geo.class, "card").get(0);
+
+//            if (card.geo.address != null) {
+            try {
+                card.geo.address = card.geo.getAddresses().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "address: ", e);
+            }
+            try {
+                card.geo.district = card.geo.getDistricts().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "district: ", e);
+            }
+            try {
+                card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "microdistrict: ", e);
+            }
+            try {
+                card.geo.building = card.geo.getBuildings().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "building: ", e);
+            }
+            try {
+                card.photo = card.getPhotos().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "photo: ", e);
+            }
+
+            try {
+                card.description = card.getDescriptions().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ", e);
+            }
+            try {
+                card.sourceLink = card.getSourceLinks().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ", e);
+            }
+            try {
+                card.time = card.getTimes().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ", e);
+            }
+            card.houseFeatures = card.getHouseFeatures();
+            card.realtyFeatures = card.getRealtyFeatures();
+        }
+        return cardList;
+    }
+
     public List<Photo> getPhotos() {
         return getMany(Photo.class, "card");
     }

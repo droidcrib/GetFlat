@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.blogspot.droidcrib.getflat.ui.fragments.ApartmentsListFragment;
+import com.blogspot.droidcrib.getflat.ui.fragments.FavoritesListFragment;
 
 /**
  *
@@ -31,7 +32,7 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return ApartmentsListFragment.getInstance();
             case 1:
-          //      return  ApartmentsListFragment.getInstance();
+                return  FavoritesListFragment.getInstance();
             case 2:
             //    return NotesListFragment.getInstance();
 
