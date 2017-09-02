@@ -3,6 +3,7 @@ package com.blogspot.droidcrib.getflat.model.card;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.activeandroid.Model;
@@ -155,23 +156,9 @@ public class Card extends Model {
             } catch (IndexOutOfBoundsException e) {
                 Log.e("err", ": ", e);
             }
-
-
                 card.houseFeatures = card.getHouseFeatures();
                 card.realtyFeatures = card.getRealtyFeatures();
-
-
-
-
-//            List<HouseFeature> hf = card.houseFeatures;
-//            for (HouseFeature feature : hf) {
-//                feature.insert(card);
-//            }
-//            List<RealtyFeature> rf = card.realtyFeatures;
-//            for (RealtyFeature feature : rf) {
-//                feature.insert(card);
         }
-
         return cardList;
     }
 
@@ -186,6 +173,18 @@ public class Card extends Model {
     }
     public List<Time> getTimes() {
         return getMany(Time.class, "card");
+    }
+
+
+    public static List<Integer> getPageIds(){
+        List<Integer> ids = new ArrayList<>();
+        List<Card> cardList = new Select()
+                .from(Card.class)
+                .execute();
+        for (Card card : cardList) {
+            ids.add(card.pageId);
+        }
+        return ids;
     }
 
 //    public static List<Geo> getGeos() {

@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 
 public class JsonDecoder {
-    public static final String TAG = "AppThis";
+    public static final String TAG = "JsonDecoder";
 
     private JsonDecoder() {
         super();
@@ -35,38 +35,44 @@ public class JsonDecoder {
 
 
     public static void saveCardsToDatabase(final List<Card> cardsList) {
-        Log.d(TAG, "saveCardsToDatabase: " + cardsList.size());
+
         new Thread(new Runnable() {
             @Override
             public void run() {
+                List<Integer> pageids = Card.getPageIds();
                 //Save cards to database
                 for (Card card : cardsList) {
-                    card.insert();
-                    card.geo.insert(card);
-                    if (card.geo.address != null) {
-                        card.geo.address.insert(card);
-                    }
-                    if (card.geo.district != null) {
-                        card.geo.district.insert(card);
-                    }
-                    if (card.geo.microdistrict != null) {
-                        card.geo.microdistrict.insert(card);
-                    }
-                    if (card.geo.building != null) {
-                        card.geo.building.insert(card);
-                    }
-                    card.photo.insert(card);
-                    card.description.insert(card);
-                    card.sourceLink.insert(card);
-                    card.time.insert(card);
+                    if(!pageids.contains(card.pageId)) {
+                        Log.d(TAG, "run: Card added!" );
+                        card.insert();
+                        card.geo.insert(card);
+                        if (card.geo.address != null) {
+                            card.geo.address.insert(card);
+                        }
+                        if (card.geo.district != null) {
+                            card.geo.district.insert(card);
+                        }
+                        if (card.geo.microdistrict != null) {
+                            card.geo.microdistrict.insert(card);
+                        }
+                        if (card.geo.building != null) {
+                            card.geo.building.insert(card);
+                        }
+                        card.photo.insert(card);
+                        card.description.insert(card);
+                        card.sourceLink.insert(card);
+                        card.time.insert(card);
 
-                    List<HouseFeature> hf = card.houseFeatures;
-                    for (HouseFeature feature : hf) {
-                        feature.insert(card);
-                    }
-                    List<RealtyFeature> rf = card.realtyFeatures;
-                    for (RealtyFeature feature : rf) {
-                        feature.insert(card);
+                        List<HouseFeature> hf = card.houseFeatures;
+                        for (HouseFeature feature : hf) {
+                            feature.insert(card);
+                        }
+                        List<RealtyFeature> rf = card.realtyFeatures;
+                        for (RealtyFeature feature : rf) {
+                            feature.insert(card);
+                        }
+                    } else {
+                        Log.d(TAG, "run: Page ID exists. Skipped");
                     }
                 }
                 // TODO: post "finished" event from here
