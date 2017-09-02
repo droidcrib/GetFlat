@@ -29,6 +29,7 @@ import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
+import com.blogspot.droidcrib.getflat.ui.adapters.FavoritesAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,7 +46,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     public static FavoritesListFragment sFavoritesListFragment;
     private List<Card> mCardsList;
     private RecyclerView mRecyclerView;
-    private CardsAdapter mAdapter;
+    private FavoritesAdapter mAdapter;
     private long mRecordId;
     private Parcelable state;
     private TextView mEmptyView;
@@ -180,7 +181,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
         mCardsList = (List<Card>) data;
         Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList.size());
-        mAdapter = new CardsAdapter(mCardsList);
+        mAdapter = new FavoritesAdapter(mCardsList);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -231,7 +232,9 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     @Subscribe
     public void onEvent(NewFavoriteAddedEvent event) {
+        Log.d(TAG, "onEvent: NewFavoriteAddedEvent happens");
         getLoaderManager().restartLoader(0, null, this);
+
     }
 }
 
