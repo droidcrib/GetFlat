@@ -96,11 +96,10 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume -- start network request ");
-        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
 
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
-//        getLoaderManager().restartLoader(0, null, this);
+        getLoaderManager().restartLoader(0, null, this);
 //
 //        // List items click processing
 //        stickyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
