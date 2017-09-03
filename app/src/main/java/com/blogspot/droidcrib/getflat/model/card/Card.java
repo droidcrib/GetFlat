@@ -244,6 +244,13 @@ public class Card extends Model {
         return ids;
     }
 
+    public static Card queryById(long id){
+        return new Select()
+                .from(Card.class)
+                .where("_id = ?", id)
+                .executeSingle();
+    }
+
 //    public static List<Geo> getGeos() {
 //        return getMany(Geo.class, "card");
 //    }
@@ -277,8 +284,10 @@ public class Card extends Model {
         return isFavourite;
     }
 
-    public void setIsFavourite(Boolean isFavourite) {
-        this.isFavourite = isFavourite;
+    public static void setFavourite(long id, Boolean isFavourite) {
+        Card card = Card.queryById(id);
+        card.isFavourite = isFavourite;
+        card.save();
     }
 
     public Boolean getIsVisited() {
