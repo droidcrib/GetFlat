@@ -67,6 +67,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         if (card.description != null) {
             holder.description.setText(card.description.text);
         }
+        holder.photo.setImageResource(R.drawable.house_holder);
         if (card.photo != null) {
             AndroidNetworking.get(card.photo.url)
                     .build()
