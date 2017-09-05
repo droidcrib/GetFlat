@@ -156,8 +156,8 @@ public class Card extends Model {
             } catch (IndexOutOfBoundsException e) {
                 Log.e("err", ": ", e);
             }
-                card.houseFeatures = card.getHouseFeatures();
-                card.realtyFeatures = card.getRealtyFeatures();
+            card.houseFeatures = card.getHouseFeatures();
+            card.realtyFeatures = card.getRealtyFeatures();
         }
         return cardList;
     }
@@ -222,18 +222,21 @@ public class Card extends Model {
     public List<Photo> getPhotos() {
         return getMany(Photo.class, "card");
     }
+
     public List<Description> getDescriptions() {
         return getMany(Description.class, "card");
     }
+
     public List<SourceLink> getSourceLinks() {
         return getMany(SourceLink.class, "card");
     }
+
     public List<Time> getTimes() {
         return getMany(Time.class, "card");
     }
 
 
-    public static List<Integer> getPageIds(){
+    public static List<Integer> getPageIds() {
         List<Integer> ids = new ArrayList<>();
         List<Card> cardList = new Select()
                 .from(Card.class)
@@ -244,7 +247,7 @@ public class Card extends Model {
         return ids;
     }
 
-    public static Card queryById(long id){
+    public static Card queryById(long id) {
         return new Select()
                 .from(Card.class)
                 .where("_id = ?", id)
@@ -256,47 +259,17 @@ public class Card extends Model {
 //    }
 
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Integer getPageId() {
-        return pageId;
-    }
-
-    public void setPageId(Integer pageId) {
-        this.pageId = pageId;
-    }
-
-    public Integer getTotalAdvertisementsCount() {
-        return totalAdvertisementsCount;
-    }
-
-    public void setTotalAdvertisementsCount(Integer totalAdvertisementsCount) {
-        this.totalAdvertisementsCount = totalAdvertisementsCount;
-    }
-
-    public Boolean getIsFavourite() {
-        return isFavourite;
-    }
-
     public static void setFavourite(long id, Boolean isFavourite) {
         Card card = Card.queryById(id);
         card.isFavourite = isFavourite;
+        card.description = null;
+        card.geo = null;
+        card.photo = null;
+        card.sourceLink = null;
+        card.time = null;
         card.save();
     }
 
-    public Boolean getIsVisited() {
-        return isVisited;
-    }
-
-    public void setIsVisited(Boolean isVisited) {
-        this.isVisited = isVisited;
-    }
 
     public Geo getGeo() {
         return geo;
@@ -306,117 +279,16 @@ public class Card extends Model {
         this.geo = geo;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getPriceSqm() {
-        return priceSqm;
-    }
-
-    public void setPriceSqm(String priceSqm) {
-        this.priceSqm = priceSqm;
-    }
-
-    public Boolean getDoShowPriceSqm() {
-        return doShowPriceSqm;
-    }
-
-    public void setDoShowPriceSqm(Boolean doShowPriceSqm) {
-        this.doShowPriceSqm = doShowPriceSqm;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
-    public Photo getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
-    }
-
-    public Integer getImagesCount() {
-        return imagesCount;
-    }
-
-    public void setImagesCount(Integer imagesCount) {
-        this.imagesCount = imagesCount;
-    }
-
-    public SourceLink getSourceLink() {
-        return sourceLink;
-    }
-
-    public void setSourceLink(SourceLink sourceLink) {
-        this.sourceLink = sourceLink;
-    }
-
-    public SingleRealtyPageLink getSingleRealtyPageLink() {
-        return singleRealtyPageLink;
-    }
-
-    public void setSingleRealtyPageLink(SingleRealtyPageLink singleRealtyPageLink) {
-        this.singleRealtyPageLink = singleRealtyPageLink;
-    }
-
-    public AdvertisementFeatures getAdvertisementFeatures() {
-        return advertisementFeatures;
-    }
-
-    public void setAdvertisementFeatures(AdvertisementFeatures advertisementFeatures) {
-        this.advertisementFeatures = advertisementFeatures;
-    }
 
     public List<RealtyFeature> getRealtyFeatures() {
         return getMany(RealtyFeature.class, "card");
     }
 
-    public void setRealtyFeatures(List<RealtyFeature> realtyFeatures) {
-        this.realtyFeatures = realtyFeatures;
-    }
 
     public List<HouseFeature> getHouseFeatures() {
         return getMany(HouseFeature.class, "card");
     }
 
-    public void setHouseFeatures(List<HouseFeature> houseFeatures) {
-        this.houseFeatures = houseFeatures;
-    }
-
-    public Description getDescription() {
-        return description;
-    }
-
-    public void setDescription(Description description) {
-        this.description = description;
-    }
-
-    public ActionElementsLabels getActionElementsLabels() {
-        return actionElementsLabels;
-    }
-
-    public void setActionElementsLabels(ActionElementsLabels actionElementsLabels) {
-        this.actionElementsLabels = actionElementsLabels;
-    }
-
-    public String getActionOtherContactsUrl() {
-        return actionOtherContactsUrl;
-    }
-
-    public void setActionOtherContactsUrl(String actionOtherContactsUrl) {
-        this.actionOtherContactsUrl = actionOtherContactsUrl;
-    }
 
     @Override
     public String toString() {
