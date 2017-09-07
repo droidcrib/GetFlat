@@ -51,8 +51,12 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     private long mRecordId;
     private Parcelable state;
     private TextView mEmptyView;
+    //    int positionIndex;
+//    int topView;
+//    LinearLayoutManager llManager = new LinearLayoutManager(getActivity());
+    int currentVisiblePosition = 0;
 
-    private static final String TAG = "AppThis";
+    private static final String TAG = "FavoritesListFragment";
     private String mResp;
 
     //
@@ -115,8 +119,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onPause() {
-        // Save ListView state @ onPause
-//        state = stickyList.onSaveInstanceState();
+
         super.onPause();
     }
 
@@ -186,7 +189,13 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.scrollToPosition(currentVisiblePosition);
+        currentVisiblePosition = 0;
+
     }
+
+
 //        mCardsList = (List<AlarmRecord>) data;
 //        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
 //        stickyList.setAdapter(adapter);
@@ -222,7 +231,6 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 //    }
 
 
-
     @Subscribe
     public void onEvent(NoInternetEvent event) {
         Snackbar.make(new View(getActivity()), "No connection", Snackbar.LENGTH_LONG)
@@ -232,11 +240,14 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     @Subscribe
     public void onEvent(NewFavoriteAddedEvent event) {
-       getLoaderManager().restartLoader(0, null, this);
+        getLoaderManager().restartLoader(0, null, this);
     }
+
     @Subscribe
     public void onEvent(NewFavoriteRemovedEvent event) {
-       getLoaderManager().restartLoader(0, null, this);
+        currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
+        getLoaderManager().restartLoader(0, null, this);
     }
 }
 
