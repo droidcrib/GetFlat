@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
@@ -238,6 +240,12 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         Snackbar.make(new View(getActivity()), "No connection", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
 
+    }
+
+    @Subscribe
+    public void onEvent(NewFavoriteRemovedEvent event) {
+        Log.d(TAG, "onEvent: NewFavoriteAddedEvent happens");
+        getLoaderManager().restartLoader(0, null, this);
     }
 }
 

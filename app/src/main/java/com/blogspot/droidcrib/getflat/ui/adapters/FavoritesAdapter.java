@@ -13,7 +13,11 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -40,7 +44,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
 
     @Override
     public void onBindViewHolder(final CardViewHolder holder, int position) {
-        Card card = cardList.get(position);
+        final Card card = cardList.get(position);
         Log.d(TAG, "onBindViewHolder: Card = " + card.toString());
         if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
             holder.street.setText(card.geo.address.streetOrBuilding);
@@ -64,7 +68,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
         }
 
         if (card.description != null) {
-            holder.descriprion.setText(card.description.text);
+            holder.description.setText(card.description.text);
         }
         if (card.photo != null) {
             AndroidNetworking.get(card.photo.url)
@@ -82,6 +86,15 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
                         }
                     });
         }
+
+        holder.favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Card.setFavourite(card.getId(), false);
+                EventBus.getDefault().post(new NewFavoriteRemovedEvent());
+            }
+        });
+
     }
 
     @Override
@@ -91,8 +104,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView street, number, price, rooms, meters,
-                floor, descriprion;
-        ImageView photo;
+                floor, description;
+        ImageView photo, favorites, remove;
 
         public CardViewHolder(View view) {
             super(view);
@@ -102,9 +115,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             rooms = (TextView) view.findViewById(R.id.id_list_row_rooms);
             meters = (TextView) view.findViewById(R.id.id_list_row_meters);
             floor = (TextView) view.findViewById(R.id.id_list_row_floor);
-            descriprion = (TextView) view.findViewById(R.id.id_list_row_description);
+            description = (TextView) view.findViewById(R.id.id_list_row_description);
             photo = (ImageView) view.findViewById(R.id.id_list_row_photo);
-
+            favorites = (ImageView) view.findViewById(R.id.f_favorites);
+            remove = (ImageView) view.findViewById(R.id.f_remove);
         }
     }
+
 }

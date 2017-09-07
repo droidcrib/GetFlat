@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FavoriteRecordsLoader;
@@ -231,9 +232,11 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     @Subscribe
     public void onEvent(NewFavoriteAddedEvent event) {
-        Log.d(TAG, "onEvent: NewFavoriteAddedEvent happens");
-        getLoaderManager().restartLoader(0, null, this);
-
+       getLoaderManager().restartLoader(0, null, this);
+    }
+    @Subscribe
+    public void onEvent(NewFavoriteRemovedEvent event) {
+       getLoaderManager().restartLoader(0, null, this);
     }
 }
 

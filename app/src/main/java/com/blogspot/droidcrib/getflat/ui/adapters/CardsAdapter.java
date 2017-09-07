@@ -68,7 +68,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             holder.description.setText(card.description.text);
         }
         //holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
-        favoritesSetter(card, holder);
+        favoritesChecker(card, holder);
         holder.photo.setImageResource(R.drawable.house_holder);
         if (card.photo != null) {
             AndroidNetworking.get(card.photo.url)
@@ -90,7 +90,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         holder.favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Card.setFavourite(card.getId(), true);
                 favoritesSetter(card, holder);
                 EventBus.getDefault().post(new NewFavoriteAddedEvent());
             }
@@ -122,11 +121,21 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         }
     }
 
-    private void favoritesSetter(Card card, CardViewHolder holder) {
+    private void favoritesChecker(Card card, CardViewHolder holder) {
         if (card.isFavourite != null && card.isFavourite) {
             holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
         } else {
             holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+        }
+    }
+
+    private void favoritesSetter(Card card, CardViewHolder holder) {
+        if (card.isFavourite != null && card.isFavourite) {
+            Card.setFavourite(card.getId(), false);
+            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+        } else {
+            Card.setFavourite(card.getId(), true);
+            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
         }
     }
 }
