@@ -34,6 +34,8 @@
                 com.blogspot.droidcrib.getflat.model.card.SingleRealtyPageLink,
                 com.blogspot.droidcrib.getflat.model.card.SourceLink,
                 com.blogspot.droidcrib.getflat.model.card.Time,
+                com.blogspot.droidcrib.getflat.model.userdata.UserNotes,
+                com.blogspot.droidcrib.getflat.model.userdata.Deleted,
                 com.blogspot.droidcrib.getflat.model.parameters.AreaParam,
                 com.blogspot.droidcrib.getflat.model.parameters.CityParam,
                 com.blogspot.droidcrib.getflat.model.parameters.DistrictParam,

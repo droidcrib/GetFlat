@@ -1,6 +1,5 @@
 package com.blogspot.droidcrib.getflat.networking;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
@@ -8,6 +7,7 @@ import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.card.HouseFeature;
 import com.blogspot.droidcrib.getflat.model.card.Message;
 import com.blogspot.droidcrib.getflat.model.card.RealtyFeature;
+import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,9 +40,11 @@ public class JsonDecoder {
             @Override
             public void run() {
                 List<Integer> pageids = Card.getPageIds();
+                List<Integer> deletedPageids = Deleted.getDeletedPageIds();
+
                 //Save cards to database
                 for (Card card : cardsList) {
-                    if(!pageids.contains(card.pageId)) {
+                    if(!pageids.contains(card.pageId) && !deletedPageids.contains(card.pageId)) {
                         Log.d(TAG, "run: Card added!" );
                         card.insert();
                         card.geo.insert(card);
