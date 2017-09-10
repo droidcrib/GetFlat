@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
@@ -54,6 +55,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     private long mRecordId;
     private Parcelable state;
     private TextView mEmptyView;
+    int currentVisiblePosition = 0;
 
     private static final String TAG = "AppThis";
     private String mResp;
@@ -191,6 +193,10 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+
+        // Restore scrolling position
+        mRecyclerView.scrollToPosition(currentVisiblePosition);
+        currentVisiblePosition = 0;
     }
 //        mCardsList = (List<AlarmRecord>) data;
 //        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
@@ -231,6 +237,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     public void onEventMainThread(DatabaseUpdatedEvent event) {
         //TODO: restart loader when database updated
         Log.d(TAG, "onEvent: FRAGMENT database updater event");
+        // Save scrolling position
         getLoaderManager().restartLoader(0, null, this);
 
     }
@@ -245,7 +252,17 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Subscribe
     public void onEvent(NewFavoriteRemovedEvent event) {
         Log.d(TAG, "onEvent: NewFavoriteAddedEvent happens");
+        currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
         getLoaderManager().restartLoader(0, null, this);
+    }
+
+    @Subscribe
+    public void onEvent(CardRemovedEvent event) {
+        Log.d(TAG, "onEvent: CardRemovedEvent happens");
+        currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
+        getLoaderManager().restartLoader(0, null, this);;
     }
 }
 

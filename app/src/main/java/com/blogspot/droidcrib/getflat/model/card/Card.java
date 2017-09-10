@@ -13,6 +13,7 @@ import com.activeandroid.query.Select;
 import com.blogspot.droidcrib.getflat.model.ActionElementsLabels;
 import com.blogspot.droidcrib.getflat.model.AdvertisementFeatures;
 import com.blogspot.droidcrib.getflat.model.SingleRealtyPageLink;
+import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,6 +21,8 @@ import static com.facebook.stetho.inspector.network.ResponseHandlingInputStream.
 
 @Table(name = "Cards", id = "_id")
 public class Card extends Model {
+
+    private static final String TAG = "Card";
 
     @Column(name = "type")
     @SerializedName("type")
@@ -102,19 +105,23 @@ public class Card extends Model {
     @Expose
     public String actionOtherContactsUrl;
 
+    @Column(name = "isDeleted")
+    public Boolean isDeleted;
+
     public void insert() {
+        this.isDeleted = false;
         this.save();
     }
 
     public static List<Card> queryAll() {
         List<Card> cardList = new Select()
                 .from(Card.class)
+                .where("isDeleted = ?", false)
                 .execute();
 
         for (Card card : cardList) {
             card.geo = card.getMany(Geo.class, "card").get(0);
-
-//            if (card.geo.address != null) {
+            Log.d(TAG, "queryAll: -- not in deleted");
             try {
                 card.geo.address = card.geo.getAddresses().get(0);
             } catch (IndexOutOfBoundsException e) {
@@ -158,6 +165,7 @@ public class Card extends Model {
             }
             card.houseFeatures = card.getHouseFeatures();
             card.realtyFeatures = card.getRealtyFeatures();
+
         }
         return cardList;
     }
@@ -254,6 +262,13 @@ public class Card extends Model {
                 .executeSingle();
     }
 
+    public static Card queryByPageid(int pageId) {
+        return new Select()
+                .from(Card.class)
+                .where("pageId = ?", pageId)
+                .executeSingle();
+    }
+
 //    public static List<Geo> getGeos() {
 //        return getMany(Geo.class, "card");
 //    }
@@ -267,6 +282,12 @@ public class Card extends Model {
         card.photo = null;
         card.sourceLink = null;
         card.time = null;
+        card.save();
+    }
+
+    public static void setDeleted(int pageId, boolean isDeleted){
+        Card card = Card.queryByPageid(pageId);
+        card.isDeleted = isDeleted;
         card.save();
     }
 

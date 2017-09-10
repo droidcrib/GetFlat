@@ -13,6 +13,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
@@ -101,8 +102,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Card.setDeleted(card.pageId, true);
                 Deleted.insert(card);
-                EventBus.getDefault().post(new DatabaseUpdatedEvent());
+                EventBus.getDefault().post(new CardRemovedEvent());
             }
         });
     }
