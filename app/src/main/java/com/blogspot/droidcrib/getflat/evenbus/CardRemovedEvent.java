@@ -6,19 +6,13 @@ package com.blogspot.droidcrib.getflat.evenbus;
 
 public class CardRemovedEvent {
 
-
-    private int position;
     private int pageId;
 
-    public CardRemovedEvent(int position, int pageId) {
-        this.position = position;
+    public CardRemovedEvent(int pageId) {
         this.pageId = pageId;
     }
 
 
-    public int getPosition() {
-        return position;
-    }
 
     public int getPageId() {
         return pageId;

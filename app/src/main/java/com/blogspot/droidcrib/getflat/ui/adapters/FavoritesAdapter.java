@@ -13,9 +13,10 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
-import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -91,7 +92,16 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             @Override
             public void onClick(View view) {
                 Card.setFavourite(card.getId(), false);
-                EventBus.getDefault().post(new NewFavoriteRemovedEvent());
+                EventBus.getDefault().post(new FavoriteRemovedEvent());
+            }
+        });
+
+        holder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Card.setDeleted(card.pageId, true);
+                Deleted.insert(card);
+                EventBus.getDefault().post(new CardRemovedEvent(card.pageId));
             }
         });
 

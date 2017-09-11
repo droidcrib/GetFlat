@@ -22,15 +22,10 @@ import android.widget.TextView;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
+import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
-import com.blogspot.droidcrib.getflat.model.card.Geo;
-import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
 
@@ -38,8 +33,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
-
-import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getJSONFromResponse;
 
 
 /**
@@ -250,8 +243,8 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     }
 
     @Subscribe
-    public void onEvent(NewFavoriteRemovedEvent event) {
-        Log.d(TAG, "onEvent: NewFavoriteAddedEvent happens");
+    public void onEvent(FavoriteRemovedEvent event) {
+        Log.d(TAG, "onEvent: FavoriteAddedEvent happens");
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
         getLoaderManager().restartLoader(0, null, this);
@@ -260,8 +253,12 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Subscribe
     public void onEvent(CardRemovedEvent event) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        mCardsList.remove(event.getPosition());
-        mAdapter.notifyDataSetChanged();
+        for (Card c : mCardsList) {
+            if (c.pageId == event.getPageId()) {
+                mCardsList.remove(c);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
     }
 }
 

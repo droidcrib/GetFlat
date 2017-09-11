@@ -14,8 +14,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
 
@@ -70,7 +69,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         if (card.description != null) {
             holder.description.setText(card.description.text);
         }
-        //holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
         favoritesChecker(card, holder);
         holder.photo.setImageResource(R.drawable.house_holder);
         if (card.photo != null) {
@@ -94,7 +92,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             @Override
             public void onClick(View view) {
                 favoritesSetter(card, holder);
-                EventBus.getDefault().post(new NewFavoriteAddedEvent());
+                EventBus.getDefault().post(new FavoriteAddedEvent());
             }
         });
 
@@ -104,7 +102,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             public void onClick(View view) {
                 Card.setDeleted(card.pageId, true);
                 Deleted.insert(card);
-                EventBus.getDefault().post(new CardRemovedEvent(position, card.pageId));
+                EventBus.getDefault().post(new CardRemovedEvent(card.pageId));
             }
         });
     }

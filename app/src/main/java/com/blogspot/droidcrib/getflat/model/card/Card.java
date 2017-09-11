@@ -173,7 +173,7 @@ public class Card extends Model {
     public static List<Card> queryFavorites() {
         List<Card> cardList = new Select()
                 .from(Card.class)
-                .where("isFavourite = ?", true)
+                .where("isFavourite = ? AND  isDeleted = ?", true, false)
                 .execute();
 
         for (Card card : cardList) {

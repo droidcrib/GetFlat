@@ -21,16 +21,11 @@ import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
+import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FavoriteRecordsLoader;
-import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
-import com.blogspot.droidcrib.getflat.networking.RestClient;
-import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
 import com.blogspot.droidcrib.getflat.ui.adapters.FavoritesAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -240,12 +235,12 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     }
 
     @Subscribe
-    public void onEvent(NewFavoriteAddedEvent event) {
+    public void onEvent(FavoriteAddedEvent event) {
         getLoaderManager().restartLoader(0, null, this);
     }
 
     @Subscribe
-    public void onEvent(NewFavoriteRemovedEvent event) {
+    public void onEvent(FavoriteRemovedEvent event) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
         getLoaderManager().restartLoader(0, null, this);
