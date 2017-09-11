@@ -288,6 +288,11 @@ public class Card extends Model {
     public static void setDeleted(int pageId, boolean isDeleted){
         Card card = Card.queryByPageid(pageId);
         card.isDeleted = isDeleted;
+        card.description = null;
+        card.geo = null;
+        card.photo = null;
+        card.sourceLink = null;
+        card.time = null;
         card.save();
     }
 
