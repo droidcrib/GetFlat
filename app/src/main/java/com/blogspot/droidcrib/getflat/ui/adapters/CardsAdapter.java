@@ -45,7 +45,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     }
 
     @Override
-    public void onBindViewHolder(final CardViewHolder holder, int position) {
+    public void onBindViewHolder(final CardViewHolder holder, final int position) {
         final Card card = cardList.get(position);
         Log.d(TAG, "onBindViewHolder: Card = " + card.toString());
         if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
@@ -104,7 +104,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             public void onClick(View view) {
                 Card.setDeleted(card.pageId, true);
                 Deleted.insert(card);
-                EventBus.getDefault().post(new CardRemovedEvent());
+                EventBus.getDefault().post(new CardRemovedEvent(position, card.pageId));
             }
         });
     }

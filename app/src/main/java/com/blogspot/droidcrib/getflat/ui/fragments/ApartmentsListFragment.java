@@ -259,10 +259,9 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 
     @Subscribe
     public void onEvent(CardRemovedEvent event) {
-        Log.d(TAG, "onEvent: CardRemovedEvent happens");
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
-        getLoaderManager().restartLoader(0, null, this);;
+        mCardsList.remove(event.getPosition());
+        mAdapter.notifyDataSetChanged();
     }
 }
 

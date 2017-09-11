@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewFavoriteRemovedEvent;
@@ -248,6 +249,17 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
         getLoaderManager().restartLoader(0, null, this);
+    }
+
+    @Subscribe
+    public void onEvent(CardRemovedEvent event) {
+        currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        for (Card c : mCardsList) {
+            if (c.pageId == event.getPageId()) {
+                mCardsList.remove(c);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
     }
 }
 
