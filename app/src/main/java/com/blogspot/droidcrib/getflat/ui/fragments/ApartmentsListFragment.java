@@ -34,6 +34,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
+import static com.blogspot.droidcrib.getflat.application.App.isQueried;
+
 
 /**
  * Created by BulanovA on 21.06.2017.
@@ -50,7 +52,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     private TextView mEmptyView;
     int currentVisiblePosition = 0;
 
-    private static final String TAG = "AppThis";
+    private static final String TAG = "netTest";
     private String mResp;
 
     //
@@ -58,7 +60,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     //
     public static ApartmentsListFragment getInstance() {
 
-        Log.d(TAG, "getInstance: ");
+        Log.d(TAG, "ApartmentsListFragment -- getInstance: ");
 
         if (sApartmentsListFragment == null) {
             sApartmentsListFragment = new ApartmentsListFragment();
@@ -70,19 +72,19 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
+        Log.d(TAG, "ApartmentsListFragment -- onCreate: ");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: ");
+        Log.d(TAG, "ApartmentsListFragment -- onStart: ");
         EventBus.getDefault().register(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
+        Log.d(TAG, "ApartmentsListFragment -- onCreateView: ");
 
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
@@ -95,12 +97,12 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume -- start network request ");
-        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
+        Log.d(TAG, "ApartmentsListFragment -- onResume -- start network request ");
+
 
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
-//        getLoaderManager().restartLoader(0, null, this);
+        getLoaderManager().restartLoader(0, null, this);
 //
 //        // List items click processing
 //        stickyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -180,7 +182,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     public void onLoadFinished(Loader loader, Object data) {
 
         mCardsList = (List<Card>) data;
-        Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList.size());
+        Log.d(TAG, "ApartmentsListFragment -- onLoadFinished: mCardsList = " + mCardsList.size());
         mAdapter = new CardsAdapter(mCardsList);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -190,6 +192,11 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         // Restore scrolling position
         mRecyclerView.scrollToPosition(currentVisiblePosition);
         currentVisiblePosition = 0;
+
+        if(!isQueried) {
+            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
+            isQueried = true;
+        }
     }
 //        mCardsList = (List<AlarmRecord>) data;
 //        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
@@ -229,7 +236,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Subscribe
     public void onEventMainThread(DatabaseUpdatedEvent event) {
         //TODO: restart loader when database updated
-        Log.d(TAG, "onEvent: FRAGMENT database updater event");
+        Log.d(TAG, "ApartmentsListFragment -- onEvent: FRAGMENT database updater event");
         // Save scrolling position
         getLoaderManager().restartLoader(0, null, this);
 
@@ -244,9 +251,8 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 
     @Subscribe
     public void onEvent(FavoriteRemovedEvent event) {
-        Log.d(TAG, "onEvent: FavoriteAddedEvent happens");
+        Log.d(TAG, "ApartmentsListFragment -- onEvent: FavoriteAddedEvent happens");
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
         getLoaderManager().restartLoader(0, null, this);
     }
 
