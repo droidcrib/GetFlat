@@ -1,5 +1,6 @@
 package com.blogspot.droidcrib.getflat.ui.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -95,9 +96,24 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(TAG, "ApartmentsListFragment -- onConfigurationChanged: ");
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "ApartmentsListFragment -- onDestroy: ");
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         Log.d(TAG, "ApartmentsListFragment -- onResume -- start network request ");
+
+
 
 
 //        // List items long click processing
