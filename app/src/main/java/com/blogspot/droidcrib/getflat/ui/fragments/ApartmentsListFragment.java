@@ -105,20 +105,21 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onDestroy() {
         super.onDestroy();
+        isQueried = false;
         Log.d(TAG, "ApartmentsListFragment -- onDestroy: ");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "ApartmentsListFragment -- onResume -- start network request ");
-
+        Log.d(TAG, "ApartmentsListFragment -- onResume ");
+        getLoaderManager().restartLoader(0, null, this);
 
 
 
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
-        getLoaderManager().restartLoader(0, null, this);
+
 //
 //        // List items click processing
 //        stickyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -145,14 +146,9 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     }
 
 
-    public void scrollToListItem(long id) {
-//        for (int i = 0; i < stickyList.getCount(); i++) {
-//            if (stickyList.getItemIdAtPosition(i) == id) {
-//                stickyList.setSelection(i);
-//                return;
-//            }
-//        }
-    }
+
+
+
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -210,21 +206,11 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         currentVisiblePosition = 0;
 
         if(!isQueried) {
+            currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
             RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
             isQueried = true;
         }
     }
-//        mCardsList = (List<AlarmRecord>) data;
-//        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
-//        stickyList.setAdapter(adapter);
-//        stickyList.setEmptyView(mEmptyView);
-    // Restore previous state (including selected item index and scroll position)
-//        if (state != null) {
-//            stickyList.onRestoreInstanceState(state);
-//        }
-
-//        EventBus.getDefault().post(new AlarmsListLoadFinishedEvent());
-
 
     @Override
     public void onLoaderReset(Loader loader) {

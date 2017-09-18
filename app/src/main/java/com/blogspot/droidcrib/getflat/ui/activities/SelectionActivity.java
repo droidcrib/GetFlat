@@ -27,6 +27,7 @@ import com.blogspot.droidcrib.getflat.model.parameters.SubwayParam;
 
 import java.util.List;
 
+import static com.blogspot.droidcrib.getflat.application.App.isQueried;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_AREA_TOTAL_MIN;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_CURRENCY;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_DISTRICT;
@@ -197,6 +198,7 @@ public class SelectionActivity extends AppCompatActivity {
                 default:
                     break;
             }
+            isQueried = false;
         }
     };
 
@@ -228,6 +230,7 @@ public class SelectionActivity extends AppCompatActivity {
                 default:
                     break;
             }
+            isQueried = false;
         }
     };
 
@@ -272,6 +275,7 @@ public class SelectionActivity extends AppCompatActivity {
                 default:
                     break;
             }
+            isQueried = false;
         }
 
         @Override

@@ -125,43 +125,43 @@ public class Card extends Model {
             try {
                 card.geo.address = card.geo.getAddresses().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "address: ", e);
+                Log.e("err", "address: ");
             }
             try {
                 card.geo.district = card.geo.getDistricts().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "district: ", e);
+                Log.e("err", "district: ");
             }
             try {
                 card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "microdistrict: ", e);
+                Log.e("err", "microdistrict: ");
             }
             try {
                 card.geo.building = card.geo.getBuildings().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "building: ", e);
+                Log.e("err", "building: ");
             }
             try {
                 card.photo = card.getPhotos().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "photo: ", e);
+                Log.e("err", "photo: ");
             }
 
             try {
                 card.description = card.getDescriptions().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ", e);
+                Log.e("err", ": ");
             }
             try {
                 card.sourceLink = card.getSourceLinks().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ", e);
+                Log.e("err", ": ");
             }
             try {
                 card.time = card.getTimes().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ", e);
+                Log.e("err", ": ");
             }
             card.houseFeatures = card.getHouseFeatures();
             card.realtyFeatures = card.getRealtyFeatures();
@@ -183,43 +183,43 @@ public class Card extends Model {
             try {
                 card.geo.address = card.geo.getAddresses().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "address: ", e);
+                Log.e("err", "address: ");
             }
             try {
                 card.geo.district = card.geo.getDistricts().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "district: ", e);
+                Log.e("err", "district: ");
             }
             try {
                 card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "microdistrict: ", e);
+                Log.e("err", "microdistrict: ");
             }
             try {
                 card.geo.building = card.geo.getBuildings().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "building: ", e);
+                Log.e("err", "building: ");
             }
             try {
                 card.photo = card.getPhotos().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "photo: ", e);
+                Log.e("err", "photo: ");
             }
 
             try {
                 card.description = card.getDescriptions().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ", e);
+                Log.e("err", ": ");
             }
             try {
                 card.sourceLink = card.getSourceLinks().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ", e);
+                Log.e("err", ": ");
             }
             try {
                 card.time = card.getTimes().get(0);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ", e);
+                Log.e("err", ": ");
             }
             card.houseFeatures = card.getHouseFeatures();
             card.realtyFeatures = card.getRealtyFeatures();
@@ -314,31 +314,5 @@ public class Card extends Model {
     public List<HouseFeature> getHouseFeatures() {
         return getMany(HouseFeature.class, "card");
     }
-
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "type='" + type + '\'' +
-                ",\n  pageId=" + pageId +
-                ",\n  totalAdvertisementsCount=" + totalAdvertisementsCount +
-                ",\n  isFavourite=" + isFavourite +
-                ",\n  isVisited=" + isVisited +
-                ",\n  geo=" + geo +
-                ",\n  price='" + price + '\'' +
-                ",\n  priceSqm='" + priceSqm + '\'' +
-                ",\n  doShowPriceSqm=" + doShowPriceSqm +
-                ",\n  time=" + time +
-                ",\n  photo=" + photo +
-                ",\n  imagesCount=" + imagesCount +
-                ",\n  sourceLink=" + sourceLink +
-                ",\n  singleRealtyPageLink=" + singleRealtyPageLink +
-                ",\n  advertisementFeatures=" + advertisementFeatures +
-                ",\n  realtyFeatures=" + realtyFeatures +
-                ",\n  houseFeatures=" + houseFeatures +
-                ",\n  description=" + description +
-                ",\n  actionElementsLabels=" + actionElementsLabels +
-                ",\n  actionOtherContactsUrl='" + actionOtherContactsUrl + '\'' +
-                '}';
-    }
+    
 }
