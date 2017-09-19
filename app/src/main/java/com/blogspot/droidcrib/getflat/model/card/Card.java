@@ -172,6 +172,63 @@ public class Card extends Model {
         return cardList;
     }
 
+    public static List<Card> queryAllNotFavourites() {
+        List<Card> cardList = new Select()
+                .from(Card.class)
+                .where("isDeleted = ? AND (isFavourite = ? OR isFavourite is null)", false, false)
+                .execute();
+
+        for (Card card : cardList) {
+            card.geo = card.getMany(Geo.class, "card").get(0);
+            Log.d(TAG, "queryAll: -- not in deleted");
+            try {
+                card.geo.address = card.geo.getAddresses().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "address: ");
+            }
+            try {
+                card.geo.district = card.geo.getDistricts().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "district: ");
+            }
+            try {
+                card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "microdistrict: ");
+            }
+            try {
+                card.geo.building = card.geo.getBuildings().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "building: ");
+            }
+            try {
+                card.photo = card.getPhotos().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", "photo: ");
+            }
+
+            try {
+                card.description = card.getDescriptions().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ");
+            }
+            try {
+                card.sourceLink = card.getSourceLinks().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ");
+            }
+            try {
+                card.time = card.getTimes().get(0);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("err", ": ");
+            }
+            card.houseFeatures = card.getHouseFeatures();
+            card.realtyFeatures = card.getRealtyFeatures();
+
+        }
+        return cardList;
+    }
+
     public static List<Card> queryFavorites() {
         List<Card> cardList = new Select()
                 .from(Card.class)
@@ -230,10 +287,9 @@ public class Card extends Model {
     }
 
 
-    public static void deleteAllNotFavorites(){
+    public static void deleteAllNotFavorites() {
         SQLiteUtils.execSql("DELETE FROM Cards WHERE isFavourite is null or isFavourite = 0");
     }
-
 
 
     public List<Photo> getPhotos() {
@@ -294,7 +350,7 @@ public class Card extends Model {
         card.save();
     }
 
-    public static void setDeleted(int pageId, boolean isDeleted){
+    public static void setDeleted(int pageId, boolean isDeleted) {
         Card card = Card.queryByPageid(pageId);
         card.isDeleted = isDeleted;
         card.description = null;
@@ -323,5 +379,5 @@ public class Card extends Model {
     public List<HouseFeature> getHouseFeatures() {
         return getMany(HouseFeature.class, "card");
     }
-    
+
 }
