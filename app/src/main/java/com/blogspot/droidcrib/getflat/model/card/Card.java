@@ -9,7 +9,9 @@ import java.util.List;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.activeandroid.util.SQLiteUtils;
 import com.blogspot.droidcrib.getflat.model.ActionElementsLabels;
 import com.blogspot.droidcrib.getflat.model.AdvertisementFeatures;
 import com.blogspot.droidcrib.getflat.model.SingleRealtyPageLink;
@@ -226,6 +228,13 @@ public class Card extends Model {
         }
         return cardList;
     }
+
+
+    public static void deleteAllNotFavorites(){
+        SQLiteUtils.execSql("DELETE FROM Cards WHERE isFavourite is null or isFavourite = 0");
+    }
+
+
 
     public List<Photo> getPhotos() {
         return getMany(Photo.class, "card");

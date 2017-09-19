@@ -16,6 +16,7 @@ import android.widget.Spinner;
 
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.application.App;
+import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.parameters.AreaParam;
 import com.blogspot.droidcrib.getflat.model.parameters.CityParam;
 import com.blogspot.droidcrib.getflat.model.parameters.DistrictParam;
@@ -199,6 +200,7 @@ public class SelectionActivity extends AppCompatActivity {
                     break;
             }
             isQueried = false;
+            Card.deleteAllNotFavorites();
         }
     };
 
@@ -231,6 +233,7 @@ public class SelectionActivity extends AppCompatActivity {
                     break;
             }
             isQueried = false;
+            Card.deleteAllNotFavorites();
         }
     };
 
@@ -276,6 +279,7 @@ public class SelectionActivity extends AppCompatActivity {
                     break;
             }
             isQueried = false;
+            Card.deleteAllNotFavorites();
         }
 
         @Override

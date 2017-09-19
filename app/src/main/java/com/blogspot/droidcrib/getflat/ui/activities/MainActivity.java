@@ -1,5 +1,6 @@
 package com.blogspot.droidcrib.getflat.ui.activities;
 
+// TODO: удалять записи из БД при изменении настроек
 //TODO: записываем в базу только те, для которых не существет такого pageid
 //TODO: кэшируем фото во время его загрузки в ленте
 //TODO: список "favorites"
