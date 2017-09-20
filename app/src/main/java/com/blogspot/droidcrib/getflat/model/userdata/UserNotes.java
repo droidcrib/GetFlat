@@ -18,4 +18,11 @@ public class UserNotes extends Model {
     @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
 
+
+    public static void insert(Card card){
+        Deleted deleted = new Deleted();
+        deleted.pageId = card.pageId;
+        deleted.save();
+    }
+
 }
