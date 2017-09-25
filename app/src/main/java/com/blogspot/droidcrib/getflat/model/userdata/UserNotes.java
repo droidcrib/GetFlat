@@ -20,9 +20,9 @@ public class UserNotes extends Model {
 
 
     public static void insert(Card card){
-        Deleted deleted = new Deleted();
-        deleted.pageId = card.pageId;
-        deleted.save();
+        UserNotes userNote = new UserNotes();
+        userNote.card = card;
+        userNote.save();
     }
 
 }
