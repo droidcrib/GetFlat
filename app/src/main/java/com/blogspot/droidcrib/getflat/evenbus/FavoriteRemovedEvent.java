@@ -6,7 +6,14 @@ package com.blogspot.droidcrib.getflat.evenbus;
 
 public class FavoriteRemovedEvent {
 
-    public FavoriteRemovedEvent() {
+    private int pageId;
+
+    public FavoriteRemovedEvent(int pageId) {
+        this.pageId = pageId;
+    }
+
+    public int getPageId() {
+        return pageId;
     }
 }
 

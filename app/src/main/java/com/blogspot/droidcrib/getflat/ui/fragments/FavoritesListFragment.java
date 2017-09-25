@@ -31,7 +31,9 @@ import com.blogspot.droidcrib.getflat.ui.adapters.FavoritesAdapter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -186,6 +188,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
 
+        // Restore scrolling position
         mRecyclerView.scrollToPosition(currentVisiblePosition);
         currentVisiblePosition = 0;
 
@@ -242,16 +245,40 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     @Subscribe
     public void onEvent(FavoriteRemovedEvent event) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        Log.d(TAG, "onPause: currentVisiblePosition = " + currentVisiblePosition);
-        getLoaderManager().restartLoader(0, null, this);
+        Log.d(TAG, "FavoriteRemovedEvent: currentVisiblePosition = " + currentVisiblePosition);
+//        for (Card c : mCardsList) {
+//            if (c.pageId == event.getPageId()) {
+//                mCardsList.remove(c);
+//                mAdapter.notifyDataSetChanged();
+//            }
+//        }
+
+        Iterator it = mCardsList.iterator();
+        while (it.hasNext()) {
+            Card c = (Card) it.next();
+            if (c.pageId == event.getPageId()) {
+                it.remove();
+                mAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Subscribe
     public void onEvent(CardRemovedEvent event) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        for (Card c : mCardsList) {
+        Log.d(TAG, "CardRemovedEvent: currentVisiblePosition = " + currentVisiblePosition);
+//        for (Card c : mCardsList) {
+//            if (c.pageId == event.getPageId()) {
+//                mCardsList.remove(c);
+//                mAdapter.notifyDataSetChanged();
+//            }
+//        }
+
+        Iterator it = mCardsList.iterator();
+        while (it.hasNext()) {
+            Card c = (Card) it.next();
             if (c.pageId == event.getPageId()) {
-                mCardsList.remove(c);
+                it.remove();
                 mAdapter.notifyDataSetChanged();
             }
         }

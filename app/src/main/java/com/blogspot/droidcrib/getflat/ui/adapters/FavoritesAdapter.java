@@ -92,7 +92,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             @Override
             public void onClick(View view) {
                 Card.setFavourite(card.getId(), false);
-                EventBus.getDefault().post(new FavoriteRemovedEvent());
+                EventBus.getDefault().post(new FavoriteRemovedEvent(card.pageId));
             }
         });
 
