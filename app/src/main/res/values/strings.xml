@@ -64,5 +64,9 @@
     <string name="context_menu_edit"> Edit </string>
     <string name="context_menu_delete"> Delete </string>
 
+    <string name="take_a_note"> Take a note </string>
+    <string name="note_save"> Save </string>
+    <string name="note_cancel"> Cancel </string>
+
 
 </resources>

@@ -182,7 +182,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
         mCardsList = (List<Card>) data;
         Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList.size());
-        mAdapter = new FavoritesAdapter(mCardsList);
+        mAdapter = new FavoritesAdapter(mCardsList, getActivity());
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

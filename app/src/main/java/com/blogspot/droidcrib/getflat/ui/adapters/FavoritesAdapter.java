@@ -1,5 +1,6 @@
 package com.blogspot.droidcrib.getflat.ui.adapters;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
+import com.blogspot.droidcrib.getflat.utils.MemoUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,9 +32,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
 
     private List<Card> cardList;
     private static final String TAG = "CardCheck";
+    private Context context;
 
-    public FavoritesAdapter(List<Card> cards) {
+    public FavoritesAdapter(List<Card> cards, Context context) {
         this.cardList = cards;
+        this.context = context;
     }
 
     @Override
@@ -105,6 +109,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             }
         });
 
+        holder.note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MemoUtils.buildDialogMessageNewNote(context);
+            }
+        });
+
     }
 
     @Override
@@ -115,7 +126,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
     public class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView street, number, price, rooms, meters,
                 floor, description;
-        ImageView photo, favorites, remove;
+        ImageView photo, favorites, remove, note;
 
         public CardViewHolder(View view) {
             super(view);
@@ -129,6 +140,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             photo = (ImageView) view.findViewById(R.id.id_list_row_photo);
             favorites = (ImageView) view.findViewById(R.id.f_favorites);
             remove = (ImageView) view.findViewById(R.id.f_remove);
+            note = (ImageView) view.findViewById(R.id.f_note);
         }
     }
 

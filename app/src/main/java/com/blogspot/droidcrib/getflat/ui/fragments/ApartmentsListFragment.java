@@ -195,7 +195,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
 
         mCardsList = (List<Card>) data;
         Log.d(TAG, "ApartmentsListFragment -- onLoadFinished: mCardsList = " + mCardsList.size());
-        mAdapter = new CardsAdapter(mCardsList);
+        mAdapter = new CardsAdapter(mCardsList, getActivity());
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
