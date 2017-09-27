@@ -27,6 +27,7 @@ import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.userdata.UserNotes;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
 
@@ -116,7 +117,6 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         getLoaderManager().restartLoader(0, null, this);
 
 
-
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
 
@@ -144,11 +144,6 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
-
-
-
-
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,7 +200,7 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
         mRecyclerView.scrollToPosition(currentVisiblePosition);
         currentVisiblePosition = 0;
 
-        if(!isQueried) {
+        if (!isQueried) {
             currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
             RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
             isQueried = true;

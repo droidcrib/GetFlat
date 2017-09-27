@@ -18,6 +18,7 @@ import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
+import com.blogspot.droidcrib.getflat.model.userdata.UserNotes;
 import com.blogspot.droidcrib.getflat.utils.MemoUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -113,7 +114,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         holder.note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MemoUtils.buildDialogMessageNewNote(context);
+                MemoUtils.buildDialogMessageNewNote(context, card);
+
             }
         });
     }

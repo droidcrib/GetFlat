@@ -112,7 +112,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
         holder.note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MemoUtils.buildDialogMessageNewNote(context);
+                MemoUtils.buildDialogMessageNewNote(context, card);
             }
         });
 

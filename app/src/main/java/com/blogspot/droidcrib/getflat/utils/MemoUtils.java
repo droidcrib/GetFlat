@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.userdata.UserNotes;
 import com.blogspot.droidcrib.getflat.ui.activities.MainActivity;
 
 /**
@@ -15,7 +17,7 @@ import com.blogspot.droidcrib.getflat.ui.activities.MainActivity;
 
 public class MemoUtils {
 
-    public static void buildDialogMessageNewNote(final Context context) {
+    public static void buildDialogMessageNewNote(final Context context, final Card card) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         String msg = context.getString(R.string.take_a_note);
@@ -34,7 +36,7 @@ public class MemoUtils {
                 .setCancelable(false)
                 .setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        // TODO: save note to DB
+                        UserNotes.insert(input.getText().toString(), card);
                     }
                 })
                 .setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {

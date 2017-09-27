@@ -191,20 +191,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
         // Restore scrolling position
         mRecyclerView.scrollToPosition(currentVisiblePosition);
         currentVisiblePosition = 0;
-
     }
-
-
-//        mCardsList = (List<AlarmRecord>) data;
-//        AlarmsListAdapter adapter = new AlarmsListAdapter(getActivity(), mCardsList);
-//        stickyList.setAdapter(adapter);
-//        stickyList.setEmptyView(mEmptyView);
-    // Restore previous state (including selected item index and scroll position)
-//        if (state != null) {
-//            stickyList.onRestoreInstanceState(state);
-//        }
-
-//        EventBus.getDefault().post(new AlarmsListLoadFinishedEvent());
 
 
     @Override

@@ -12,17 +12,18 @@ import com.blogspot.droidcrib.getflat.model.card.Card;
 @Table(name = "UserNotes", id = "_id")
 public class UserNotes extends Model {
 
-    @Column(name = "userNote")
-    public String userNote;
+    @Column(name = "text")
+    public String text;
 
     @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
 
 
-    public static void insert(Card card){
-        UserNotes userNote = new UserNotes();
-        userNote.card = card;
-        userNote.save();
+    public static void insert(String text, Card card){
+        UserNotes note = new UserNotes();
+        note.text = text;
+        note.card = card;
+        note.save();
     }
 
 }
