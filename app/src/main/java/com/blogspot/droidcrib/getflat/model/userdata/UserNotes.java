@@ -3,6 +3,7 @@ package com.blogspot.droidcrib.getflat.model.userdata;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 
 /**
@@ -11,6 +12,8 @@ import com.blogspot.droidcrib.getflat.model.card.Card;
 
 @Table(name = "UserNotes", id = "_id")
 public class UserNotes extends Model {
+
+
 
     @Column(name = "text")
     public String text;
@@ -24,6 +27,20 @@ public class UserNotes extends Model {
         note.text = text;
         note.card = card;
         note.save();
+    }
+
+    public static void update(UserNotes note, String text){
+        note.text = text;
+        note.save();
+    }
+
+    public static UserNotes getNoteByCardId(Card card){
+         UserNotes un = new Select()
+                .from(UserNotes.class)
+                .where("card = ?", card.getId())
+                .executeSingle();
+
+        return un;
     }
 
 }
