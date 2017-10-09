@@ -30,7 +30,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -42,7 +41,8 @@ import android.view.View;
 import com.androidnetworking.AndroidNetworking;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
-import com.blogspot.droidcrib.getflat.ui.adapters.MainTabsPagerAdapter;
+import com.blogspot.droidcrib.getflat.ui.screens.all.MainTabsPagerAdapter;
+import com.blogspot.droidcrib.getflat.ui.screens.parameters.SelectionActivity;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import okhttp3.OkHttpClient;

@@ -1,4 +1,4 @@
-package com.blogspot.droidcrib.getflat.ui.activities;
+package com.blogspot.droidcrib.getflat.ui.screens.parameters;
 
 import android.content.Context;
 import android.content.SharedPreferences;

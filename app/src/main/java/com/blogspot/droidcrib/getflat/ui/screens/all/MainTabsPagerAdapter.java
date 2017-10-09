@@ -1,13 +1,11 @@
-package com.blogspot.droidcrib.getflat.ui.adapters;
+package com.blogspot.droidcrib.getflat.ui.screens.all;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
-import android.view.ViewGroup;
 
-import com.blogspot.droidcrib.getflat.ui.fragments.ApartmentsListFragment;
-import com.blogspot.droidcrib.getflat.ui.fragments.FavoritesListFragment;
+import com.blogspot.droidcrib.getflat.ui.screens.favorites.FavoritesListFragment;
 
 /**
  *

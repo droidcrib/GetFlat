@@ -1,4 +1,4 @@
-package com.blogspot.droidcrib.getflat.ui.fragments;
+package com.blogspot.droidcrib.getflat.ui.screens.favorites;
 
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -26,14 +26,12 @@ import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FavoriteRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
-import com.blogspot.droidcrib.getflat.ui.adapters.FavoritesAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 
 /**

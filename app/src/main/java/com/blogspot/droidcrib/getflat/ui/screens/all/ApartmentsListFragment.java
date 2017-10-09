@@ -1,4 +1,4 @@
-package com.blogspot.droidcrib.getflat.ui.fragments;
+package com.blogspot.droidcrib.getflat.ui.screens.all;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -27,9 +27,7 @@ import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
-import com.blogspot.droidcrib.getflat.model.userdata.UserNotes;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
-import com.blogspot.droidcrib.getflat.ui.adapters.CardsAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

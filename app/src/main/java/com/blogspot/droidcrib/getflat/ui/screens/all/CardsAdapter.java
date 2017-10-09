@@ -1,4 +1,4 @@
-package com.blogspot.droidcrib.getflat.ui.adapters;
+package com.blogspot.droidcrib.getflat.ui.screens.all;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,7 +15,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
 import com.blogspot.droidcrib.getflat.utils.MemoUtils;
@@ -28,13 +28,13 @@ import java.util.List;
  * Created by BulanovA on 06.08.2017.
  */
 
-public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.CardViewHolder> {
+public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
 
     private List<Card> cardList;
     private static final String TAG = "CardCheck";
     private Context context;
 
-    public FavoritesAdapter(List<Card> cards, Context context) {
+    public CardsAdapter(List<Card> cards, Context context) {
         this.cardList = cards;
         this.context = context;
     }
@@ -42,13 +42,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.favorites_list_row, parent, false);
+                .inflate(R.layout.card_list_row, parent, false);
 
         return new CardViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final CardViewHolder holder, int position) {
+    public void onBindViewHolder(final CardViewHolder holder, final int position) {
         final Card card = cardList.get(position);
         Log.d(TAG, "onBindViewHolder: Card = " + card.toString());
         if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
@@ -67,14 +67,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
         if (card.realtyFeatures != null && card.realtyFeatures.size() >= 2) {
             holder.meters.setText(card.realtyFeatures.get(1).value);
         }
-
         if (card.realtyFeatures != null && card.realtyFeatures.size() >= 3) {
             holder.floor.setText(card.realtyFeatures.get(2).value);
         }
-
         if (card.description != null) {
             holder.description.setText(card.description.text);
         }
+        favoritesChecker(card, holder);
+        holder.photo.setImageResource(R.drawable.house_holder);
         if (card.photo != null) {
             AndroidNetworking.get(card.photo.url)
                     .build()
@@ -95,10 +95,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
         holder.favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Card.setFavourite(card.getId(), false);
-                EventBus.getDefault().post(new FavoriteRemovedEvent(card.pageId));
+                favoritesSetter(card, holder);
+                EventBus.getDefault().post(new FavoriteAddedEvent());
             }
         });
+
 
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +114,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             @Override
             public void onClick(View view) {
                 MemoUtils.buildDialogMessageNewNote(context, card);
+
             }
         });
-
     }
 
     @Override
@@ -138,10 +139,27 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             floor = (TextView) view.findViewById(R.id.id_list_row_floor);
             description = (TextView) view.findViewById(R.id.id_list_row_description);
             photo = (ImageView) view.findViewById(R.id.id_list_row_photo);
-            favorites = (ImageView) view.findViewById(R.id.f_favorites);
-            remove = (ImageView) view.findViewById(R.id.f_remove);
-            note = (ImageView) view.findViewById(R.id.f_note);
+            favorites = (ImageView) view.findViewById(R.id.favorites);
+            remove = (ImageView) view.findViewById(R.id.remove);
+            note = (ImageView) view.findViewById(R.id.note);
         }
     }
 
+    private void favoritesChecker(Card card, CardViewHolder holder) {
+        if (card.isFavourite != null && card.isFavourite) {
+            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+        } else {
+            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+        }
+    }
+
+    private void favoritesSetter(Card card, CardViewHolder holder) {
+        if (card.isFavourite != null && card.isFavourite) {
+            Card.setFavourite(card.getId(), false);
+            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+        } else {
+            Card.setFavourite(card.getId(), true);
+            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+        }
+    }
 }
