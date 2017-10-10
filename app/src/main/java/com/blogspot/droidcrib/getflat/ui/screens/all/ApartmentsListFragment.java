@@ -41,7 +41,7 @@ import static com.blogspot.droidcrib.getflat.application.App.isQueried;
  * Created by BulanovA on 21.06.2017.
  */
 
-public class ApartmentsListFragment extends Fragment implements LoaderManager.LoaderCallbacks {
+public class ApartmentsListFragment extends Fragment implements ApartmentsListView, LoaderManager.LoaderCallbacks {
 
     public static ApartmentsListFragment sApartmentsListFragment;
     private List<Card> mCardsList;
@@ -51,6 +51,8 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     private Parcelable state;
     private TextView mEmptyView;
     int currentVisiblePosition = 0;
+    private ApartmentsListPresenter presenter;
+    private Snackbar mSnackbar;
 
     private static final String TAG = "netTest";
     private String mResp;
@@ -72,6 +74,8 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new ApartmentsListPresenterImpl(this);
+
         Log.d(TAG, "ApartmentsListFragment -- onCreate: ");
     }
 
@@ -260,6 +264,38 @@ public class ApartmentsListFragment extends Fragment implements LoaderManager.Lo
                 mAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void showMemoDialog() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showNoInternet() {
+        mSnackbar = Snackbar.make(new View(getActivity()), "No connection", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null);
+        mSnackbar.show();
+    }
+
+    @Override
+    public void hideNoInternet() {
+        mSnackbar.dismiss();
+    }
+
+    @Override
+    public void refreshList() {
+        getLoaderManager().restartLoader(0, null, this);
     }
 }
 

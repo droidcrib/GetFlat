@@ -28,15 +28,19 @@ import java.util.List;
  * Created by BulanovA on 06.08.2017.
  */
 
-public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
+public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> implements CardsAdapterView{
 
     private List<Card> cardList;
     private static final String TAG = "CardCheck";
     private Context context;
+    private CardsAdapterPresenter cardsPresenter;
+    private ApartmentsListPresenter listPresenter;
 
-    public CardsAdapter(List<Card> cards, Context context) {
+    public CardsAdapter(List<Card> cards, Context contex, ApartmentsListPresenter listPresenter) {
         this.cardList = cards;
         this.context = context;
+        cardsPresenter = new CardsAdapterPresenterImpl();
+        this.listPresenter = listPresenter;
     }
 
     @Override
@@ -95,8 +99,11 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         holder.favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                favoritesSetter(card, holder);
-                EventBus.getDefault().post(new FavoriteAddedEvent());
+                cardsPresenter.setFavorite(card, holder);
+                listPresenter.refreshList();
+
+//                favoritesSetter(card, holder);
+//                EventBus.getDefault().post(new FavoriteAddedEvent());
             }
         });
 
@@ -123,6 +130,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     public int getItemCount() {
         return cardList.size();
     }
+
+
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView street, number, price, rooms, meters,
@@ -161,5 +170,25 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             Card.setFavourite(card.getId(), true);
             holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
         }
+    }
+
+    @Override
+    public void markFavorite() {
+
+    }
+
+    @Override
+    public void clearFavorite() {
+
+    }
+
+    @Override
+    public void markNote() {
+
+    }
+
+    @Override
+    public void clearNote() {
+
     }
 }

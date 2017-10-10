@@ -8,6 +8,16 @@ public interface ApartmentsListView {
 
     void showMemoDialog();
 
+    void refreshList();
+
+    void showProgress();
+
+    void hideProgress();
+
+    void showNoInternet();
+
+    void hideNoInternet();
+
 
 
 }
