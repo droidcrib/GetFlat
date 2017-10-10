@@ -192,7 +192,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
         mCardsList = (List<Card>) data;
         Log.d(TAG, "ApartmentsListFragment -- onLoadFinished: mCardsList = " + mCardsList.size());
-        mAdapter = new CardsAdapter(mCardsList, getActivity());
+        mAdapter = new CardsAdapter(mCardsList, getActivity(), presenter);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
