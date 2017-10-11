@@ -38,7 +38,7 @@ import java.util.List;
  * Created by BulanovA on 21.06.2017.
  */
 
-public class FavoritesListFragment extends Fragment implements LoaderManager.LoaderCallbacks {
+public class FavoritesListFragment extends Fragment implements LoaderManager.LoaderCallbacks, FavoritesListView {
 
     public static FavoritesListFragment sFavoritesListFragment;
     private List<Card> mCardsList;
@@ -54,6 +54,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     private static final String TAG = "FavoritesListFragment";
     private String mResp;
+    private FavoritesListPresenter favoritesListPresenter;
 
     //
     // Provides instance of ApartmentsListFragment
@@ -72,6 +73,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        favoritesListPresenter = new FavoritesListPresenterImpl(this);
         Log.d(TAG, "onCreate: ");
     }
 
@@ -267,6 +269,41 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
                 mAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void showMemoDialog() {
+
+    }
+
+    @Override
+    public void refreshList() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showNoInternet() {
+
+    }
+
+    @Override
+    public void hideNoInternet() {
+
+    }
+
+    @Override
+    public void onCardDeleted(Card card) {
+
     }
 }
 

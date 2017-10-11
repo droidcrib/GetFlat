@@ -22,7 +22,7 @@ import java.util.List;
  * Created by BulanovA on 06.08.2017.
  */
 
-public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> implements CardsAdapterView{
+public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> implements CardsAdapterView {
 
     private List<Card> cardList;
     private static final String TAG = "CardCheck";
@@ -71,7 +71,11 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         if (card.description != null) {
             holder.description.setText(card.description.text);
         }
-        favoritesChecker(card, holder);
+        if (card.isFavourite != null && card.isFavourite) {
+            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+        } else {
+            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+        }
         holder.photo.setImageResource(R.drawable.house_holder);
         if (card.photo != null) {
             AndroidNetworking.get(card.photo.url)
@@ -130,7 +134,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     }
 
 
-
     public class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView street, number, price, rooms, meters,
                 floor, description;
@@ -152,15 +155,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         }
     }
 
-    private void favoritesChecker(Card card, CardViewHolder holder) {
-        if (card.isFavourite != null && card.isFavourite) {
-            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
-        } else {
-            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
-        }
-    }
 
-    private void favoritesSetter(Card card, CardViewHolder holder) {
+    @Override
+    public void markFavorite(Card card, CardViewHolder holder) {
         if (card.isFavourite != null && card.isFavourite) {
             Card.setFavourite(card.getId(), false);
             holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
@@ -170,23 +167,18 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         }
     }
 
-    @Override
-    public void markFavorite() {
-
-    }
 
     @Override
-    public void clearFavorite() {
+    public void markNote(Card card, CardViewHolder holder) {
 
-    }
+        // TODO: change icon depending on conditions
 
-    @Override
-    public void markNote() {
-
-    }
-
-    @Override
-    public void clearNote() {
-
+//        if (card.isFavourite != null && card.isFavourite) {
+//            Card.setFavourite(card.getId(), false);
+//            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+//        } else {
+//            Card.setFavourite(card.getId(), true);
+//            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+//        }
     }
 }
