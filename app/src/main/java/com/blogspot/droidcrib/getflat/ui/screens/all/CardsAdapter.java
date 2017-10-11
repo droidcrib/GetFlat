@@ -14,13 +14,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
-import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
-import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
-import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
-import com.blogspot.droidcrib.getflat.utils.MemoUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -99,8 +93,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         holder.favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cardsPresenter.setFavorite(card, holder);
-                listPresenter.refreshList();
+                cardsPresenter.manageFavorite(card, holder);
+                // TODO: add favorites list presenter here
+//                favoritesListPresenter.refreshList();
 
 //                favoritesSetter(card, holder);
 //                EventBus.getDefault().post(new FavoriteAddedEvent());
@@ -111,16 +106,19 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Card.setDeleted(card.pageId, true);
-                Deleted.insert(card);
-                EventBus.getDefault().post(new CardRemovedEvent(card.pageId));
+                cardsPresenter.deleteCard(card);
+
+//                Card.setDeleted(card.pageId, true);
+//                Deleted.insert(card);
+//                EventBus.getDefault().post(new CardRemovedEvent(card.pageId));
             }
         });
 
         holder.note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MemoUtils.buildDialogMessageNewNote(context, card);
+                cardsPresenter.setNote(context, card);
+//                MemoUtils.buildDialogMessageNewNote(context, card);
 
             }
         });

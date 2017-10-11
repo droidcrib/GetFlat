@@ -18,31 +18,6 @@ public class ApartmentsListPresenterImpl implements ApartmentsListPresenter {
     }
 
     @Override
-    public void addFavorite() {
-
-    }
-
-    @Override
-    public void addNote() {
-
-    }
-
-    @Override
-    public void deleteCard() {
-
-    }
-
-    @Override
-    public void showDetails() {
-
-    }
-
-    @Override
-    public void complainAd() {
-
-    }
-
-    @Override
     public void onDestroy() {
 
     }

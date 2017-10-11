@@ -1,5 +1,7 @@
 package com.blogspot.droidcrib.getflat.ui.screens.all;
 
+import android.content.Context;
+
 import com.blogspot.droidcrib.getflat.model.card.Card;
 
 /**
@@ -8,13 +10,12 @@ import com.blogspot.droidcrib.getflat.model.card.Card;
 
 public interface CardsAdapterPresenter {
 
-    void setFavorite(Card card, CardsAdapter.CardViewHolder holder);
+    void manageFavorite(Card card, CardsAdapter.CardViewHolder holder);
 
-    void clearFavorite();
 
-    void setNote();
+    void setNote(Context context, Card card);
 
-    void deleteCard();
+    void deleteCard(Card card);
 
     void showDetails();
 

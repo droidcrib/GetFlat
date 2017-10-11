@@ -297,5 +297,16 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     public void refreshList() {
         getLoaderManager().restartLoader(0, null, this);
     }
+
+    @Override
+    public void onCardDeleted(Card card) {
+        currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        for (Card c : mCardsList) {
+            if (c.pageId == card.pageId) {
+                mCardsList.remove(c);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 }
 

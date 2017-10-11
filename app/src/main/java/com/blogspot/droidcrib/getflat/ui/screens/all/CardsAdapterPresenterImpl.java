@@ -1,8 +1,12 @@
 package com.blogspot.droidcrib.getflat.ui.screens.all;
 
 
+import android.content.Context;
+
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
+import com.blogspot.droidcrib.getflat.utils.MemoUtils;
 
 /**
  * Created by BulanovA on 10.10.2017.
@@ -13,9 +17,8 @@ public class CardsAdapterPresenterImpl implements CardsAdapterPresenter {
     private CardsAdapterView view;
 
 
-
     @Override
-    public void setFavorite(Card card, CardsAdapter.CardViewHolder holder) {
+    public void manageFavorite(Card card, CardsAdapter.CardViewHolder holder) {
         if (card.isFavourite != null && card.isFavourite) {
             Card.setFavourite(card.getId(), false);
             holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
@@ -25,19 +28,16 @@ public class CardsAdapterPresenterImpl implements CardsAdapterPresenter {
         }
     }
 
-    @Override
-    public void clearFavorite() {
 
+    @Override
+    public void setNote(Context context, Card card) {
+        MemoUtils.buildDialogMessageNewNote(context, card);
     }
 
     @Override
-    public void setNote() {
-
-    }
-
-    @Override
-    public void deleteCard() {
-
+    public void deleteCard(Card card) {
+        Card.setDeleted(card.pageId, true);
+        Deleted.insert(card);
     }
 
     @Override
