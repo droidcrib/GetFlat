@@ -3,7 +3,6 @@ package com.blogspot.droidcrib.getflat.ui.screens.all;
 
 import android.content.Context;
 
-import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
 import com.blogspot.droidcrib.getflat.utils.MemoUtils;
@@ -15,7 +14,6 @@ import com.blogspot.droidcrib.getflat.utils.MemoUtils;
 public class CardsAdapterPresenterImpl implements CardsAdapterPresenter {
 
     private CardsAdapterView view;
-    private Context context;
 
     public CardsAdapterPresenterImpl(CardsAdapterView view) {
         this.view = view;
@@ -25,10 +23,10 @@ public class CardsAdapterPresenterImpl implements CardsAdapterPresenter {
     public void manageFavorite(Card card, CardsAdapter.CardViewHolder holder) {
         if (card.isFavourite != null && card.isFavourite) {
             Card.setFavourite(card.getId(), false);
-            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+            view.unmarkFavorite(card, holder);
         } else {
             Card.setFavourite(card.getId(), true);
-            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+            view.markFavorite(card, holder);
         }
     }
 

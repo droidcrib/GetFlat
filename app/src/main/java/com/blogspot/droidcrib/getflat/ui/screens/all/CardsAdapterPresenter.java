@@ -12,7 +12,6 @@ public interface CardsAdapterPresenter {
 
     void manageFavorite(Card card, CardsAdapter.CardViewHolder holder);
 
-
     void setNote(Context context, Card card);
 
     void deleteCard(Card card);

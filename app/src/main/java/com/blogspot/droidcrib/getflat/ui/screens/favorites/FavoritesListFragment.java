@@ -226,7 +226,8 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     @Subscribe
     public void onEvent(FavoriteAddedEvent event) {
-        getLoaderManager().restartLoader(0, null, this);
+       // getLoaderManager().restartLoader(0, null, this);
+        this.refreshList();
     }
 
     @Subscribe
@@ -278,7 +279,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void refreshList() {
-
+        getLoaderManager().restartLoader(0, null, this);
     }
 
     @Override

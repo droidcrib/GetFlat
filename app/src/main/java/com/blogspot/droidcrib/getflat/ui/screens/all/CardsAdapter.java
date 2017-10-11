@@ -14,7 +14,10 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -102,7 +105,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
 //                favoritesListPresenter.refreshList();
 
 //                favoritesSetter(card, holder);
-//                EventBus.getDefault().post(new FavoriteAddedEvent());
+                EventBus.getDefault().post(new FavoriteAddedEvent());
             }
         });
 
@@ -158,13 +161,12 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
 
     @Override
     public void markFavorite(Card card, CardViewHolder holder) {
-        if (card.isFavourite != null && card.isFavourite) {
-            Card.setFavourite(card.getId(), false);
-            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
-        } else {
-            Card.setFavourite(card.getId(), true);
-            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
-        }
+        holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+    }
+
+    @Override
+    public void unmarkFavorite(Card card, CardViewHolder holder) {
+        holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
     }
 
 
