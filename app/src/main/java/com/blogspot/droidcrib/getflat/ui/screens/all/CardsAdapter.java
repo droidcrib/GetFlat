@@ -30,10 +30,10 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     private CardsAdapterPresenter cardsPresenter;
     private ApartmentsListPresenter listPresenter;
 
-    public CardsAdapter(List<Card> cards, Context contex, ApartmentsListPresenter listPresenter) {
+    public CardsAdapter(List<Card> cards, Context context, ApartmentsListPresenter listPresenter) {
         this.cardList = cards;
         this.context = context;
-        cardsPresenter = new CardsAdapterPresenterImpl();
+        cardsPresenter = new CardsAdapterPresenterImpl(this);
         this.listPresenter = listPresenter;
     }
 

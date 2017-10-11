@@ -15,7 +15,11 @@ import com.blogspot.droidcrib.getflat.utils.MemoUtils;
 public class CardsAdapterPresenterImpl implements CardsAdapterPresenter {
 
     private CardsAdapterView view;
+    private Context context;
 
+    public CardsAdapterPresenterImpl(CardsAdapterView view) {
+        this.view = view;
+    }
 
     @Override
     public void manageFavorite(Card card, CardsAdapter.CardViewHolder holder) {
