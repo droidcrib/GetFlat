@@ -9,7 +9,7 @@ import com.blogspot.droidcrib.getflat.ui.screens.all.CardsAdapter;
 
 public interface FavoritesAdapterView {
 
-    void markFavorite(Card card, CardsAdapter.CardViewHolder holder);
-
     void markNote(Card card, CardsAdapter.CardViewHolder holder);
+
+    void unmarkNote(Card card, CardsAdapter.CardViewHolder holder);
 }

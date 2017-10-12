@@ -18,6 +18,7 @@ import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
+import com.blogspot.droidcrib.getflat.ui.screens.all.CardsAdapter;
 import com.blogspot.droidcrib.getflat.utils.MemoUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,11 +29,13 @@ import java.util.List;
  * Created by BulanovA on 06.08.2017.
  */
 
-public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.CardViewHolder> {
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.CardViewHolder> implements FavoritesAdapterView {
 
     private List<Card> cardList;
     private static final String TAG = "CardCheck";
     private Context context;
+
+
 
     public FavoritesAdapter(List<Card> cards, Context context) {
         this.cardList = cards;
@@ -142,6 +145,16 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             remove = (ImageView) view.findViewById(R.id.f_remove);
             note = (ImageView) view.findViewById(R.id.f_note);
         }
+    }
+
+    @Override
+    public void markNote(Card card, CardsAdapter.CardViewHolder holder) {
+
+    }
+
+    @Override
+    public void unmarkNote(Card card, CardsAdapter.CardViewHolder holder) {
+
     }
 
 }

@@ -1,6 +1,5 @@
 package com.blogspot.droidcrib.getflat.ui.activities;
 
-//TODO: диалог добавления заметки
 //TODO: при изменении критериев стираем все записи, кроме тех, что были отмечены как "favorites" и тех, для которых есть заметка
 //TODO: бесконечный скролинг
 //TODO: при нажатии "детали" новое активити с двумя закладками детали(вебвью) и карта
@@ -8,6 +7,8 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: дизайн ленты
 //TODO: боковое меню
 //TODO: при изменении критериев, для каждой загруженной записи проверяем, есть ли она в избранных и есть ли для нее заметка
+
+// TODO: mark/unmark notes and favorites: setup icons
 
 
 
