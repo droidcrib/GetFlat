@@ -255,13 +255,6 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     public void onEvent(CardRemovedEvent event) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         Log.d(TAG, "CardRemovedEvent: currentVisiblePosition = " + currentVisiblePosition);
-//        for (Card c : mCardsList) {
-//            if (c.pageId == event.getPageId()) {
-//                mCardsList.remove(c);
-//                mAdapter.notifyDataSetChanged();
-//            }
-//        }
-
         Iterator it = mCardsList.iterator();
         while (it.hasNext()) {
             Card c = (Card) it.next();

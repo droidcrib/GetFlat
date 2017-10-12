@@ -14,6 +14,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
+import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 
@@ -101,10 +102,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             @Override
             public void onClick(View view) {
                 cardsPresenter.manageFavorite(card, holder);
-                // TODO: add favorites list presenter here
-//                favoritesListPresenter.refreshList();
-
-//                favoritesSetter(card, holder);
                 EventBus.getDefault().post(new FavoriteAddedEvent());
             }
         });
@@ -114,10 +111,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             @Override
             public void onClick(View view) {
                 cardsPresenter.deleteCard(card);
-
-//                Card.setDeleted(card.pageId, true);
-//                Deleted.insert(card);
-//                EventBus.getDefault().post(new CardRemovedEvent(card.pageId));
+                // TODO: inform about deleted
+                listPresenter.onCardDeleted(card);
+                //EventBus.getDefault().post(new CardRemovedEvent(card.pageId));
             }
         });
 
@@ -125,8 +121,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             @Override
             public void onClick(View view) {
                 cardsPresenter.setNote(context, card);
-//                MemoUtils.buildDialogMessageNewNote(context, card);
-
             }
         });
     }
@@ -173,7 +167,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     @Override
     public void markNote(Card card, CardViewHolder holder) {
 
-        // TODO: change icon depending on conditions
+        // TODO: set icon "note exists"
 
 //        if (card.isFavourite != null && card.isFavourite) {
 //            Card.setFavourite(card.getId(), false);
@@ -182,5 +176,10 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
 //            Card.setFavourite(card.getId(), true);
 //            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
 //        }
+    }
+
+    @Override
+    public void unmarkNote(Card card, CardViewHolder holder) {
+        // TODO: set icon "note not exist"
     }
 }

@@ -13,4 +13,6 @@ public interface CardsAdapterView {
     void unmarkFavorite(Card card, CardsAdapter.CardViewHolder holder);
 
     void markNote(Card card, CardsAdapter.CardViewHolder holder);
+
+    void unmarkNote(Card card, CardsAdapter.CardViewHolder holder);
 }

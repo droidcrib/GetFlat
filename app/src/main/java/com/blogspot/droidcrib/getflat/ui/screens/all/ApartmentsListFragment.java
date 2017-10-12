@@ -32,6 +32,7 @@ import com.blogspot.droidcrib.getflat.networking.RestClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static com.blogspot.droidcrib.getflat.application.App.isQueried;
@@ -255,17 +256,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         getLoaderManager().restartLoader(0, null, this);
     }
 
-    @Subscribe
-    public void onEvent(CardRemovedEvent event) {
-        currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        for (Card c : mCardsList) {
-            if (c.pageId == event.getPageId()) {
-                mCardsList.remove(c);
-                mAdapter.notifyDataSetChanged();
-            }
-        }
-    }
-
     @Override
     public void showMemoDialog() {
 
@@ -301,9 +291,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     @Override
     public void onCardDeleted(Card card) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        for (Card c : mCardsList) {
+        Iterator it = mCardsList.iterator();
+        while (it.hasNext()) {
+            Card c = (Card) it.next();
             if (c.pageId == card.pageId) {
-                mCardsList.remove(c);
+                it.remove();
                 mAdapter.notifyDataSetChanged();
             }
         }
