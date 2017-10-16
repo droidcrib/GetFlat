@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
-import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
@@ -238,7 +237,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         //TODO: restart loader when database updated
         Log.d(TAG, "ApartmentsListFragment -- onEvent: FRAGMENT database updater event");
         // Save scrolling position
-        getLoaderManager().restartLoader(0, null, this);
+        this.reloadData();
 
     }
 
@@ -284,12 +283,12 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     }
 
     @Override
-    public void refreshList() {
+    public void reloadData() {
         getLoaderManager().restartLoader(0, null, this);
     }
 
     @Override
-    public void onCardDeleted(Card card) {
+    public void refreshAdapterDataSet(Card card) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         Iterator it = mCardsList.iterator();
         while (it.hasNext()) {

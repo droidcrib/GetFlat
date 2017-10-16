@@ -102,7 +102,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
 //        // List items long click processing
 //        stickyList.setOnCreateContextMenuListener(this);
-        getLoaderManager().restartLoader(0, null, this);
+        this.refreshList();
 //
 //        // List items click processing
 //        stickyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,7 +117,6 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onPause() {
-
         super.onPause();
     }
 
@@ -234,13 +233,6 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
     public void onEvent(FavoriteRemovedEvent event) {
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         Log.d(TAG, "FavoriteRemovedEvent: currentVisiblePosition = " + currentVisiblePosition);
-//        for (Card c : mCardsList) {
-//            if (c.pageId == event.getPageId()) {
-//                mCardsList.remove(c);
-//                mAdapter.notifyDataSetChanged();
-//            }
-//        }
-
         Iterator it = mCardsList.iterator();
         while (it.hasNext()) {
             Card c = (Card) it.next();
@@ -275,15 +267,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
         getLoaderManager().restartLoader(0, null, this);
     }
 
-    @Override
-    public void showProgress() {
 
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
 
     @Override
     public void showNoInternet() {

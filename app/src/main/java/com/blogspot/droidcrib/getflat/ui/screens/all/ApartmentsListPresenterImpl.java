@@ -16,7 +16,7 @@ public class ApartmentsListPresenterImpl implements ApartmentsListPresenter {
 
     @Override
     public void refreshList() {
-        view.refreshList();
+        view.reloadData();
     }
 
     @Override
@@ -26,6 +26,6 @@ public class ApartmentsListPresenterImpl implements ApartmentsListPresenter {
 
     @Override
     public void onCardDeleted(Card card) {
-        view.onCardDeleted(card);
+        view.refreshAdapterDataSet(card);
     }
 }

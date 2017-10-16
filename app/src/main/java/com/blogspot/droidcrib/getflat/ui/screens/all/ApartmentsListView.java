@@ -10,7 +10,7 @@ public interface ApartmentsListView {
 
     void showMemoDialog();
 
-    void refreshList();
+    void reloadData();
 
     void showProgress();
 
@@ -20,7 +20,7 @@ public interface ApartmentsListView {
 
     void hideNoInternet();
 
-    void onCardDeleted(Card card);
+    void refreshAdapterDataSet(Card card);
 
 
 

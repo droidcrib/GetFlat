@@ -12,10 +12,6 @@ public interface FavoritesListView {
 
     void refreshList();
 
-    void showProgress();
-
-    void hideProgress();
-
     void showNoInternet();
 
     void hideNoInternet();
