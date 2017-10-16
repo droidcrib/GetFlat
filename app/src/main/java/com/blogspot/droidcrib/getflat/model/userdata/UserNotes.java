@@ -43,4 +43,8 @@ public class UserNotes extends Model {
         return un;
     }
 
+    public static void queryAll(){
+
+    }
+
 }

@@ -288,6 +288,14 @@ public class Card extends Model {
 
 
     public static void deleteAllNotFavorites() {
+       // SQLiteUtils.execSql("DELETE FROM Cards WHERE isFavourite is null or isFavourite = 0");
+        SQLiteUtils.execSql("DELETE FROM Cards\n" +
+                "WHERE isFavourite IS NULL \n" +
+                "OR isFavourite = 0 AND \n" +
+                "Cards._id NOT IN (SELECT card FROM UserNotes)");
+    }
+
+    public static void deleteOnConditionChange(){
         SQLiteUtils.execSql("DELETE FROM Cards WHERE isFavourite is null or isFavourite = 0");
     }
 
@@ -360,6 +368,9 @@ public class Card extends Model {
         card.time = null;
         card.save();
     }
+
+
+
 
 
     public Geo getGeo() {
