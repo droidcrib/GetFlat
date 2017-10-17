@@ -43,6 +43,8 @@ import static com.blogspot.droidcrib.getflat.application.App.isQueried;
 
 public class ApartmentsListFragment extends Fragment implements ApartmentsListView, LoaderManager.LoaderCallbacks {
 
+
+    private int nextPage = 1;
     public static ApartmentsListFragment sApartmentsListFragment;
     private List<Card> mCardsList;
     private RecyclerView mRecyclerView;
@@ -53,8 +55,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     int currentVisiblePosition = 0;
     private ApartmentsListPresenter presenter;
     private Snackbar mSnackbar;
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
+    LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
-    private static final String TAG = "netTest";
+    private static final String TAG = "ApartmentsListFragment";
     private String mResp;
 
     //
@@ -93,6 +98,19 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+                Log.d(TAG, "onLoadMore: called" + page + " " + totalItemsCount + " " + view);
+
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        mRecyclerView.addOnScrollListener(scrollListener);
 
 
         return v;
@@ -193,7 +211,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         mCardsList = (List<Card>) data;
         Log.d(TAG, "ApartmentsListFragment -- onLoadFinished: mCardsList = " + mCardsList.size());
         mAdapter = new CardsAdapter(mCardsList, getActivity(), presenter);
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
@@ -298,6 +316,12 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
                 mAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    private void loadNextDataFromApi(int page) {
+        // TODO: start new api request from here
+        Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!");
+        mAdapter.notifyItemRangeInserted(30, 30);
     }
 }
 
