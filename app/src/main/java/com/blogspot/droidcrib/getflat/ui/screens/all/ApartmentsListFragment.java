@@ -31,6 +31,8 @@ import com.blogspot.droidcrib.getflat.networking.RestClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -89,15 +91,12 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         super.onStart();
         Log.d(TAG, "ApartmentsListFragment -- onStart: ");
         EventBus.getDefault().register(this);
-    }
+        mCardsList = new ArrayList<Card>();
+        Log.d(TAG, "ApartmentsListFragment -- onCreateView: mCardsList = " + mCardsList.size());
+        mAdapter = new CardsAdapter(mCardsList, getActivity(), presenter);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "ApartmentsListFragment -- onCreateView: ");
-
-        View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
-
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
         // Retain an instance so that you can call `resetState()` for fresh searches
         scrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override
@@ -111,6 +110,17 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         };
         // Adds the scroll listener to RecyclerView
         mRecyclerView.addOnScrollListener(scrollListener);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "ApartmentsListFragment -- onCreateView: ");
+
+        View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
+
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
+
 
 
         return v;
@@ -134,6 +144,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     public void onResume() {
         super.onResume();
         Log.d(TAG, "ApartmentsListFragment -- onResume ");
+        // Load data from database on application start
         getLoaderManager().restartLoader(0, null, this);
 
 
@@ -207,14 +218,12 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     @SuppressWarnings("unchecked")
     @Override
     public void onLoadFinished(Loader loader, Object data) {
+        Log.d(TAG, "onLoadFinished: ");
 
-        mCardsList = (List<Card>) data;
-        Log.d(TAG, "ApartmentsListFragment -- onLoadFinished: mCardsList = " + mCardsList.size());
-        mAdapter = new CardsAdapter(mCardsList, getActivity(), presenter);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mAdapter);
+        int curSize = mAdapter.getItemCount();
+        List<Card> newCardsList = (ArrayList<Card>) data;
+        mCardsList.addAll(newCardsList);
+        mAdapter.notifyItemRangeInserted(curSize, newCardsList.size());
 
         // Restore scrolling position
         mRecyclerView.scrollToPosition(currentVisiblePosition);
@@ -222,7 +231,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
         if (!isQueried) {
             currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(getActivity()), getActivity());
+            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters());
             isQueried = true;
         }
     }
@@ -234,20 +243,10 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     }
 
 
-//    /**
-//     * Removes record from database and correspondent data directory from storage
-//     */
-//    private class RemoveRecordTask extends AsyncTask<Long, Void, Void> {
-//
-//        protected Void doInBackground(Long... args) {
-//            AlarmRecord.deleteRecordById(args[0]);
-//            return null;
-//        }
-//
-//        protected void onPostExecute(Void result) {
-//            getLoaderManager().restartLoader(0, null, ApartmentsListFragment.this);
-//        }
-//    }
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // EventBus
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
     @Subscribe
@@ -272,6 +271,13 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         getLoaderManager().restartLoader(0, null, this);
     }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // Callbacks ApartmentsListView
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @Override
     public void showMemoDialog() {
@@ -318,10 +324,12 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         }
     }
 
+
+
     private void loadNextDataFromApi(int page) {
         // TODO: start new api request from here
         Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!");
-        mAdapter.notifyItemRangeInserted(30, 30);
+//        mAdapter.notifyItemRangeInserted(30, 30);
     }
 }
 

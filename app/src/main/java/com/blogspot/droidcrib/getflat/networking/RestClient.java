@@ -41,17 +41,19 @@ public class RestClient {
         super();
     }
 
-    public static ArrayMap<String, String> getQueryParameters(Context context) {
+    public static ArrayMap<String, String> getQueryParameters() {
         ArrayMap<String, String> queryParams = new ArrayMap<>();
         List<ParamsMap> list = ParamsMap.queryAllActive();
         for (ParamsMap params : list) {
             queryParams.put(params.param, params.value);
         }
-        Log.d(TAG, "List<ParamsMap>: " + list);
+
+
+        Log.d(TAG, "List<ParamsMap>: " + queryParams);
         return queryParams;
     }
 
-    public static void newGetRequest(String addr, ArrayMap<String, String> params, Context context) {
+    public static void newGetRequest(String addr, ArrayMap<String, String> params) {
         EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
     }
 
