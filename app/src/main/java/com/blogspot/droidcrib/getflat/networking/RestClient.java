@@ -53,6 +53,16 @@ public class RestClient {
         return queryParams;
     }
 
+    public static void getRequest(String address, String addr, ArrayMap<String, String> params, int pageNum){
+        String page = "page=" + pageNum;
+        AndroidNetworking.get("https://www.lun.ua/{addr}")
+                .addPathParameter("addr", address)
+                .addQueryParameter(params)
+                .addQueryParameter(page)
+                .build()
+                .getAsString(StringRequestListenerImpl.getInstance());
+    }
+
     public static void newGetRequest(String addr, ArrayMap<String, String> params) {
         EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
     }

@@ -10,6 +10,7 @@ import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
+import com.blogspot.droidcrib.getflat.networking.StringRequestListenerImpl;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 
@@ -100,7 +101,7 @@ public class App extends com.activeandroid.app.Application implements StringRequ
                 .addPathParameter("addr", event.getAddr())
                 .addQueryParameter(event.getParams())
                 .build()
-                .getAsString(this);
+                .getAsString(StringRequestListenerImpl.getInstance());
     }
 
 
