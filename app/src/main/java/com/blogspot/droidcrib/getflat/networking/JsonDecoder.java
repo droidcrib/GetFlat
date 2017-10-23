@@ -48,31 +48,38 @@ public class JsonDecoder {
                         Log.d(TAG, "run: Card = " + card.toString());
                         Log.d(TAG, "run: Card added!" );
                         card.insert();
-                        card.geo.insert(card);
-                        if (card.geo.address != null) {
-                            card.geo.address.insert(card);
+                        if(card.geo != null) {
+                            card.geo.insert(card);
+                            if (card.geo.address != null) {
+                                card.geo.address.insert(card);
+                            }
+                            if (card.geo.district != null) {
+                                card.geo.district.insert(card);
+                            }
+                            if (card.geo.microdistrict != null) {
+                                card.geo.microdistrict.insert(card);
+                            }
+                            if (card.geo.building != null) {
+                                card.geo.building.insert(card);
+                            }
                         }
-                        if (card.geo.district != null) {
-                            card.geo.district.insert(card);
-                        }
-                        if (card.geo.microdistrict != null) {
-                            card.geo.microdistrict.insert(card);
-                        }
-                        if (card.geo.building != null) {
-                            card.geo.building.insert(card);
-                        }
-                        card.photo.insert(card);
-                        card.description.insert(card);
-                        card.sourceLink.insert(card);
-                        card.time.insert(card);
+                        if(card.photo != null)card.photo.insert(card);
+                        if(card.description != null) card.description.insert(card);
+                        if(card.sourceLink != null)card.sourceLink.insert(card);
+                        if(card.time != null) card.time.insert(card);
 
-                        List<HouseFeature> hf = card.houseFeatures;
-                        for (HouseFeature feature : hf) {
-                            feature.insert(card);
+                        if(card.houseFeatures != null) {
+                            List<HouseFeature> hf = card.houseFeatures;
+                            for (HouseFeature feature : hf) {
+                                feature.insert(card);
+                            }
                         }
-                        List<RealtyFeature> rf = card.realtyFeatures;
-                        for (RealtyFeature feature : rf) {
-                            feature.insert(card);
+
+                        if(card.realtyFeatures != null) {
+                            List<RealtyFeature> rf = card.realtyFeatures;
+                            for (RealtyFeature feature : rf) {
+                                feature.insert(card);
+                            }
                         }
                     } else {
                         Log.d(TAG, "run: Page ID exists. Skipped");

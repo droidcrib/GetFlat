@@ -54,11 +54,11 @@ public class RestClient {
     }
 
     public static void getRequest(String address, ArrayMap<String, String> params, int pageNum){
-        String page = "page=" + pageNum;
+
         AndroidNetworking.get("https://www.lun.ua/{addr}")
                 .addPathParameter("addr", address)
-                .addQueryParameter(params)
-                .addQueryParameter(page)
+                //.addQueryParameter(params)
+                //.addQueryParameter("page",String.valueOf(pageNum))
                 .build()
                 .getAsString(StringRequestListenerImpl.getInstance());
     }

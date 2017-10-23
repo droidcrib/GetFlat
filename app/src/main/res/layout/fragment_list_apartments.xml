@@ -9,5 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
+    <Button
+        android:id="@+id/get_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/recycler_view_all_apartments"
+        android:text="get"/>
 
 </RelativeLayout>

@@ -165,6 +165,8 @@ public class Card extends Model {
             } catch (IndexOutOfBoundsException e) {
                 Log.e("err", ": ");
             }
+
+            //TODO: try NULL
             card.houseFeatures = card.getHouseFeatures();
             card.realtyFeatures = card.getRealtyFeatures();
 
@@ -179,27 +181,35 @@ public class Card extends Model {
                 .execute();
 
         for (Card card : cardList) {
-            card.geo = card.getMany(Geo.class, "card").get(0);
+            try {
+                card.geo = card.getMany(Geo.class, "card").get(0);
+            } catch  (IndexOutOfBoundsException e) {
+                Log.e("err", "geo: ");
+            }
             Log.d(TAG, "queryAll: -- not in deleted");
             try {
-                card.geo.address = card.geo.getAddresses().get(0);
-            } catch (IndexOutOfBoundsException e) {
+                try {
+                    card.geo.address = card.geo.getAddresses().get(0);
+                } catch (IndexOutOfBoundsException e) {
+                    Log.e("err", "address: ");
+                }
+                try {
+                    card.geo.district = card.geo.getDistricts().get(0);
+                } catch (IndexOutOfBoundsException e) {
+                    Log.e("err", "district: ");
+                }
+                try {
+                    card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
+                } catch (IndexOutOfBoundsException e) {
+                    Log.e("err", "microdistrict: ");
+                }
+                try {
+                    card.geo.building = card.geo.getBuildings().get(0);
+                } catch (IndexOutOfBoundsException e) {
+                    Log.e("err", "building: ");
+                }
+            }catch (NullPointerException e) {
                 Log.e("err", "address: ");
-            }
-            try {
-                card.geo.district = card.geo.getDistricts().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "district: ");
-            }
-            try {
-                card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "microdistrict: ");
-            }
-            try {
-                card.geo.building = card.geo.getBuildings().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "building: ");
             }
             try {
                 card.photo = card.getPhotos().get(0);

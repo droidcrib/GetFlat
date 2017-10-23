@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
@@ -51,6 +52,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private List<Card> mCardsList;
     private RecyclerView mRecyclerView;
     private CardsAdapter mAdapter;
+    private Button mGetButton;
     private long mRecordId;
     private Parcelable state;
     private TextView mEmptyView;
@@ -120,7 +122,14 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
+        mGetButton = (Button) v.findViewById(R.id.get_button);
 
+        mGetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage);
+            }
+        });
 
 
         return v;
@@ -221,7 +230,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         Log.d(TAG, "onLoadFinished: ");
 
         int curSize = mAdapter.getItemCount();
+        Log.d(TAG, "onLoadFinished: curSize = " + curSize );
         List<Card> newCardsList = (ArrayList<Card>) data;
+        Log.d(TAG, "onLoadFinished: newCardsList = " + newCardsList);
+        Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList);
+
         mCardsList.addAll(newCardsList);
         mAdapter.notifyItemRangeInserted(curSize, newCardsList.size());
 
@@ -231,7 +244,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
         if (!isQueried) {
             currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage                                                                                                                                             );
+            //RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage );
             isQueried = true;
         }
     }
@@ -246,7 +259,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     //////////////////////////////////////////////////////////////////////////////////////////////
     // EventBus
     //////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
     @Subscribe
@@ -271,7 +283,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         getLoaderManager().restartLoader(0, null, this);
     }
-
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -323,7 +334,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
             }
         }
     }
-
 
 
     private void loadNextDataFromApi(int page) {
