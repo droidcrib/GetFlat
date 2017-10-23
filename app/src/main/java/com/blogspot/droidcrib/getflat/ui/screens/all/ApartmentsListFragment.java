@@ -61,7 +61,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private EndlessRecyclerViewScrollListener scrollListener;
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
-    private static final String TAG = "ApartmentsListFragment";
+    private static final String TAG = "getflat_apartment_list";
     private String mResp;
 
     //
@@ -231,7 +231,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
         if (!isQueried) {
             currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters());
+            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage                                                                                                                                             );
             isQueried = true;
         }
     }

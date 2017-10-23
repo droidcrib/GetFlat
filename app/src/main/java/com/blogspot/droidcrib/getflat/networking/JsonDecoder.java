@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 
 public class JsonDecoder {
-    public static final String TAG = "JsonDecoder";
+    public static final String TAG = "getflat_JsonDecoder";
 
     private JsonDecoder() {
         super();

@@ -29,7 +29,7 @@ import java.util.List;
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> implements CardsAdapterView {
 
     private List<Card> cardList;
-    private static final String TAG = "CardCheck";
+    private static final String TAG = "getflat_CardsAdapter";
     private Context context;
     private CardsAdapterPresenter cardsPresenter;
     private ApartmentsListPresenter listPresenter;

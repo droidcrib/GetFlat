@@ -10,6 +10,7 @@ import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkRequestEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NewNetworkResponseEvent;
 import com.blogspot.droidcrib.getflat.networking.JsonDecoder;
+import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.networking.StringRequestListenerImpl;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
@@ -27,7 +28,7 @@ import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getJSONFromR
 
 public class App extends com.activeandroid.app.Application implements StringRequestListener {
 
-    private static final String TAG = "netTest";
+    private static final String TAG = "getflat_app";
     public static boolean isQueried = false;
 
     @Override
@@ -96,12 +97,7 @@ public class App extends com.activeandroid.app.Application implements StringRequ
     // Start new network request
     @Subscribe
     public void onEvent(NewNetworkRequestEvent event) {
-        Log.d(TAG, "App --- onEvent: NewNetworkRequestEvent received");
-        AndroidNetworking.get("https://www.lun.ua/{addr}")
-                .addPathParameter("addr", event.getAddr())
-                .addQueryParameter(event.getParams())
-                .build()
-                .getAsString(StringRequestListenerImpl.getInstance());
+        RestClient.getRequest(event.getAddr(), event.getParams(), event.getPage());
     }
 
 

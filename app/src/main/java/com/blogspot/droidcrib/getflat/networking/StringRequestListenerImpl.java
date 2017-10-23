@@ -5,8 +5,6 @@ import android.util.Log;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.blogspot.droidcrib.getflat.model.card.Card;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getJSONFromR
 
 public class StringRequestListenerImpl implements StringRequestListener {
 
-    private static final String TAG = "RequestListenerImpl";
+    private static final String TAG = "getflat_req_listener";
 
 
     private StringRequestListenerImpl(){

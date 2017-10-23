@@ -18,7 +18,7 @@ import com.blogspot.droidcrib.getflat.model.userdata.UserNotes;
 public class MemoUtils {
 
 
-    public static final String TAG = "UserNotes";
+    public static final String TAG = "getflat_UserNotes";
 
     public static void buildDialogMessageNewNote(final Context context, final Card card) {
 

@@ -32,7 +32,7 @@ import java.util.List;
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.CardViewHolder> implements FavoritesAdapterView {
 
     private List<Card> cardList;
-    private static final String TAG = "CardCheck";
+    private static final String TAG = "getflat_faforitesAdapter";
     private Context context;
 
 

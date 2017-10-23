@@ -9,10 +9,12 @@ import android.support.v4.util.ArrayMap;
 public class NewNetworkRequestEvent {
     private final String addr;
     private final ArrayMap<String, String> params;
+    private final int page;
 
-    public NewNetworkRequestEvent(String addr, ArrayMap<String, String> params) {
+    public NewNetworkRequestEvent(String addr, ArrayMap<String, String> params, int page) {
         this.addr = addr;
         this.params = params;
+        this.page = page;
     }
 
     public String getAddr() {
@@ -21,6 +23,10 @@ public class NewNetworkRequestEvent {
 
     public ArrayMap<String, String> getParams() {
         return params;
+    }
+
+    public int getPage() {
+        return page;
     }
 }
 

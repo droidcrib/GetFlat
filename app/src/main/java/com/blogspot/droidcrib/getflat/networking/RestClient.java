@@ -30,7 +30,7 @@ import java.util.List;
 public class RestClient {
 
 
-    private static final String TAG = "RestClient";
+    private static final String TAG = "getflat_RestClient";
     private static boolean returnValue = false;
     public static boolean isNetworkConnected = true;
     public static boolean isOnline = true;
@@ -53,7 +53,7 @@ public class RestClient {
         return queryParams;
     }
 
-    public static void getRequest(String address, String addr, ArrayMap<String, String> params, int pageNum){
+    public static void getRequest(String address, ArrayMap<String, String> params, int pageNum){
         String page = "page=" + pageNum;
         AndroidNetworking.get("https://www.lun.ua/{addr}")
                 .addPathParameter("addr", address)
@@ -63,8 +63,8 @@ public class RestClient {
                 .getAsString(StringRequestListenerImpl.getInstance());
     }
 
-    public static void newGetRequest(String addr, ArrayMap<String, String> params) {
-        EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params));
+    public static void newGetRequest(String addr, ArrayMap<String, String> params, int page) {
+        EventBus.getDefault().post(new NewNetworkRequestEvent(addr, params, page));
     }
 
     public static void checkNetworkConnection(final Context context) {

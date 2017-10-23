@@ -48,7 +48,7 @@ import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "RestTest";
+    private static final String TAG = "getflat_main_activity";
     private String mResp;
 
     private SharedPreferences mPrefs;
