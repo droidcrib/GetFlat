@@ -52,7 +52,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     @Override
     public void onBindViewHolder(final CardViewHolder holder, final int position) {
         final Card card = cardList.get(position);
-        Log.d(TAG, "onBindViewHolder: Card = " + card.toString());
+
         if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
             holder.street.setText(card.geo.address.streetOrBuilding);
         }

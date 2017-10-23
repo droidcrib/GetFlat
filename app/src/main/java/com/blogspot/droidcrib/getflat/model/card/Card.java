@@ -391,4 +391,30 @@ public class Card extends Model {
         return getMany(HouseFeature.class, "card");
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "type='" + type + '\'' + "\n"+
+                ", pageId=" + pageId + "\n"+
+                ", totalAdvertisementsCount=" + totalAdvertisementsCount + "\n"+
+                ", isFavourite=" + isFavourite + "\n"+
+                ", isVisited=" + isVisited + "\n"+
+                ", geo=" + geo + "\n"+
+                ", price='" + price + '\'' + "\n"+
+                ", priceSqm='" + priceSqm + '\'' + "\n"+
+                ", doShowPriceSqm=" + doShowPriceSqm + "\n"+
+                ", time=" + time + "\n"+
+                ", photo=" + photo + "\n"+
+                ", imagesCount=" + imagesCount + "\n"+
+                ", sourceLink=" + sourceLink + "\n"+
+                ", singleRealtyPageLink=" + singleRealtyPageLink + "\n"+
+                ", advertisementFeatures=" + advertisementFeatures + "\n"+
+                ", realtyFeatures=" + realtyFeatures + "\n"+
+                ", houseFeatures=" + houseFeatures + "\n"+
+                ", description=" + description + "\n"+
+                ", actionElementsLabels=" + actionElementsLabels + "\n"+
+                ", actionOtherContactsUrl='" + actionOtherContactsUrl + '\'' + "\n"+
+                ", isDeleted=" + isDeleted +
+                '}';
+    }
 }

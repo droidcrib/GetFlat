@@ -45,6 +45,7 @@ public class JsonDecoder {
                 //Save cards to database
                 for (Card card : cardsList) {
                     if(!pageids.contains(card.pageId) && !deletedPageids.contains(card.pageId)) {
+                        Log.d(TAG, "run: Card = " + card.toString());
                         Log.d(TAG, "run: Card added!" );
                         card.insert();
                         card.geo.insert(card);
