@@ -239,14 +239,14 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         mAdapter.notifyItemRangeInserted(curSize, newCardsList.size());
 
         // Restore scrolling position
-        mRecyclerView.scrollToPosition(currentVisiblePosition);
-        currentVisiblePosition = 0;
+        //mRecyclerView.scrollToPosition(currentVisiblePosition);
+        //currentVisiblePosition = 0;
 
-        if (!isQueried) {
-            currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+//        if (!isQueried) {
+         //   currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
             //RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage );
             isQueried = true;
-        }
+//        }
     }
 
     @Override
@@ -338,8 +338,10 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
     private void loadNextDataFromApi(int page) {
         // TODO: start new api request from here
-        Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!");
+        Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!  PAGE = " + page);
 //        mAdapter.notifyItemRangeInserted(30, 30);
+        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), page + 1);
+       // currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
     }
 }
 

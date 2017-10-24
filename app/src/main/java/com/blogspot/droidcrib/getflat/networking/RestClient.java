@@ -57,8 +57,8 @@ public class RestClient {
 
         AndroidNetworking.get("https://www.lun.ua/{addr}")
                 .addPathParameter("addr", address)
-                //.addQueryParameter(params)
-                //.addQueryParameter("page",String.valueOf(pageNum))
+                .addQueryParameter(params)
+                .addQueryParameter("page",String.valueOf(pageNum))
                 .build()
                 .getAsString(StringRequestListenerImpl.getInstance());
     }
