@@ -53,11 +53,10 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     public void onBindViewHolder(final CardViewHolder holder, final int position) {
         final Card card = cardList.get(position);
 
-        if (card.geo.address != null && card.geo.address.streetOrBuilding != null) {
+        if (card.geo != null && card.geo.address != null && card.geo.address.streetOrBuilding != null) {
             holder.street.setText(card.geo.address.streetOrBuilding);
         }
-        if (card.geo.address != null
-                && card.geo.address.house != null) {
+        if (card.geo != null && card.geo.address != null && card.geo.address.house != null) {
             holder.number.setText(card.geo.address.house);
         }
         if (card.price != null) {

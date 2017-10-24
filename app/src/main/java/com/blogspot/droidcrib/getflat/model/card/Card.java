@@ -170,6 +170,7 @@ public class Card extends Model {
             card.houseFeatures = card.getHouseFeatures();
             card.realtyFeatures = card.getRealtyFeatures();
 
+
         }
         return cardList;
     }
@@ -183,7 +184,7 @@ public class Card extends Model {
         for (Card card : cardList) {
             try {
                 card.geo = card.getMany(Geo.class, "card").get(0);
-            } catch  (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 Log.e("err", "geo: ");
             }
             Log.d(TAG, "queryAll: -- not in deleted");
@@ -208,7 +209,7 @@ public class Card extends Model {
                 } catch (IndexOutOfBoundsException e) {
                     Log.e("err", "building: ");
                 }
-            }catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 Log.e("err", "address: ");
             }
             try {
@@ -298,14 +299,14 @@ public class Card extends Model {
 
 
     public static void deleteAllNotFavorites() {
-       // SQLiteUtils.execSql("DELETE FROM Cards WHERE isFavourite is null or isFavourite = 0");
+        // SQLiteUtils.execSql("DELETE FROM Cards WHERE isFavourite is null or isFavourite = 0");
         SQLiteUtils.execSql("DELETE FROM Cards\n" +
                 "WHERE isFavourite IS NULL \n" +
                 "OR isFavourite = 0 AND \n" +
                 "Cards._id NOT IN (SELECT card FROM UserNotes)");
     }
 
-    public static void deleteOnConditionChange(){
+    public static void deleteOnConditionChange() {
         SQLiteUtils.execSql("DELETE FROM Cards WHERE isFavourite is null or isFavourite = 0");
     }
 
@@ -380,9 +381,6 @@ public class Card extends Model {
     }
 
 
-
-
-
     public Geo getGeo() {
         return geo;
     }
@@ -404,26 +402,26 @@ public class Card extends Model {
     @Override
     public String toString() {
         return "Card{" +
-                "type='" + type + '\'' + "\n"+
-                ", pageId=" + pageId + "\n"+
-                ", totalAdvertisementsCount=" + totalAdvertisementsCount + "\n"+
-                ", isFavourite=" + isFavourite + "\n"+
-                ", isVisited=" + isVisited + "\n"+
-                ", geo=" + geo + "\n"+
-                ", price='" + price + '\'' + "\n"+
-                ", priceSqm='" + priceSqm + '\'' + "\n"+
-                ", doShowPriceSqm=" + doShowPriceSqm + "\n"+
-                ", time=" + time + "\n"+
-                ", photo=" + photo + "\n"+
-                ", imagesCount=" + imagesCount + "\n"+
-                ", sourceLink=" + sourceLink + "\n"+
-                ", singleRealtyPageLink=" + singleRealtyPageLink + "\n"+
-                ", advertisementFeatures=" + advertisementFeatures + "\n"+
-                ", realtyFeatures=" + realtyFeatures + "\n"+
-                ", houseFeatures=" + houseFeatures + "\n"+
-                ", description=" + description + "\n"+
-                ", actionElementsLabels=" + actionElementsLabels + "\n"+
-                ", actionOtherContactsUrl='" + actionOtherContactsUrl + '\'' + "\n"+
+                "type='" + type + '\'' + "\n" +
+                ", pageId=" + pageId + "\n" +
+                ", totalAdvertisementsCount=" + totalAdvertisementsCount + "\n" +
+                ", isFavourite=" + isFavourite + "\n" +
+                ", isVisited=" + isVisited + "\n" +
+                ", geo=" + geo + "\n" +
+                ", price='" + price + '\'' + "\n" +
+                ", priceSqm='" + priceSqm + '\'' + "\n" +
+                ", doShowPriceSqm=" + doShowPriceSqm + "\n" +
+                ", time=" + time + "\n" +
+                ", photo=" + photo + "\n" +
+                ", imagesCount=" + imagesCount + "\n" +
+                ", sourceLink=" + sourceLink + "\n" +
+                ", singleRealtyPageLink=" + singleRealtyPageLink + "\n" +
+                ", advertisementFeatures=" + advertisementFeatures + "\n" +
+                ", realtyFeatures=" + realtyFeatures + "\n" +
+                ", houseFeatures=" + houseFeatures + "\n" +
+                ", description=" + description + "\n" +
+                ", actionElementsLabels=" + actionElementsLabels + "\n" +
+                ", actionOtherContactsUrl='" + actionOtherContactsUrl + '\'' + "\n" +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
