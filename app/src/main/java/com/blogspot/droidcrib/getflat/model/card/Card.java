@@ -3,7 +3,11 @@ package com.blogspot.droidcrib.getflat.model.card;
 
 import android.util.Log;
 
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.activeandroid.Model;
@@ -110,8 +114,25 @@ public class Card extends Model {
     @Column(name = "isDeleted")
     public Boolean isDeleted;
 
+    @Column(name = "updateTime")
+    public long updateTime;
+
+
+    private static long stringDateToLong(String stringDate) {
+        Date date = new Date(System.currentTimeMillis());
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            date = sdf.parse(stringDate);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date.getTime();
+    }
+
     public void insert() {
+        long time = stringDateToLong(this.time.getUpdateTime());
         this.isDeleted = false;
+        this.updateTime = time;
         this.save();
     }
 
@@ -394,30 +415,16 @@ public class Card extends Model {
         return getMany(HouseFeature.class, "card");
     }
 
-//    @Override
-//    public String toString() {
-//        return "Card{" +
-//                "type='" + type + '\'' + "\n" +
-//                ", pageId=" + pageId + "\n" +
-//                ", totalAdvertisementsCount=" + totalAdvertisementsCount + "\n" +
-//                ", isFavourite=" + isFavourite + "\n" +
-//                ", isVisited=" + isVisited + "\n" +
-//                ", geo=" + geo + "\n" +
-//                ", price='" + price + '\'' + "\n" +
-//                ", priceSqm='" + priceSqm + '\'' + "\n" +
-//                ", doShowPriceSqm=" + doShowPriceSqm + "\n" +
-//                ", time=" + time + "\n" +
-//                ", photo=" + photo + "\n" +
-//                ", imagesCount=" + imagesCount + "\n" +
-//                ", sourceLink=" + sourceLink + "\n" +
-//                ", singleRealtyPageLink=" + singleRealtyPageLink + "\n" +
-//                ", advertisementFeatures=" + advertisementFeatures + "\n" +
-//                ", realtyFeatures=" + realtyFeatures + "\n" +
-//                ", houseFeatures=" + houseFeatures + "\n" +
-//                ", description=" + description + "\n" +
-//                ", actionElementsLabels=" + actionElementsLabels + "\n" +
-//                ", actionOtherContactsUrl='" + actionOtherContactsUrl + '\'' + "\n" +
-//                ", isDeleted=" + isDeleted +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+
+
+        return "Card{ Update TIME = " + updateTime +   '}';
+    }
+
+    public static String convertTime(long time){
+        Date date = new Date(time);
+        Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+        return format.format(date);
+    }
 }

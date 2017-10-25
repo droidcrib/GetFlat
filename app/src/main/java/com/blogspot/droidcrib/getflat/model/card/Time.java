@@ -13,19 +13,19 @@ public class Time extends Model{
     @Column(name = "updateTime")
     @SerializedName("updateTime")
     @Expose
-    private String updateTime;
+    public String updateTime;
     @Column(name = "addTime")
     @SerializedName("addTime")
     @Expose
-    private String addTime;
+    public String addTime;
     @Column(name = "addTimeLabel")
     @SerializedName("addTimeLabel")
     @Expose
-    private String addTimeLabel;
+    public String addTimeLabel;
     @Column(name = "updateTimeLabel")
     @SerializedName("updateTimeLabel")
     @Expose
-    private String updateTimeLabel;
+    public String updateTimeLabel;
 
     @Column(name = "card", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Card card;
