@@ -47,7 +47,7 @@ import static com.blogspot.droidcrib.getflat.application.App.isQueried;
 public class ApartmentsListFragment extends Fragment implements ApartmentsListView, LoaderManager.LoaderCallbacks {
 
 
-    private int nextPage = 1;
+    private int currentPage = 1;
     public static ApartmentsListFragment sApartmentsListFragment;
     private List<Card> mCardsList;
     private RecyclerView mRecyclerView;
@@ -127,7 +127,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         mGetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage);
+                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
             }
         });
 
@@ -229,17 +229,38 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     public void onLoadFinished(Loader loader, Object data) {
         Log.d(TAG, "onLoadFinished: ");
 
-        int curSize = mAdapter.getItemCount();
-        Log.d(TAG, "onLoadFinished: curSize = " + curSize);
-        List<Card> newCardsList = (ArrayList<Card>) data;
-        List<Card> newItems = new ArrayList<Card>();
+        if (currentPage == 1) {
+            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD.");
+        } else {
+            Log.d(TAG, "onLoadFinished: THIS IS NEXT PAGE LOAD");
+            int curSize = mAdapter.getItemCount();
+            Log.d(TAG, "onLoadFinished: curSize = " + curSize);
+            List<Card> newCardsList = (ArrayList<Card>) data;
+            List<Card> newItems = new ArrayList<Card>();
 
-        for (Card card : newCardsList) {
-            if (!mCardsList.contains(card)) newItems.add(card);
+            for (Card card : newCardsList) {
+                if (!mCardsList.contains(card)) newItems.add(card);
+            }
+
+            mCardsList.addAll(newItems);
+            mAdapter.notifyItemRangeInserted(curSize, newItems.size());
         }
 
-        mCardsList.addAll(newItems);
-        mAdapter.notifyItemRangeInserted(curSize, newItems.size());
+
+// TODO: continue from here
+
+
+//        int curSize = mAdapter.getItemCount();
+//        Log.d(TAG, "onLoadFinished: curSize = " + curSize);
+//        List<Card> newCardsList = (ArrayList<Card>) data;
+//        List<Card> newItems = new ArrayList<Card>();
+//
+//        for (Card card : newCardsList) {
+//            if (!mCardsList.contains(card)) newItems.add(card);
+//        }
+//
+//        mCardsList.addAll(newItems);
+//        mAdapter.notifyItemRangeInserted(curSize, newItems.size());
 
 
         // Restore scrolling position
@@ -343,8 +364,9 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private void loadNextDataFromApi(int page) {
         // TODO: start new api request from here
         Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!  PAGE = " + page);
+        currentPage = page;
 //        mAdapter.notifyItemRangeInserted(30, 30);
-        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), page + 1);
+        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
         // currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
     }
 }

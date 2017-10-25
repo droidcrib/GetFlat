@@ -200,6 +200,7 @@ public class Card extends Model {
         List<Card> cardList = new Select()
                 .from(Card.class)
                 .where("isDeleted = ? AND (isFavourite = ? OR isFavourite is null)", false, false)
+                .orderBy("updateTime DESC")
                 .execute();
 
         for (Card card : cardList) {
