@@ -230,22 +230,26 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         Log.d(TAG, "onLoadFinished: ");
 
         int curSize = mAdapter.getItemCount();
-        Log.d(TAG, "onLoadFinished: curSize = " + curSize );
+        Log.d(TAG, "onLoadFinished: curSize = " + curSize);
         List<Card> newCardsList = (ArrayList<Card>) data;
-        Log.d(TAG, "onLoadFinished: newCardsList = " + newCardsList);
-        Log.d(TAG, "onLoadFinished: mCardsList = " + mCardsList);
+        List<Card> newItems = new ArrayList<Card>();
 
-        mCardsList.addAll(newCardsList);
-        mAdapter.notifyItemRangeInserted(curSize, newCardsList.size());
+        for (Card card : newCardsList) {
+            if (!mCardsList.contains(card)) newItems.add(card);
+        }
+
+        mCardsList.addAll(newItems);
+        mAdapter.notifyItemRangeInserted(curSize, newItems.size());
+
 
         // Restore scrolling position
         //mRecyclerView.scrollToPosition(currentVisiblePosition);
         //currentVisiblePosition = 0;
 
 //        if (!isQueried) {
-         //   currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-            //RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage );
-            isQueried = true;
+        //   currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        //RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage );
+        isQueried = true;
 //        }
     }
 
@@ -341,7 +345,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!  PAGE = " + page);
 //        mAdapter.notifyItemRangeInserted(30, 30);
         RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), page + 1);
-       // currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        // currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
     }
 }
 
