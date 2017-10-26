@@ -228,23 +228,37 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     @Override
     public void onLoadFinished(Loader loader, Object data) {
         Log.d(TAG, "onLoadFinished: ");
+        List<Card> newCardsQuery = (ArrayList<Card>) data;
+        Log.d(TAG, "onLoadFinished: newCardsQuery.size() = " + newCardsQuery.size());
 
-        if (currentPage == 1) {
-            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD.");
+
+        if (mCardsList.size() == 0) {
+            mCardsList.addAll(newCardsQuery);
+            mAdapter.notifyItemRangeInserted(0, newCardsQuery.size());
+            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD - create initial list.");
+        } else if (currentPage == 1) {
+            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD - update on api call");
+            for (int i = 0; i < mCardsList.size(); i++) {
+                if (!newCardsQuery.get(i).equals(mCardsList.get(i))) {
+                    mCardsList.add(i, newCardsQuery.get(i));
+                    mAdapter.notifyItemInserted(i);
+                    Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO BEGINNING OF THE LIST");
+                }
+            }
         } else {
             Log.d(TAG, "onLoadFinished: THIS IS NEXT PAGE LOAD");
             int curSize = mAdapter.getItemCount();
-            Log.d(TAG, "onLoadFinished: curSize = " + curSize);
-            List<Card> newCardsList = (ArrayList<Card>) data;
             List<Card> newItems = new ArrayList<Card>();
 
-            for (Card card : newCardsList) {
+            for (Card card : newCardsQuery) {
                 if (!mCardsList.contains(card)) newItems.add(card);
             }
 
             mCardsList.addAll(newItems);
             mAdapter.notifyItemRangeInserted(curSize, newItems.size());
         }
+
+        Log.d(TAG, "onLoadFinished: mCardsList.size() = " + mCardsList.size());
 
 
 // TODO: continue from here

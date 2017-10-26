@@ -6,6 +6,7 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: кэшируем фото во время его загрузки в ленте
 //TODO: дизайн ленты
 //TODO: боковое меню
+//TODO: подсвечивать новые карточки в списке при обновлении с АПИ
 
 // TODO: mark/unmark notes and favorites: setup icons
 
