@@ -232,31 +232,55 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         Log.d(TAG, "onLoadFinished: newCardsQuery.size() = " + newCardsQuery.size());
 
 
-        if (mCardsList.size() == 0) {
+        if (mCardsList.size() == 0) { // mCardsList is empty
             mCardsList.addAll(newCardsQuery);
             mAdapter.notifyItemRangeInserted(0, newCardsQuery.size());
-            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD - create initial list.");
-        } else if (currentPage == 1) {
-            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD - update on api call");
-            for (int i = 0; i < mCardsList.size(); i++) {
-                if (!newCardsQuery.get(i).equals(mCardsList.get(i))) {
-                    mCardsList.add(i, newCardsQuery.get(i));
-                    mAdapter.notifyItemInserted(i);
-                    Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO BEGINNING OF THE LIST");
-                }
-            }
+            Log.d(TAG, "onLoadFinished: CREATE INITIAL LIST.");
         } else {
-            Log.d(TAG, "onLoadFinished: THIS IS NEXT PAGE LOAD");
-            int curSize = mAdapter.getItemCount();
-            List<Card> newItems = new ArrayList<Card>();
+            for (int i = 0; i < newCardsQuery.size(); i++) {
+                // mCardsList not contains element
+                if (!mCardsList.contains(newCardsQuery.get(i))) {
+                    // List newCardsQuery is sorted by Card creation time.
+                    if (mCardsList.size() < i && !newCardsQuery.get(i).equals(mCardsList.get(i))) {
+                        // Insert into beginning of the list
+                        mCardsList.add(i, newCardsQuery.get(i));
+                        Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO BEGINNING OF THE LIST");
+                    } else {
+                        // Insert into end of the list
+                        mCardsList.add(newCardsQuery.get(i));
+                        Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO END OF THE LIST");
+                    }
+                    mAdapter.notifyItemInserted(i);
+                } else {
+                    Log.d(TAG, "onLoadFinished: mCardsList already contains element");
+                }
 
-            for (Card card : newCardsQuery) {
-                if (!mCardsList.contains(card)) newItems.add(card);
+
             }
-
-            mCardsList.addAll(newItems);
-            mAdapter.notifyItemRangeInserted(curSize, newItems.size());
         }
+
+
+//            if (currentPage == 1) {
+//            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD - update on api call");
+//            for (int i = 0; i < mCardsList.size(); i++) {
+//                if (!newCardsQuery.get(i).equals(mCardsList.get(i))) {
+//                    mCardsList.add(i, newCardsQuery.get(i));
+//                    mAdapter.notifyItemInserted(i);
+//                    Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO BEGINNING OF THE LIST");
+//                }
+//            }
+//        } else {
+//            Log.d(TAG, "onLoadFinished: THIS IS NEXT PAGE LOAD");
+//            int curSize = mAdapter.getItemCount();
+//            List<Card> newItems = new ArrayList<Card>();
+//
+//            for (Card card : newCardsQuery) {
+//                if (!mCardsList.contains(card)) newItems.add(card);
+//            }
+//
+//            mCardsList.addAll(newItems);
+//            mAdapter.notifyItemRangeInserted(curSize, newItems.size());
+//        }
 
         Log.d(TAG, "onLoadFinished: mCardsList.size() = " + mCardsList.size());
 
