@@ -6,6 +6,11 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: дизайн ленты
 //TODO: боковое меню
 //TODO: подсвечивать новые карточки в списке при обновлении с АПИ
+//TODO: “LayoutManager is already attached to a RecyclerView” error
+//TODO: screen rotation
+//TODO: ProgressBar
+
+
 
 
 //TODO: закладка "карта" со всеми точками. при клике на точку открываем детали ==>

@@ -29,7 +29,7 @@ import static com.blogspot.droidcrib.getflat.networking.JsonDecoder.getJSONFromR
 public class App extends com.activeandroid.app.Application implements StringRequestListener {
 
     private static final String TAG = "getflat_app";
-    public static boolean isQueried = false;
+    public static boolean isConditionChanged = false;
 
     @Override
     public void onCreate() {

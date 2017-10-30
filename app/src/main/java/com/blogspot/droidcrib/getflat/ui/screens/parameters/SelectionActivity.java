@@ -15,7 +15,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.blogspot.droidcrib.getflat.R;
-import com.blogspot.droidcrib.getflat.application.App;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.parameters.AreaParam;
 import com.blogspot.droidcrib.getflat.model.parameters.CityParam;
@@ -25,10 +24,11 @@ import com.blogspot.droidcrib.getflat.model.parameters.PriceParam;
 import com.blogspot.droidcrib.getflat.model.parameters.RoomsParam;
 import com.blogspot.droidcrib.getflat.model.parameters.SubwayDistanceParam;
 import com.blogspot.droidcrib.getflat.model.parameters.SubwayParam;
+import com.blogspot.droidcrib.getflat.networking.RestClient;
 
 import java.util.List;
 
-import static com.blogspot.droidcrib.getflat.application.App.isQueried;
+import static com.blogspot.droidcrib.getflat.application.App.isConditionChanged;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_AREA_TOTAL_MIN;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_CURRENCY;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_DISTRICT;
@@ -51,7 +51,7 @@ import static com.blogspot.droidcrib.getflat.contract.Constants.SHARED_PREFS;
 
 public class SelectionActivity extends AppCompatActivity {
 
-    private static final String TAG = "SelectionActivity";
+    private static final String TAG = "getflat_Selection";
 
     private RadioButton mRadioButtonDistrict;
     private RadioButton mRadioButtonMetro;
@@ -75,13 +75,6 @@ public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        App app = (com.blogspot.droidcrib.getflat.application.App)getApplication();
-
-
-
-
-
 
         setContentView(R.layout.activity_selection);
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
@@ -199,8 +192,8 @@ public class SelectionActivity extends AppCompatActivity {
                 default:
                     break;
             }
-            isQueried = false;
-            Card.deleteAllNotFavorites();
+            isConditionChanged = true;
+
         }
     };
 
@@ -232,10 +225,29 @@ public class SelectionActivity extends AppCompatActivity {
                 default:
                     break;
             }
-            isQueried = false;
-            Card.deleteAllNotFavorites();
+            isConditionChanged = true;
+
         }
     };
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+        if(isConditionChanged){
+            isConditionChanged = false;
+            Card.deleteAllNotFavorites();
+            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
+        }
+
+    }
 
     AdapterView.OnItemSelectedListener spinnerItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
@@ -278,8 +290,8 @@ public class SelectionActivity extends AppCompatActivity {
                 default:
                     break;
             }
-            isQueried = false;
-            Card.deleteAllNotFavorites();
+            isConditionChanged = true;
+
         }
 
         @Override

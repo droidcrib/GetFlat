@@ -2,7 +2,6 @@ package com.blogspot.droidcrib.getflat.ui.screens.all;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -17,8 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
@@ -32,11 +30,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.blogspot.droidcrib.getflat.application.App.isQueried;
+import static com.blogspot.droidcrib.getflat.application.App.isConditionChanged;
 
 
 /**
@@ -52,13 +49,14 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private List<Card> mCardsList;
     private RecyclerView mRecyclerView;
     private CardsAdapter mAdapter;
-    private Button mGetButton;
     int currentVisiblePosition = 0;
     private ApartmentsListPresenter presenter;
     private Snackbar mSnackbar;
     // Store a member variable for the listener
     private EndlessRecyclerViewScrollListener scrollListener;
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+    ProgressBar progressBarFirst;
+    ProgressBar progressBarMore;
 
 
     //
@@ -102,6 +100,8 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         };
         // Adds the scroll listener to RecyclerView
         mRecyclerView.addOnScrollListener(scrollListener);
+
+
     }
 
     @Override
@@ -111,17 +111,23 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
-        mGetButton = (Button) v.findViewById(R.id.get_button);
+        progressBarFirst = (ProgressBar) v.findViewById(R.id.progress_get_first);
+        progressBarMore = (ProgressBar) v.findViewById(R.id.progress_get_more);
+//        Button mGetButton = (Button) v.findViewById(R.id.get_button);
+
+        progressBarFirst.setVisibility(View.VISIBLE);
+        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
+
 
         //////////////////////////////////////////////////////////////////
         // TODO: remove this code when test finished
-        mGetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //SET PAGE=1 WHEN QUERY FOR NEW ITEMS
-                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
-            }
-        });
+//        mGetButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //SET PAGE=1 WHEN QUERY FOR NEW ITEMS
+//                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
+//            }
+//        });
         ///////////////////////////////////////////////////////////////////
         return v;
     }
@@ -136,7 +142,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isQueried = false;
         Log.d(TAG, "ApartmentsListFragment -- onDestroy: ");
     }
 
@@ -243,6 +248,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
             }
         }
 
+        if (mCardsList.size() > 0) {
+            progressBarFirst.setVisibility(View.GONE);
+        }
+        progressBarMore.setVisibility(View.GONE);
+
         for (Card card : mCardsList) {
             Log.d(TAG, "onLoadFinished: mCardsList.card time = " + card.toString());
         }
@@ -337,6 +347,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private void loadNextDataFromApi(int page) {
         // TODO: start new api request from here
         Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!  PAGE = " + page);
+        progressBarMore.setVisibility(View.VISIBLE);
         currentPage = page;
         RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
     }
