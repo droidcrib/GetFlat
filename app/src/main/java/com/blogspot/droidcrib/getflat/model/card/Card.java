@@ -419,13 +419,8 @@ public class Card extends Model {
     @Override
     public String toString() {
 
-
-        return "Card{ Update TIME = " + updateTime +   '}';
+        return "Card{ Update TIME = " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(updateTime)) +   '}';
     }
 
-    public static String convertTime(long time){
-        Date date = new Date(time);
-        Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
-        return format.format(date);
-    }
+
 }

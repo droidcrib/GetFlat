@@ -32,8 +32,10 @@ import com.blogspot.droidcrib.getflat.networking.RestClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -127,7 +129,8 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         mGetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
+                //TODO: SET PAGE=1 WHEN QUERY FOR NEW ITEMS
+                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
             }
         });
 
@@ -238,10 +241,20 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
             Log.d(TAG, "onLoadFinished: CREATE INITIAL LIST.");
         } else {
             for (int i = 0; i < newCardsQuery.size(); i++) {
+
+                Date date = new Date(newCardsQuery.get(i).updateTime);
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//                date = sdf.parse(stringDate);
+
+                Log.d(TAG, "onLoadFinished: card create time = " + date);
+
                 // mCardsList not contains element
                 if (!mCardsList.contains(newCardsQuery.get(i))) {
                     // List newCardsQuery is sorted by Card creation time.
-                    if (mCardsList.size() < i && !newCardsQuery.get(i).equals(mCardsList.get(i))) {
+
+                    Log.d(TAG, "onLoadFinished: mCardsList.size() < i == " + (mCardsList.size() < i) + " mCardsList.size() = " + mCardsList.size() + " i = " + i);
+
+                    if (mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))) {
                         // Insert into beginning of the list
                         mCardsList.add(i, newCardsQuery.get(i));
                         Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO BEGINNING OF THE LIST");
@@ -259,6 +272,10 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
             }
         }
 
+
+        for (Card card : mCardsList) {
+            Log.d(TAG, "onLoadFinished: mCardsList.card time = " + card.toString());
+        }
 
 //            if (currentPage == 1) {
 //            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD - update on api call");
