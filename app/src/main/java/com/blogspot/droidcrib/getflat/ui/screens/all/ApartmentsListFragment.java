@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,9 +31,7 @@ import com.blogspot.droidcrib.getflat.networking.RestClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -48,6 +45,7 @@ import static com.blogspot.droidcrib.getflat.application.App.isQueried;
 
 public class ApartmentsListFragment extends Fragment implements ApartmentsListView, LoaderManager.LoaderCallbacks {
 
+    private static final String TAG = "getflat_apartment_list";
 
     private int currentPage = 1;
     public static ApartmentsListFragment sApartmentsListFragment;
@@ -55,9 +53,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private RecyclerView mRecyclerView;
     private CardsAdapter mAdapter;
     private Button mGetButton;
-    private long mRecordId;
-    private Parcelable state;
-    private TextView mEmptyView;
     int currentVisiblePosition = 0;
     private ApartmentsListPresenter presenter;
     private Snackbar mSnackbar;
@@ -65,8 +60,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private EndlessRecyclerViewScrollListener scrollListener;
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
 
-    private static final String TAG = "getflat_apartment_list";
-    private String mResp;
 
     //
     // Provides instance of ApartmentsListFragment
@@ -96,7 +89,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         Log.d(TAG, "ApartmentsListFragment -- onStart: ");
         EventBus.getDefault().register(this);
         mCardsList = new ArrayList<Card>();
-        Log.d(TAG, "ApartmentsListFragment -- onCreateView: mCardsList = " + mCardsList.size());
         mAdapter = new CardsAdapter(mCardsList, getActivity(), presenter);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -105,16 +97,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         scrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
                 loadNextDataFromApi(page);
-                Log.d(TAG, "onLoadMore: called" + page + " " + totalItemsCount + " " + view);
-
             }
         };
         // Adds the scroll listener to RecyclerView
         mRecyclerView.addOnScrollListener(scrollListener);
-
     }
 
     @Override
@@ -126,15 +113,16 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
         mGetButton = (Button) v.findViewById(R.id.get_button);
 
+        //////////////////////////////////////////////////////////////////
+        // TODO: remove this code when test finished
         mGetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: SET PAGE=1 WHEN QUERY FOR NEW ITEMS
+                //SET PAGE=1 WHEN QUERY FOR NEW ITEMS
                 RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
             }
         });
-
-
+        ///////////////////////////////////////////////////////////////////
         return v;
     }
 
@@ -200,7 +188,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         getActivity().getMenuInflater().inflate(R.menu.item_list_menu_context_alarms, menu);
         // Get long-pressed item id
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        mRecordId = info.id;
+        long mRecordId = info.id;
     }
 
     @Override
@@ -232,101 +220,32 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     public void onLoadFinished(Loader loader, Object data) {
         Log.d(TAG, "onLoadFinished: ");
         List<Card> newCardsQuery = (ArrayList<Card>) data;
-        Log.d(TAG, "onLoadFinished: newCardsQuery.size() = " + newCardsQuery.size());
-
-
-        if (mCardsList.size() == 0) { // mCardsList is empty
+        // mCardsList is empty
+        if (mCardsList.size() == 0) {
             mCardsList.addAll(newCardsQuery);
             mAdapter.notifyItemRangeInserted(0, newCardsQuery.size());
-            Log.d(TAG, "onLoadFinished: CREATE INITIAL LIST.");
         } else {
             for (int i = 0; i < newCardsQuery.size(); i++) {
-
-                Date date = new Date(newCardsQuery.get(i).updateTime);
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//                date = sdf.parse(stringDate);
-
-                Log.d(TAG, "onLoadFinished: card create time = " + date);
-
                 // mCardsList not contains element
                 if (!mCardsList.contains(newCardsQuery.get(i))) {
                     // List newCardsQuery is sorted by Card creation time.
-
-                    Log.d(TAG, "onLoadFinished: mCardsList.size() < i == " + (mCardsList.size() < i) + " mCardsList.size() = " + mCardsList.size() + " i = " + i);
-
                     if (mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))) {
                         // Insert into beginning of the list
                         mCardsList.add(i, newCardsQuery.get(i));
-                        Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO BEGINNING OF THE LIST");
                     } else {
                         // Insert into end of the list
                         mCardsList.add(newCardsQuery.get(i));
-                        Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO END OF THE LIST");
                     }
                     mAdapter.notifyItemInserted(i);
                 } else {
-                    Log.d(TAG, "onLoadFinished: mCardsList already contains element");
+                    //Do nothing. mCardsList already contains element
                 }
-
-
             }
         }
-
 
         for (Card card : mCardsList) {
             Log.d(TAG, "onLoadFinished: mCardsList.card time = " + card.toString());
         }
-
-//            if (currentPage == 1) {
-//            Log.d(TAG, "onLoadFinished: THIS IS FIRST LOAD - update on api call");
-//            for (int i = 0; i < mCardsList.size(); i++) {
-//                if (!newCardsQuery.get(i).equals(mCardsList.get(i))) {
-//                    mCardsList.add(i, newCardsQuery.get(i));
-//                    mAdapter.notifyItemInserted(i);
-//                    Log.d(TAG, "onLoadFinished: ELEMENT ADDED INTO BEGINNING OF THE LIST");
-//                }
-//            }
-//        } else {
-//            Log.d(TAG, "onLoadFinished: THIS IS NEXT PAGE LOAD");
-//            int curSize = mAdapter.getItemCount();
-//            List<Card> newItems = new ArrayList<Card>();
-//
-//            for (Card card : newCardsQuery) {
-//                if (!mCardsList.contains(card)) newItems.add(card);
-//            }
-//
-//            mCardsList.addAll(newItems);
-//            mAdapter.notifyItemRangeInserted(curSize, newItems.size());
-//        }
-
-        Log.d(TAG, "onLoadFinished: mCardsList.size() = " + mCardsList.size());
-
-
-// TODO: continue from here
-
-
-//        int curSize = mAdapter.getItemCount();
-//        Log.d(TAG, "onLoadFinished: curSize = " + curSize);
-//        List<Card> newCardsList = (ArrayList<Card>) data;
-//        List<Card> newItems = new ArrayList<Card>();
-//
-//        for (Card card : newCardsList) {
-//            if (!mCardsList.contains(card)) newItems.add(card);
-//        }
-//
-//        mCardsList.addAll(newItems);
-//        mAdapter.notifyItemRangeInserted(curSize, newItems.size());
-
-
-        // Restore scrolling position
-        //mRecyclerView.scrollToPosition(currentVisiblePosition);
-        //currentVisiblePosition = 0;
-
-//        if (!isQueried) {
-        //   currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        //RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), nextPage );
-        isQueried = true;
-//        }
     }
 
     @Override
@@ -415,14 +334,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         }
     }
 
-
     private void loadNextDataFromApi(int page) {
         // TODO: start new api request from here
         Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!  PAGE = " + page);
         currentPage = page;
-//        mAdapter.notifyItemRangeInserted(30, 30);
         RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
-        // currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
     }
 }
 
