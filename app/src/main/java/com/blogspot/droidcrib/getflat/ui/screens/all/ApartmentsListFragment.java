@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.ProgressBar;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
+import com.blogspot.droidcrib.getflat.evenbus.NetworkResponseErrorEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
@@ -58,6 +60,8 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
     ProgressBar progressBarFirst;
     ProgressBar progressBarMore;
+    private SwipeRefreshLayout swipeContainer;
+
 
 
     //
@@ -103,13 +107,20 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "ApartmentsListFragment -- onCreateView: ");
 
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
         progressBarFirst = (ProgressBar) v.findViewById(R.id.progress_get_first);
         progressBarMore = (ProgressBar) v.findViewById(R.id.progress_get_more);
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d(TAG, "onRefresh: START NEW API CALL");
+                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
+            }
+        });
         progressBarFirst.setVisibility(View.VISIBLE);
 
         if (!isQueried) {
@@ -240,6 +251,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
             progressBarFirst.setVisibility(View.GONE);
         }
         progressBarMore.setVisibility(View.GONE);
+        swipeContainer.setRefreshing(false);
     }
 
     @Override
@@ -275,6 +287,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         Log.d(TAG, "ApartmentsListFragment -- onEvent: FavoriteAddedEvent happens");
         currentVisiblePosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         getLoaderManager().restartLoader(0, null, this);
+    }
+
+    @Subscribe
+    public void onEvent(NetworkResponseErrorEvent event) {
+        swipeContainer.setRefreshing(false);
     }
 
 
@@ -334,5 +351,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         currentPage = page;
         RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
     }
+
 }
 

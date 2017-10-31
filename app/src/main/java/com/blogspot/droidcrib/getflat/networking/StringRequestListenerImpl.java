@@ -4,7 +4,10 @@ import android.util.Log;
 
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.blogspot.droidcrib.getflat.evenbus.NetworkResponseErrorEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class StringRequestListenerImpl implements StringRequestListener {
     @Override
     public void onError(ANError anError) {
 
+        EventBus.getDefault().post(new NetworkResponseErrorEvent(anError.toString()));
         Log.d(TAG, "onError: StringRequestListenerImpl = " + anError.toString());
     }
 }
