@@ -30,6 +30,7 @@ public class App extends com.activeandroid.app.Application implements StringRequ
 
     private static final String TAG = "getflat_app";
     public static boolean isConditionChanged = false;
+    public static boolean isQueried = false;
 
     @Override
     public void onCreate() {

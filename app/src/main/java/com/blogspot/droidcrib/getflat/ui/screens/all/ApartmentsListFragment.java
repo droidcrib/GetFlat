@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static com.blogspot.droidcrib.getflat.application.App.isConditionChanged;
+import static com.blogspot.droidcrib.getflat.application.App.isQueried;
 
 
 /**
@@ -63,9 +64,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     // Provides instance of ApartmentsListFragment
     //
     public static ApartmentsListFragment getInstance() {
-
-        Log.d(TAG, "ApartmentsListFragment -- getInstance: ");
-
         if (sApartmentsListFragment == null) {
             sApartmentsListFragment = new ApartmentsListFragment();
         }
@@ -77,7 +75,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new ApartmentsListPresenterImpl(this);
-
         Log.d(TAG, "ApartmentsListFragment -- onCreate: ");
     }
 
@@ -113,22 +110,13 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
         progressBarFirst = (ProgressBar) v.findViewById(R.id.progress_get_first);
         progressBarMore = (ProgressBar) v.findViewById(R.id.progress_get_more);
-//        Button mGetButton = (Button) v.findViewById(R.id.get_button);
-
         progressBarFirst.setVisibility(View.VISIBLE);
-        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
 
+        if (!isQueried) {
+            isQueried = true;
+            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
+        }
 
-        //////////////////////////////////////////////////////////////////
-        // TODO: remove this code when test finished
-//        mGetButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //SET PAGE=1 WHEN QUERY FOR NEW ITEMS
-//                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
-//            }
-//        });
-        ///////////////////////////////////////////////////////////////////
         return v;
     }
 
@@ -252,10 +240,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
             progressBarFirst.setVisibility(View.GONE);
         }
         progressBarMore.setVisibility(View.GONE);
-
-        for (Card card : mCardsList) {
-            Log.d(TAG, "onLoadFinished: mCardsList.card time = " + card.toString());
-        }
     }
 
     @Override
@@ -346,7 +330,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
     private void loadNextDataFromApi(int page) {
         // TODO: start new api request from here
-        Log.d(TAG, "================ ::::::: ================ loadNextDataFromApi: CALLED !!!!  PAGE = " + page);
         progressBarMore.setVisibility(View.VISIBLE);
         currentPage = page;
         RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);

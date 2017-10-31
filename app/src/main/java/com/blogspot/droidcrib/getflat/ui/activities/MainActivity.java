@@ -8,7 +8,9 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: подсвечивать новые карточки в списке при обновлении с АПИ
 //TODO: “LayoutManager is already attached to a RecyclerView” error
 //TODO: screen rotation
-//TODO: ProgressBar
+//TODO: Hide toolbar on scroll up
+//TODO: swipe-to-refresh
+//TODO: change refreshAdapterDataSet
 
 
 
