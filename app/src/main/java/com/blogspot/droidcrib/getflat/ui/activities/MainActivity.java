@@ -142,14 +142,14 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
 
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SelectionActivity.class);
-                startActivity(i);
-//                Snackbar.make(view, "No connection", Snackbar.LENGTH_INDEFINITE)
-//                        .setAction("Action", null).show();
-            }
-        });
+//        mFab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(MainActivity.this, SelectionActivity.class);
+//                startActivity(i);
+////                Snackbar.make(view, "No connection", Snackbar.LENGTH_INDEFINITE)
+////                        .setAction("Action", null).show();
+//            }
+//        });
     }
 }
