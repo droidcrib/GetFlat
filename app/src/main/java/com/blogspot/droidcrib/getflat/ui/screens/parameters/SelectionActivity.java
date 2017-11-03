@@ -68,9 +68,9 @@ public class SelectionActivity extends AppCompatActivity {
     private List<PriceParam> mPrices;
     private List<SubwayParam> mSubways;
     private List<SubwayDistanceParam> mSubwayDistances;
-    Spinner spinnerSubway;
-    Spinner spinnerSubwayDistance;
-    Spinner spinnerDistrict;
+    private Spinner spinnerSubway;
+    private Spinner spinnerSubwayDistance;
+    private Spinner spinnerDistrict;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

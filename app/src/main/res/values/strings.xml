@@ -2,12 +2,14 @@
     <string name="app_name">Get Flat</string>
 
     <string name="rent_flat">Аренда квартир</string>
-    <string name="rent_room">Аренда комнат</string>
+    <string name="rent_flat_daily">Аренда квартир посуточно</string>
     <string name="sale_flat">Продажа квартир</string>
     <string name="sale_house">Продажа домов</string>
 
     <string name="action_rent">Аренда</string>
     <string name="action_sale">Продажа</string>
+    <string name="action_settings">Настройки</string>
+    <string name="search_parameters">Параметры поиска</string>
 
 
     <string name="label_city">Город</string>
@@ -23,7 +25,7 @@
     <string name="label_no_brokers">без посредников</string>
 
 
-    <string name="action_settings">Settings</string>
+
     <string name="incoming">Incoming</string>
     <string name="outgoing">Outgoing</string>
     <string name="missed">Missed</string>

@@ -27,4 +27,9 @@ public class Constants {
     public static final String PARAM_SUBWAY   = "subway";
     public static final String PARAM_SUBWAY_DISTANCE_MAX   = "subwayDistanceMax";
 
+    // Path parameters
+    public static final String PARAM_PATH   = "requestPath";
+    public static final String PATH_RENT_KYIV   = "аренда-квартир-киев";
+    public static final String PATH_SALE_KYIV   = "продажа-квартир-киев";
+
 }

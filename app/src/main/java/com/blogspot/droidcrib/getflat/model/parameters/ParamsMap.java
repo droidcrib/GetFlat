@@ -9,6 +9,9 @@ import java.util.List;
 
 /**
  * Created by BulanovA on 23.08.2017.
+ *
+ * This table keeps all current query parameters.
+ *
  */
 
 

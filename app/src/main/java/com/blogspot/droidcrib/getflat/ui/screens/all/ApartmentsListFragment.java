@@ -26,6 +26,7 @@ import com.blogspot.droidcrib.getflat.evenbus.NetworkResponseErrorEvent;
 import com.blogspot.droidcrib.getflat.evenbus.NoInternetEvent;
 import com.blogspot.droidcrib.getflat.loaders.FlatRecordsLoader;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.model.parameters.ParamsMap;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +38,7 @@ import java.util.List;
 
 import static com.blogspot.droidcrib.getflat.application.App.isConditionChanged;
 import static com.blogspot.droidcrib.getflat.application.App.isQueried;
+import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_PATH;
 
 
 /**
@@ -117,15 +119,15 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.d(TAG, "onRefresh: START NEW API CALL");
-                RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
+                // New API request on pull-to-refresh
+                RestClient.newGetRequest(ParamsMap.getValue(PARAM_PATH), RestClient.getQueryParameters(), 1);
             }
         });
         progressBarFirst.setVisibility(View.VISIBLE);
 
         if (!isQueried) {
             isQueried = true;
-            RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
+            RestClient.newGetRequest(ParamsMap.getValue(PARAM_PATH), RestClient.getQueryParameters(), currentPage);
         }
 
         return v;
@@ -346,10 +348,9 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     }
 
     private void loadNextDataFromApi(int page) {
-        // TODO: start new api request from here
         progressBarMore.setVisibility(View.VISIBLE);
         currentPage = page;
-        RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), currentPage);
+        RestClient.newGetRequest(ParamsMap.getValue(PARAM_PATH), RestClient.getQueryParameters(), currentPage);
     }
 
 }
