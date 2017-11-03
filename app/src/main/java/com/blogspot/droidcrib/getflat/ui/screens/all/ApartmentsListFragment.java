@@ -65,7 +65,6 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     private SwipeRefreshLayout swipeContainer;
 
 
-
     //
     // Provides instance of ApartmentsListFragment
     //
@@ -225,6 +224,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     @Override
     public void onLoadFinished(Loader loader, Object data) {
         Log.d(TAG, "onLoadFinished: ");
+        boolean isAddedToBeginning = false;
         List<Card> newCardsQuery = (ArrayList<Card>) data;
         // mCardsList is empty
         if (mCardsList.size() == 0) {
@@ -238,6 +238,7 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
                     if (mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))) {
                         // Insert into beginning of the list
                         mCardsList.add(i, newCardsQuery.get(i));
+                        isAddedToBeginning = true;
                     } else {
                         // Insert into end of the list
                         mCardsList.add(newCardsQuery.get(i));
@@ -254,6 +255,12 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         }
         progressBarMore.setVisibility(View.GONE);
         swipeContainer.setRefreshing(false);
+
+        // Scroll to the beginning if newest items added
+        if (isAddedToBeginning) {
+            LinearLayoutManager lm = ((LinearLayoutManager) mRecyclerView.getLayoutManager());
+            lm.smoothScrollToPosition(mRecyclerView, null, 0);
+        }
     }
 
     @Override
