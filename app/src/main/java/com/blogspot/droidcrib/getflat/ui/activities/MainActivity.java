@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        mFab = (FloatingActionButton) findViewById(R.id.fab_main);
+//        mFab = (FloatingActionButton) findViewById(R.id.fab_main);
 
         //  Setup TabLayout
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 TextView tabTextView = new TextView(this);
                 tabTextView.setAllCaps(true);
-                tabTextView.setTextSize(16f);
+                tabTextView.setTextSize(14f);
                 int textColor = getResources().getColor(R.color.icons);
                 tabTextView.setTextColor(textColor);
                 tab.setCustomView(tabTextView);
