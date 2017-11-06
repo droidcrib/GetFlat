@@ -14,4 +14,8 @@
         <item name="color">@color/icons</item>
     </style>
 
+    <style name="ButtonBlinkStyle">
+        <item name="android:background">@drawable/button_background_selector</item>
+    </style>
+
 </resources>
