@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.model.card.Card;
@@ -71,6 +72,7 @@ public class SelectionActivity extends AppCompatActivity {
     private Spinner spinnerSubway;
     private Spinner spinnerSubwayDistance;
     private Spinner spinnerDistrict;
+    private TextView districtMetroLabel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,6 +95,7 @@ public class SelectionActivity extends AppCompatActivity {
         mCheckBoxWithPhoto = (CheckBox) findViewById(R.id.checkbox_with_photo);
         mCheckBoxNoFee = (CheckBox) findViewById(R.id.checkbox_no_fee);
         mCheckBoxNoBrokers = (CheckBox) findViewById(R.id.checkbox_no_brokers);
+        districtMetroLabel = (TextView) findViewById(R.id.id_district_metro);
 
         // Setup spinners
         mAreas = AreaParam.queryAll();
@@ -149,10 +152,14 @@ public class SelectionActivity extends AppCompatActivity {
         // radio
 
         if (mPrefs.getString(PREFS_RADIO_METRO, "0").equals("1")) {
+            String label = getResources().getString(R.string.label_district);
+            districtMetroLabel.setText(label);
             mRadioButtonMetro.setChecked(true);
             setSubwayVisible();
 
         } else {
+            String label = getResources().getString(R.string.label_metro);
+            districtMetroLabel.setText(label);
             mRadioButtonDistrict.setChecked(true);
             setDistrictVisible();
 
@@ -166,8 +173,13 @@ public class SelectionActivity extends AppCompatActivity {
         spinnerPrice.setSelection(ParamsMap.getPos(PARAM_PRICE_MAX));
 
         if (mRadioButtonDistrict.isChecked()) {
+            String label = getResources().getString(R.string.label_district);
+            districtMetroLabel.setText(label);
             spinnerSubway.setVisibility(View.GONE);
             spinnerSubwayDistance.setVisibility(View.GONE);
+        } else {
+            String label = getResources().getString(R.string.label_metro);
+            districtMetroLabel.setText(label);
         }
 
     }
@@ -176,24 +188,28 @@ public class SelectionActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             RadioButton rb = (RadioButton) v;
+            String label = "";
             switch (rb.getId()) {
                 case R.id.radiobutton_district:
                     mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
                     mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
                     setDistrictVisible();
-
+                     label = getResources().getString(R.string.label_district);
+                    districtMetroLabel.setText(label);
                     break;
+
                 case R.id.radiobutton_metro:
                     mPrefs.edit().putString(PREFS_RADIO_DISTRICT, mRadioButtonDistrict.isChecked() ? "1" : "0").apply();
                     mPrefs.edit().putString(PREFS_RADIO_METRO, mRadioButtonMetro.isChecked() ? "1" : "0").apply();
                     setSubwayVisible();
+                    label = getResources().getString(R.string.label_metro);
+                    districtMetroLabel.setText(label);
                     break;
 
                 default:
                     break;
             }
             isConditionChanged = true;
-
         }
     };
 
