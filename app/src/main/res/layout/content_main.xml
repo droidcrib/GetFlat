@@ -18,8 +18,8 @@
             android:background="?attr/colorPrimary"
             android:elevation="6dp"
             android:minHeight="?attr/actionBarSize"
-            app:tabSelectedTextColor="@color/accent"
-            app:tabTextColor="@color/accent"
+            app:tabSelectedTextColor="@color/icons"
+            app:tabTextColor="@color/divider"
 
             />
 

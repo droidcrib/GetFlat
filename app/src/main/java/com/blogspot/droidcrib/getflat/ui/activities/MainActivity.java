@@ -4,14 +4,11 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: при нажатии "детали" новое активити с двумя закладками детали(вебвью) и карта
 //TODO: кэшируем фото во время его загрузки в ленте
 //TODO: дизайн ленты
-//TODO: боковое меню
 //TODO: подсвечивать новые карточки в списке при обновлении с АПИ
 //TODO: “LayoutManager is already attached to a RecyclerView” error
 //TODO: screen rotation
 //TODO: change refreshAdapterDataSet
-//TODO: при добавлении в конец списка сдвигать скролл немного вниз
-//TODO: при добавлении в начало списка сдвигаем скролл в самый верх + тост "New cards available"
-
+//TODO: мигание при нажатии
 
 //TODO: закладка "карта" со всеми точками. при клике на точку открываем детали ==>
 //TODO: макет для landscape
@@ -31,6 +28,7 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -44,23 +42,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.blogspot.droidcrib.getflat.R;
-import com.blogspot.droidcrib.getflat.model.card.Card;
-import com.blogspot.droidcrib.getflat.model.parameters.ParamsMap;
-import com.blogspot.droidcrib.getflat.networking.RestClient;
 import com.blogspot.droidcrib.getflat.ui.screens.all.MainTabsPagerAdapter;
 import com.blogspot.droidcrib.getflat.ui.screens.parameters.SelectionActivity;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import okhttp3.OkHttpClient;
 
-import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_PATH;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PATH_RENT_KYIV;
-import static com.blogspot.droidcrib.getflat.contract.Constants.PATH_SALE_KYIV;
+import static android.graphics.Color.WHITE;
 import static com.blogspot.droidcrib.getflat.contract.Constants.SHARED_PREFS;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -75,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private long mAlarmRecordId;
     private FloatingActionButton mFab;
     private int mPagePosition;
+    private TabLayout mTabLayout;
 
 
     @Override
@@ -96,10 +90,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFab = (FloatingActionButton) findViewById(R.id.fab_main);
 
         //  Setup TabLayout
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mTabLayout.addTab(mTabLayout.newTab().setText("All"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Favourites"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        // Customize tabs
+        setTabsParameters();
 
         //  Setup ViewPager
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -124,14 +120,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
+
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
+
+                TextView text = (TextView) tab.getCustomView();
+                text.setTypeface(null, Typeface.BOLD);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
+                TextView text = (TextView) tab.getCustomView();
+                text.setTypeface(null, Typeface.NORMAL);
             }
 
             @Override
@@ -179,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            RestClient.newGetRequest(ParamsMap.getValue(PARAM_PATH),RestClient.getQueryParameters(),1);
 //        } else
 //
-            if (id == R.id.nav_parameters) {
+        if (id == R.id.nav_parameters) {
             Intent i = new Intent(MainActivity.this, SelectionActivity.class);
             startActivity(i);
         }
@@ -188,4 +192,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void setTabsParameters() {
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null) {
+
+                TextView tabTextView = new TextView(this);
+                tabTextView.setAllCaps(true);
+                tabTextView.setTextSize(16f);
+                int textColor = getResources().getColor(R.color.icons);
+                tabTextView.setTextColor(textColor);
+                tab.setCustomView(tabTextView);
+
+                tabTextView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                tabTextView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                tabTextView.setText(tab.getText());
+
+                // First tab is the selected tab, so if i==0 then set BOLD typeface
+                if (i == 0) {
+                    tabTextView.setTypeface(null, Typeface.BOLD);
+                }
+
+            }
+
+        }
+    }
+
 }
