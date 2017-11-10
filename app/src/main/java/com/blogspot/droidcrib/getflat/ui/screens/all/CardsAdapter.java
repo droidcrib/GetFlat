@@ -17,10 +17,13 @@ import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
+import com.blogspot.droidcrib.getflat.utils.DeviceData;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+
+import static com.blogspot.droidcrib.getflat.contract.Constants.SIDE_PADDINGS;
 
 /**
  * Created by BulanovA on 06.08.2017.
@@ -148,6 +151,10 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             favorites = (ImageView) view.findViewById(R.id.favorites);
             remove = (ImageView) view.findViewById(R.id.remove);
             note = (ImageView) view.findViewById(R.id.note);
+
+            // Make square photo
+            photo.getLayoutParams().width = DeviceData.getScreenWidth(context);
+            photo.getLayoutParams().height = DeviceData.getScreenWidth(context) - SIDE_PADDINGS;
         }
     }
 

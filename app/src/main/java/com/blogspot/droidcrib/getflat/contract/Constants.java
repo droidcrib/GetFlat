@@ -32,4 +32,10 @@ public class Constants {
     public static final String PATH_RENT_KYIV   = "аренда-квартир-киев";
     public static final String PATH_SALE_KYIV   = "продажа-квартир-киев";
 
+    // Screen dimentions
+    public static final int SIDE_PADDINGS   = 32;
+
+
+
+
 }
