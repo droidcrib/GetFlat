@@ -1,15 +1,10 @@
 package com.blogspot.droidcrib.getflat.ui.activities;
 
 //TODO: mark/unmark notes and favorites: setup icons
-//TODO: при нажатии "детали" новое активити с двумя закладками детали(вебвью) и карта
-//TODO: кэшируем фото во время его загрузки в ленте
 //TODO: дизайн ленты
 //TODO: подсвечивать новые карточки в списке при обновлении с АПИ
 //TODO: “LayoutManager is already attached to a RecyclerView” error
-//TODO: screen rotation
-//TODO: change refreshAdapterDataSet
-//TODO: мигание при нажатии
-//TODO: указывать в табе "Favorites"
+//TODO: указывать в табе "Favorites" количество добавленных (циферка в красном кружочке)
 
 //TODO: закладка "карта" со всеми точками. при клике на точку открываем детали ==>
 //TODO: макет для landscape
@@ -24,6 +19,9 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: цветовая схема
 //TODO: клик на кнопке "перейти к объявлению" - открываем сайт объявления в вебвью
 //TODO: скайлайн как лого
+//TODO: при нажатии "детали" новое активити с двумя закладками детали(вебвью) и карта
+//TODO: screen rotation
+//TODO: change refreshAdapterDataSet
 
 
 import android.content.Context;
