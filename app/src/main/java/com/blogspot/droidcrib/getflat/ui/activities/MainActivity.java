@@ -9,6 +9,7 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 //TODO: screen rotation
 //TODO: change refreshAdapterDataSet
 //TODO: мигание при нажатии
+//TODO: указывать в табе "Favorites"
 
 //TODO: закладка "карта" со всеми точками. при клике на точку открываем детали ==>
 //TODO: макет для landscape
