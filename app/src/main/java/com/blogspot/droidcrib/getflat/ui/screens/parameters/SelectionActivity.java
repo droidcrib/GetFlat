@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -77,8 +79,18 @@ public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_selection);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_selection);
+        ImageView doneImage = (ImageView) findViewById(R.id.selection_toolbar_done);
+        doneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectionActivity.this.finish();
+            }
+        });
+
+
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
         Spinner spinnerCity = (Spinner) findViewById(R.id.spinner_city);

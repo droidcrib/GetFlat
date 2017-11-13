@@ -25,6 +25,9 @@
     <string name="label_no_brokers">без посредников</string>
 
 
+    <string name="header_search_settings">Настройки поиска</string>
+
+
 
     <string name="incoming">Incoming</string>
     <string name="outgoing">Outgoing</string>
