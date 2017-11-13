@@ -10,10 +10,12 @@
 
     <ImageView
         android:id="@+id/id_list_row_photo"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
+        android:layout_marginRight="-8dp"
+        android:layout_marginLeft="-8dp"
+
+        android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
         android:src="@drawable/house_holder" />
 
