@@ -11,18 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
         android:elevation="4dp"
-        android:src="@drawable/house_holder" />
+        android:scaleType="centerCrop" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_below="@id/id_list_row_photo"
         android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="8dp">
 
         <LinearLayout
@@ -181,7 +180,7 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:hint="Description"
-                android:lines="2"
+                android:lines="3"
                 android:scrollHorizontally="true"
                 android:textColor="@color/secondary_text"
                 android:textSize="14sp" />
@@ -228,8 +227,6 @@
                     android:background="@drawable/ic_note_add_black_48dp"
                     android:scaleType="fitCenter" />
             </FrameLayout>
-
-
 
 
             <FrameLayout

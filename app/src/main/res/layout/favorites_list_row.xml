@@ -4,27 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="8dp"
-    android:paddingRight="16dp"
     android:paddingTop="8dp">
 
-
-    <ImageView
+    <com.blogspot.droidcrib.getflat.ui.SquareImageView
         android:id="@+id/id_list_row_photo"
-        android:layout_width="match_parent"
-        android:layout_height="156dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_comment_black_48dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:elevation="4dp"
+        android:scaleType="centerCrop" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_list_row_photo"
-        android:layout_marginLeft="16dp"
         android:orientation="vertical"
-        android:paddingTop="8dp">
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="8dp"
+        android:background="@color/accent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -182,7 +181,7 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:hint="Description"
-                android:lines="2"
+                android:lines="3"
                 android:scrollHorizontally="true"
                 android:textColor="@color/secondary_text"
                 android:textSize="14sp" />
@@ -211,6 +210,8 @@
                     android:padding="4dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_not_interested_black_48dp" />
+
+
             </FrameLayout>
 
             <FrameLayout
@@ -262,11 +263,11 @@
                 <ImageView
                     android:id="@+id/f_details"
                     style="@style/ButtonBlinkStyle"
-                    android:clickable="true"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
                     android:alpha="0.5"
+                    android:clickable="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_more_vert_black_48dp" />
             </FrameLayout>
