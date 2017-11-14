@@ -78,9 +78,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             holder.description.setText(card.description.text);
         }
         if (card.isFavourite != null && card.isFavourite) {
-            holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+            holder.favorites.setImageResource(R.drawable.ic_heart_red);
         } else {
-            holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+            holder.favorites.setImageResource(R.drawable.ic_heart);
         }
         holder.photo.setImageResource(R.drawable.house_holder);
         if (card.photo != null) {
@@ -161,12 +161,12 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
 
     @Override
     public void markFavorite(Card card, CardViewHolder holder) {
-        holder.favorites.setImageResource(R.drawable.ic_favorite_black_48dp);
+        holder.favorites.setImageResource(R.drawable.ic_heart_red);
     }
 
     @Override
     public void unmarkFavorite(Card card, CardViewHolder holder) {
-        holder.favorites.setImageResource(R.drawable.ic_favorite_border_black_48dp);
+        holder.favorites.setImageResource(R.drawable.ic_heart);
     }
 
 

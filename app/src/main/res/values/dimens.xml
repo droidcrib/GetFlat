@@ -28,4 +28,10 @@
     <dimen name="note_textview_height">72dp</dimen>
 
 
+    <!-- icons sizes -->
+    <dimen name="icon_controls_size">42dp</dimen>
+    <dimen name="icon_controls_padding">8dp</dimen>
+    <dimen name="icon_controls_margin">8dp</dimen>
+
+
 </resources>
