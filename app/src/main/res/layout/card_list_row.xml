@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="8dp"
-    android:paddingRight="16dp"
     android:paddingTop="8dp">
 
 
@@ -12,19 +11,18 @@
         android:id="@+id/id_list_row_photo"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginRight="-8dp"
-        android:layout_marginLeft="-8dp"
-
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
+        android:elevation="4dp"
         android:src="@drawable/house_holder" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_below="@id/id_list_row_photo"
-        android:layout_marginLeft="16dp"
         android:orientation="vertical"
         android:paddingTop="8dp">
 

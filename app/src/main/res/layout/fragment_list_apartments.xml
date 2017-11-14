@@ -8,8 +8,7 @@
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_all_apartments"
@@ -18,13 +17,6 @@
             android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
-    <!--<Button-->
-    <!--android:id="@+id/get_button"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignBottom="@+id/recycler_view_all_apartments"-->
-    <!--android:text="get" />-->
-
 
     <ProgressBar
         android:id="@+id/progress_get_more"
