@@ -20,6 +20,7 @@
             android:minHeight="?attr/actionBarSize"
             app:tabSelectedTextColor="@color/icons"
             app:tabTextColor="@color/divider"
+            android:visibility="gone"
 
             />
 
