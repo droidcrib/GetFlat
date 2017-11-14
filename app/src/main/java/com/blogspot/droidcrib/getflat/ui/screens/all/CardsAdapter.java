@@ -154,7 +154,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
 
             // Make square photo
             photo.getLayoutParams().width = DeviceData.getScreenWidth(context);
-            photo.getLayoutParams().height = DeviceData.getScreenWidth(context) - SIDE_PADDINGS;
+//            photo.getLayoutParams().height = DeviceData.getScreenWidth(context) - SIDE_PADDINGS;
         }
     }
 
