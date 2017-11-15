@@ -3,7 +3,6 @@ package com.blogspot.droidcrib.getflat.ui.screens.all;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.blogspot.droidcrib.getflat.R;
-import com.blogspot.droidcrib.getflat.evenbus.CardRemovedEvent;
 import com.blogspot.droidcrib.getflat.evenbus.FavoriteAddedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.utils.DeviceData;
@@ -22,8 +20,6 @@ import com.blogspot.droidcrib.getflat.utils.DeviceData;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-
-import static com.blogspot.droidcrib.getflat.contract.Constants.SIDE_PADDINGS;
 
 /**
  * Created by BulanovA on 06.08.2017.
@@ -47,7 +43,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_list_row, parent, false);
+                .inflate(R.layout.list_item_all_cards, parent, false);
 
         return new CardViewHolder(itemView);
     }

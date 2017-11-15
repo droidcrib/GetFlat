@@ -29,8 +29,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/ic_placeholder" />
@@ -70,8 +70,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/ic_price_tag" />
@@ -86,8 +86,9 @@
                 android:gravity="center_vertical"
                 android:hint="Price"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
-                android:textSize="18sp" />
+                android:textColor="@color/primary_text"
+                android:textStyle="bold"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -98,8 +99,8 @@
 
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/ic_home" />
@@ -117,7 +118,7 @@
                 android:lines="1"
                 android:maxLength="9"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
 
             <TextView
@@ -133,7 +134,7 @@
                 android:lines="1"
                 android:maxLength="13"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
 
             <TextView
@@ -149,7 +150,7 @@
                 android:lines="1"
                 android:maxLength="13"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
 
 
@@ -161,8 +162,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/ic_list" />
@@ -178,7 +179,7 @@
                 android:hint="Description"
                 android:lines="3"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
         </LinearLayout>
 

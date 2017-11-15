@@ -45,7 +45,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.favorites_list_row, parent, false);
+                .inflate(R.layout.list_item_favorites, parent, false);
 
         return new CardViewHolder(itemView);
     }

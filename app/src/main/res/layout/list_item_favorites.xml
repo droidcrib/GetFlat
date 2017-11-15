@@ -22,20 +22,18 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="8dp"
-        android:background="@color/accent">
+        android:paddingTop="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
-                android:alpha="0.5"
-                android:background="@drawable/ic_location_on_black_48dp" />
+                android:background="@drawable/ic_placeholder" />
 
             <TextView
                 android:id="@+id/id_list_row_street"
@@ -72,12 +70,11 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
-                android:alpha="0.5"
-                android:background="@drawable/ic_attach_money_black_48dp" />
+                android:background="@drawable/ic_price_tag" />
 
             <TextView
                 android:id="@+id/id_list_row_price"
@@ -89,8 +86,9 @@
                 android:gravity="center_vertical"
                 android:hint="Price"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
-                android:textSize="18sp" />
+                android:textColor="@color/primary_text"
+                android:textStyle="bold"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -101,12 +99,11 @@
 
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
-                android:alpha="0.5"
-                android:background="@drawable/ic_home_black_48dp" />
+                android:background="@drawable/ic_home" />
 
             <TextView
                 android:id="@+id/id_list_row_rooms"
@@ -121,7 +118,7 @@
                 android:lines="1"
                 android:maxLength="9"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
 
             <TextView
@@ -137,7 +134,7 @@
                 android:lines="1"
                 android:maxLength="13"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
 
             <TextView
@@ -153,7 +150,7 @@
                 android:lines="1"
                 android:maxLength="13"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
 
 
@@ -165,12 +162,11 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
-                android:alpha="0.5"
-                android:background="@drawable/ic_description_black_48dp" />
+                android:background="@drawable/ic_list" />
 
             <TextView
                 android:id="@+id/id_list_row_description"
@@ -183,97 +179,61 @@
                 android:hint="Description"
                 android:lines="3"
                 android:scrollHorizontally="true"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/primary_text"
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="-8dp"
+            android:layout_marginRight="-8dp"
             android:orientation="horizontal">
 
-            <FrameLayout
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:layout_weight="50">
-
-                <ImageView
-                    android:id="@+id/f_favorites"
-                    style="@style/ButtonBlinkStyle"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center"
-                    android:alpha="0.5"
-                    android:padding="4dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_not_interested_black_48dp" />
+            <ImageView
+                android:id="@+id/favorites"
+                android:layout_width="@dimen/icon_controls_size"
+                android:layout_height="@dimen/icon_controls_size"
+                android:padding="@dimen/icon_controls_padding"
+                android:layout_marginRight="@dimen/padding_8dp"
+                android:src="@drawable/ic_cancel" />
 
 
-            </FrameLayout>
-
-            <FrameLayout
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:layout_weight="50">
-
-                <ImageView
-                    android:id="@+id/f_note"
-                    style="@style/ButtonBlinkStyle"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:alpha="0.5"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_note_add_black_48dp" />
-            </FrameLayout>
+            <ImageView
+                android:id="@+id/note"
+                android:layout_width="@dimen/icon_controls_size"
+                android:layout_height="@dimen/icon_controls_size"
+                android:padding="@dimen/icon_controls_padding"
+                android:layout_marginRight="@dimen/padding_8dp"
+                android:layout_toRightOf="@id/favorites"
+                android:src="@drawable/ic_note" />
 
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:layout_weight="50">
+            <ImageView
+                android:id="@+id/remove"
+                android:layout_width="@dimen/icon_controls_size"
+                android:layout_height="@dimen/icon_controls_size"
+                android:padding="@dimen/icon_controls_padding"
 
-                <ImageView
-                    android:id="@+id/f_remove"
-                    style="@style/ButtonBlinkStyle"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:alpha="0.5"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_delete_forever_black_48dp" />
-            </FrameLayout>
-
-            <FrameLayout
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:layout_weight="50">
-
-                <ImageView
-                    android:id="@+id/f_details"
-                    style="@style/ButtonBlinkStyle"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:alpha="0.5"
-                    android:clickable="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_more_vert_black_48dp" />
-            </FrameLayout>
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_garbage" />
 
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/f_details"
+                android:layout_width="@dimen/icon_controls_size"
+                android:layout_height="@dimen/icon_controls_size"
+                android:padding="@dimen/icon_controls_padding"
+                android:foregroundGravity="right"
+                android:layout_marginRight="@dimen/padding_8dp"
+                android:layout_toRightOf="@id/note"
+
+                android:src="@drawable/ic_more" />
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 
