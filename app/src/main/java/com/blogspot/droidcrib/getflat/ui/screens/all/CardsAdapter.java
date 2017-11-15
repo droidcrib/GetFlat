@@ -78,7 +78,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         } else {
             holder.favorites.setImageResource(R.drawable.ic_heart);
         }
-        holder.photo.setImageResource(R.drawable.house_holder);
+        //TODO: holder.photo.setImageResource(R.drawable.house_holder);
         if (card.photo != null) {
             AndroidNetworking.get(card.photo.url)
                     .build()
