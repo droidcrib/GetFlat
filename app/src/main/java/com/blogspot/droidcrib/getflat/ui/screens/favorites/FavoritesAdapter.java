@@ -141,9 +141,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             floor = (TextView) view.findViewById(R.id.id_list_row_floor);
             description = (TextView) view.findViewById(R.id.id_list_row_description);
             photo = (ImageView) view.findViewById(R.id.id_list_row_photo);
-            favorites = (ImageView) view.findViewById(R.id.f_favorites);
-            remove = (ImageView) view.findViewById(R.id.f_remove);
-            note = (ImageView) view.findViewById(R.id.f_note);
+            favorites = (ImageView) view.findViewById(R.id.favorites);
+            remove = (ImageView) view.findViewById(R.id.remove);
+            note = (ImageView) view.findViewById(R.id.note);
         }
     }
 
