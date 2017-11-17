@@ -256,11 +256,11 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         progressBarMore.setVisibility(View.GONE);
         swipeContainer.setRefreshing(false);
 
-        // Scroll to the beginning if newest items added
-        if (isAddedToBeginning) {
-            LinearLayoutManager lm = ((LinearLayoutManager) mRecyclerView.getLayoutManager());
-            lm.smoothScrollToPosition(mRecyclerView, null, 0);
-        }
+//        // Scroll to the beginning if newest items added
+//        if (isAddedToBeginning) {
+//            LinearLayoutManager lm = ((LinearLayoutManager) mRecyclerView.getLayoutManager());
+//            lm.smoothScrollToPosition(mRecyclerView, null, 0);
+//        }
     }
 
     @Override
