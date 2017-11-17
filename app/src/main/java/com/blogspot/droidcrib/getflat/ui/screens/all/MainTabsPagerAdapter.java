@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 
 import com.blogspot.droidcrib.getflat.ui.screens.favorites.FavoritesListFragment;
+import com.blogspot.droidcrib.getflat.ui.screens.parameters.SettingsFragment;
 
 /**
  *
@@ -28,11 +29,11 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return ApartmentsListFragment.getInstance();
+                return SettingsFragment.getInstance();
             case 1:
-                return  FavoritesListFragment.getInstance();
+                return ApartmentsListFragment.getInstance();
             case 2:
-            //    return NotesListFragment.getInstance();
+                return FavoritesListFragment.getInstance();
 
             default:
                 return null;

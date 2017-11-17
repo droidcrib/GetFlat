@@ -25,37 +25,26 @@ package com.blogspot.droidcrib.getflat.ui.activities;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.ui.screens.all.MainTabsPagerAdapter;
-import com.blogspot.droidcrib.getflat.ui.screens.parameters.SelectionActivity;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import okhttp3.OkHttpClient;
 
-import static android.graphics.Color.WHITE;
 import static com.blogspot.droidcrib.getflat.contract.Constants.SHARED_PREFS;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "getflat_main_activity";
     private String mResp;
@@ -81,17 +70,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
         AndroidNetworking.initialize(getApplicationContext(), okHttpClient);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         mPrefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 //        mFab = (FloatingActionButton) findViewById(R.id.fab_main);
 
         //  Setup TabLayout
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout.addTab(mTabLayout.newTab().setText("Settings"));
         mTabLayout.addTab(mTabLayout.newTab().setText("All"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Favourites"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Favorites"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         // Customize tabs
         setTabsParameters();
@@ -100,25 +86,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mViewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new MainTabsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
         mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(1);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout) {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 mPagePosition = position;
                 if (position == 0) {
-//                    mFab.setVisibility(View.INVISIBLE);
                 }
                 if (position == 1) {
-//                    mFab.setVisibility(View.VISIBLE);
-//                    mFab.setImageResource(R.drawable.ic_alarm_add_white_24dp);
                 }
                 if (position == 2) {
-//                    mFab.setVisibility(View.VISIBLE);
-//                    mFab.setImageResource(R.drawable.ic_note_add_white_24dp);
                 }
             }
         });
-
 
 
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -141,56 +122,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-
-
-        // Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-//        mFab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(MainActivity.this, SelectionActivity.class);
-//                startActivity(i);
-////                Snackbar.make(view, "No connection", Snackbar.LENGTH_INDEFINITE)
-////                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        Log.d(TAG, "onNavigationItemSelected: pressed");
-//
-//        if (id == R.id.nav_rent_flat) {
-//            ParamsMap.updateParameter(PARAM_PATH, PATH_RENT_KYIV);
-//            Card.deleteAllNotFavorites();
-//            RestClient.newGetRequest(ParamsMap.getValue(PARAM_PATH),RestClient.getQueryParameters(),1);
-//
-//        } else if (id == R.id.nav_sale_flat) {
-//            ParamsMap.updateParameter(PARAM_PATH, PATH_SALE_KYIV);
-//            Card.deleteAllNotFavorites();
-//            RestClient.newGetRequest(ParamsMap.getValue(PARAM_PATH),RestClient.getQueryParameters(),1);
-//        } else
-//
-        if (id == R.id.nav_parameters) {
-            Intent i = new Intent(MainActivity.this, SelectionActivity.class);
-            startActivity(i);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     private void setTabsParameters() {
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
