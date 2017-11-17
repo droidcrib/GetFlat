@@ -79,7 +79,7 @@ public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection);
+        setContentView(R.layout.fragment_settings);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_selection);
         ImageView doneImage = (ImageView) findViewById(R.id.selection_toolbar_done);

@@ -26,7 +26,7 @@
             app:contentInsetStart="0dp">
 
             <include
-                layout="@layout/toolbar_selection_layout"
+                layout="@layout/toolbar_options"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

@@ -52,7 +52,7 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 //    LinearLayoutManager llManager = new LinearLayoutManager(getActivity());
     int currentVisiblePosition = 0;
 
-    private static final String TAG = "getflat_FavoritesListFragment";
+    private static final String TAG = "getflat_FavoritesLFrag";
     private String mResp;
     private FavoritesListPresenter favoritesListPresenter;
 

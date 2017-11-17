@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import com.blogspot.droidcrib.getflat.model.parameters.RoomsParam;
 import com.blogspot.droidcrib.getflat.model.parameters.SubwayDistanceParam;
 import com.blogspot.droidcrib.getflat.model.parameters.SubwayParam;
 import com.blogspot.droidcrib.getflat.networking.RestClient;
-import com.blogspot.droidcrib.getflat.ui.screens.favorites.FavoritesListFragment;
 
 import java.util.List;
 
@@ -101,7 +99,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_selection, container, false);
+        View v = inflater.inflate(R.layout.fragment_settings, container, false);
 
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar_selection);
         ImageView doneImage = (ImageView) v.findViewById(R.id.selection_toolbar_done);
