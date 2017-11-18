@@ -7,9 +7,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.blogspot.droidcrib.getflat.R;
@@ -128,6 +131,27 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
             isQueried = true;
             RestClient.newGetRequest(ParamsMap.getValue(PARAM_PATH), RestClient.getQueryParameters(), currentPage);
         }
+
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar_all_f);
+        ImageView menuImage = (ImageView) v.findViewById(R.id.toolbar_all_menu);
+        ImageView favoritesImage = (ImageView) v.findViewById(R.id.toolbar_all_favorites);
+
+        menuImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: use interface here
+                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.pager);
+                vp.setCurrentItem(0, true);
+            }
+        });
+        favoritesImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: use interface here
+                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.pager);
+                vp.setCurrentItem(2, true);
+            }
+        });
 
         return v;
     }
