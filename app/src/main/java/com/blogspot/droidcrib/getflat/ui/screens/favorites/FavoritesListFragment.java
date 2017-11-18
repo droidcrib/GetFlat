@@ -7,9 +7,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
@@ -90,6 +93,18 @@ public class FavoritesListFragment extends Fragment implements LoaderManager.Loa
 
         View v = inflater.inflate(R.layout.fragment_list_favorite_apartments, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_favorite_apartments);
+
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar_favorites_f);
+        ImageView doneImage = (ImageView) v.findViewById(R.id.toolbar_favorites_back);
+
+        doneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: use interface here
+                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.pager);
+                vp.setCurrentItem(1, true);
+            }
+        });
 
 
         return v;

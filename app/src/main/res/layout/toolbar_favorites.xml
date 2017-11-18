@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/toolbar_favorites_menu"
+        android:id="@+id/toolbar_favorites_back"
         style="@style/ButtonBlinkStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@id/toolbar_favorites_menu"
+        android:layout_toRightOf="@id/toolbar_favorites_back"
         android:text="@string/header_search_settings"
         android:textColor="@color/icons"
         android:textSize="18sp" />
