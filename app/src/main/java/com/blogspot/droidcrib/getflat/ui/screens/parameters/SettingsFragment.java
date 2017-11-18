@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -103,10 +104,13 @@ public class SettingsFragment extends Fragment {
 
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar_selection);
         ImageView doneImage = (ImageView) v.findViewById(R.id.selection_toolbar_done);
+
         doneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO: use interface here
+                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.pager);
+                vp.setCurrentItem(1, true);
             }
         });
 
@@ -291,7 +295,7 @@ public class SettingsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: ");
-        if(isConditionChanged){
+        if (isConditionChanged) {
             isConditionChanged = false;
             Card.deleteAllNotFavorites();
             RestClient.newGetRequest("аренда-квартир-киев", RestClient.getQueryParameters(), 1);
