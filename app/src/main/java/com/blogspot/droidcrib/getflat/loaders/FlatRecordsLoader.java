@@ -15,6 +15,6 @@ public class FlatRecordsLoader extends DatabaseLoader {
 
     @Override
     public List<Card> loadList() {
-        return Card.queryAllNotFavourites();
+        return Card.queryAllNotDeleted();
     }
 }

@@ -117,7 +117,12 @@ public class Card extends Model {
     @Column(name = "updateTime")
     public long updateTime;
 
-
+    /**
+     * Converts date string (yyyy-MM-dd hh:mm:ss) to long
+     *
+     * @param stringDate
+     * @return
+     */
     private static long stringDateToLong(String stringDate) {
         Date date = new Date(System.currentTimeMillis());
         try {
@@ -129,6 +134,9 @@ public class Card extends Model {
         return date.getTime();
     }
 
+    /**
+     * Inserts new record
+     */
     public void insert() {
         long time = stringDateToLong(this.time.getUpdateTime());
         this.isDeleted = false;
@@ -136,70 +144,15 @@ public class Card extends Model {
         this.save();
     }
 
-    public static List<Card> queryAll() {
+    /**
+     * Queries all not deleted records
+     * @return
+     */
+    public static List<Card> queryAllNotDeleted() {
         List<Card> cardList = new Select()
                 .from(Card.class)
+//                .where("isDeleted = ? AND (isFavourite = ? OR isFavourite is null)", false, false)
                 .where("isDeleted = ?", false)
-                .execute();
-
-        for (Card card : cardList) {
-            card.geo = card.getMany(Geo.class, "card").get(0);
-            Log.d(TAG, "queryAll: -- not in deleted");
-            try {
-                card.geo.address = card.geo.getAddresses().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "address: ");
-            }
-            try {
-                card.geo.district = card.geo.getDistricts().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "district: ");
-            }
-            try {
-                card.geo.microdistrict = card.geo.getMicrodistricts().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "microdistrict: ");
-            }
-            try {
-                card.geo.building = card.geo.getBuildings().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "building: ");
-            }
-            try {
-                card.photo = card.getPhotos().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", "photo: ");
-            }
-
-            try {
-                card.description = card.getDescriptions().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ");
-            }
-            try {
-                card.sourceLink = card.getSourceLinks().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ");
-            }
-            try {
-                card.time = card.getTimes().get(0);
-            } catch (IndexOutOfBoundsException e) {
-                Log.e("err", ": ");
-            }
-
-            //TODO: try NULL
-            card.houseFeatures = card.getHouseFeatures();
-            card.realtyFeatures = card.getRealtyFeatures();
-
-
-        }
-        return cardList;
-    }
-
-    public static List<Card> queryAllNotFavourites() {
-        List<Card> cardList = new Select()
-                .from(Card.class)
-                .where("isDeleted = ? AND (isFavourite = ? OR isFavourite is null)", false, false)
                 .orderBy("updateTime DESC")
                 .execute();
 
@@ -419,7 +372,7 @@ public class Card extends Model {
     @Override
     public String toString() {
 
-        return "Card{ Update TIME = " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(updateTime)) +   '}';
+        return "Card{ Update TIME = " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(updateTime)) + '}';
     }
 
 

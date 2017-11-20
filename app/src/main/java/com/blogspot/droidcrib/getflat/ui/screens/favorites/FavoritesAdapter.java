@@ -19,6 +19,7 @@ import com.blogspot.droidcrib.getflat.evenbus.FavoriteRemovedEvent;
 import com.blogspot.droidcrib.getflat.model.card.Card;
 import com.blogspot.droidcrib.getflat.model.userdata.Deleted;
 import com.blogspot.droidcrib.getflat.ui.screens.all.CardsAdapter;
+import com.blogspot.droidcrib.getflat.utils.DeviceData;
 import com.blogspot.droidcrib.getflat.utils.MemoUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -144,6 +145,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Card
             favorites = (ImageView) view.findViewById(R.id.favorites);
             remove = (ImageView) view.findViewById(R.id.remove);
             note = (ImageView) view.findViewById(R.id.note);
+
+            // Make square photo
+            photo.getLayoutParams().width = DeviceData.getScreenWidth(context);
         }
     }
 
