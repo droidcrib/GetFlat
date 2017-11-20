@@ -32,12 +32,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
+
         android:layout_toRightOf="@id/toolbar_all_menu"
         android:layout_toLeftOf="@id/toolbar_all_favorites"
-        android:text="@string/header_search_settings"
+        android:text="@string/header_main"
         android:textColor="@color/icons"
+        android:gravity="center"
         android:textSize="18sp" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/toolbar_all_favorites"
+        android:layout_alignRight="@id/toolbar_all_favorites"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp">
+
+        <include layout="@layout/favorites_badge"/>
+    </FrameLayout>
 
 
 </RelativeLayout>
