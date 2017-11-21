@@ -329,7 +329,8 @@ public class Card extends Model {
     }
 
     public static void setFavourite(long id, Boolean isFavourite) {
-        Card card = Card.queryById(id);
+        Card card = Card.load(Card.class, id);
+        //Card c = Card.queryById(id);
         card.isFavourite = isFavourite;
         card.description = null;
         card.geo = null;

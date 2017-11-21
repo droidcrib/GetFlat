@@ -71,7 +71,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         if (card.realtyFeatures != null && card.realtyFeatures.size() >= 3) {
             holder.floor.setText(card.realtyFeatures.get(2).value);
         }
-        if (card.description != null) {
+        if (card.description != null && card.description.text != null && card.description.text.length() > 0) {
+            Log.d(TAG, "card.description.text: " + card.description.text);
+            Log.d(TAG, "card.description.text.length(): " + card.description.text.length());
             holder.description.setText(card.description.text);
         }
         if (card.isFavourite != null && card.isFavourite) {
@@ -132,7 +134,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView street, number, price, rooms, meters,
-                floor, description;
+                floor;
+        public com.borjabravo.readmoretextview.ReadMoreTextView description;
         ImageView photo, favorites, remove, note;
 
         public CardViewHolder(View view) {
@@ -143,7 +146,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             rooms = (TextView) view.findViewById(R.id.id_list_row_rooms);
             meters = (TextView) view.findViewById(R.id.id_list_row_meters);
             floor = (TextView) view.findViewById(R.id.id_list_row_floor);
-            description = (TextView) view.findViewById(R.id.id_list_row_description);
+            description = (com.borjabravo.readmoretextview.ReadMoreTextView) view.findViewById(R.id.id_list_row_description);
             photo = (ImageView) view.findViewById(R.id.id_list_row_photo);
             favorites = (ImageView) view.findViewById(R.id.favorites);
             remove = (ImageView) view.findViewById(R.id.remove);
