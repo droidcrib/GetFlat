@@ -140,6 +140,7 @@ public class Card extends Model {
     public void insert() {
         long time = stringDateToLong(this.time.getUpdateTime());
         this.isDeleted = false;
+        this.isFavourite = false;
         this.updateTime = time;
         this.save();
     }

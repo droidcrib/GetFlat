@@ -29,7 +29,7 @@ import java.util.List;
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> implements CardsAdapterView {
 
     private List<Card> cardList;
-    private static final String TAG = "getflat_CardsAdapter";
+    private static final String TAG = "d_getflat_CardsAdapter";
     private Context context;
     private CardsAdapterPresenter cardsPresenter;
     private ApartmentsListPresenter listPresenter;
@@ -72,8 +72,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             holder.floor.setText(card.realtyFeatures.get(2).value);
         }
         if (card.description != null && card.description.text != null && card.description.text.length() > 0) {
-            Log.d(TAG, "card.description.text: " + card.description.text);
-            Log.d(TAG, "card.description.text.length(): " + card.description.text.length());
             holder.description.setText(card.description.text);
         }
         if (card.isFavourite != null && card.isFavourite) {
