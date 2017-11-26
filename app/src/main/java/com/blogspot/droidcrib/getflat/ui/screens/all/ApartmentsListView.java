@@ -22,6 +22,8 @@ public interface ApartmentsListView {
 
     void refreshAdapterDataSet(Card card);
 
+    void updateFavoritesCounter();
+
 
 
 }

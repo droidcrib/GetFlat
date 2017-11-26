@@ -28,4 +28,9 @@ public class ApartmentsListPresenterImpl implements ApartmentsListPresenter {
     public void onCardDeleted(Card card) {
         view.refreshAdapterDataSet(card);
     }
+
+    @Override
+    public void updateFavoritesCounter(int favoritesCounter) {
+        view.updateFavoritesCounter(favoritesCounter);
+    }
 }

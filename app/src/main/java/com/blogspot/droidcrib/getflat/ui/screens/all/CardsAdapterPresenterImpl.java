@@ -30,6 +30,7 @@ public class CardsAdapterPresenterImpl implements CardsAdapterPresenter {
             Card.setFavourite(card.getId(), true);
             view.markFavorite(card, holder);
         }
+
     }
 
 

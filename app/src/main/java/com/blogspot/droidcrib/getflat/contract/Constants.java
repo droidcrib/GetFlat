@@ -35,6 +35,9 @@ public class Constants {
     // Screen dimentions
     public static final int SIDE_PADDINGS   = 32;
 
+    // Numbers
+    public static final int MAX_COUNTER_VALUE = 99;
+
 
 
 

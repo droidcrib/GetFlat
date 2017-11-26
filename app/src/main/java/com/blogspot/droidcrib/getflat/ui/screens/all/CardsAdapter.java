@@ -76,6 +76,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         }
         if (card.isFavourite != null && card.isFavourite) {
             holder.favorites.setImageResource(R.drawable.ic_heart_red);
+
         } else {
             holder.favorites.setImageResource(R.drawable.ic_heart);
         }
@@ -101,6 +102,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             @Override
             public void onClick(View view) {
                 cardsPresenter.manageFavorite(card, holder);
+                listPresenter.updateFavoritesCounter();
                 EventBus.getDefault().post(new FavoriteAddedEvent());
             }
         });

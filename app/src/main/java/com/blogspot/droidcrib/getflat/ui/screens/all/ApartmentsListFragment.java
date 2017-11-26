@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.blogspot.droidcrib.getflat.R;
 import com.blogspot.droidcrib.getflat.evenbus.DatabaseUpdatedEvent;
@@ -41,6 +44,7 @@ import java.util.List;
 
 import static com.blogspot.droidcrib.getflat.application.App.isConditionChanged;
 import static com.blogspot.droidcrib.getflat.application.App.isQueried;
+import static com.blogspot.droidcrib.getflat.contract.Constants.MAX_COUNTER_VALUE;
 import static com.blogspot.droidcrib.getflat.contract.Constants.PARAM_PATH;
 
 
@@ -52,6 +56,8 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
     private static final String TAG = "getflat_apartment_list";
 
+    private RelativeLayout mFavoritesBadge;
+    private TextView mFavoritesCounter;
     private int currentPage = 1;
     public static ApartmentsListFragment sApartmentsListFragment;
     private List<Card> mCardsList;
@@ -114,6 +120,9 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
 
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
+
+        mFavoritesBadge =  (RelativeLayout)v.findViewById(R.id.favorites_badge);
+        mFavoritesCounter =  (TextView)v.findViewById(R.id.favorites_counter_text);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
         progressBarFirst = (ProgressBar) v.findViewById(R.id.progress_get_first);
         progressBarMore = (ProgressBar) v.findViewById(R.id.progress_get_more);
@@ -375,6 +384,21 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
                 it.remove();
                 mAdapter.notifyDataSetChanged();
             }
+        }
+    }
+
+    @Override
+    public void updateFavoritesCounter() {
+        int count = Card.queryFavorites().size();
+
+        if(count == 0) {
+            mFavoritesBadge.setVisibility(View.GONE);
+        } else if(count > 0 && count < 100){
+            mFavoritesBadge.setVisibility(View.VISIBLE);
+            mFavoritesCounter.setText(String.valueOf(count));
+        } else {
+            mFavoritesBadge.setVisibility(View.VISIBLE);
+            mFavoritesCounter.setText(String.valueOf(MAX_COUNTER_VALUE));
         }
     }
 

@@ -12,5 +12,7 @@ public interface ApartmentsListPresenter {
 
     void onCardDeleted(Card card);
 
+    void updateFavoritesCounter();
+
     void onDestroy();
 }
