@@ -30,7 +30,7 @@ public class ApartmentsListPresenterImpl implements ApartmentsListPresenter {
     }
 
     @Override
-    public void updateFavoritesCounter(int favoritesCounter) {
-        view.updateFavoritesCounter(favoritesCounter);
+    public void updateFavoritesCounter() {
+        view.updateFavoritesCounter();
     }
 }
