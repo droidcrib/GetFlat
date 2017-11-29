@@ -48,7 +48,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="4dp">
 
-        <include layout="@layout/favorites_badge"/>
+        <include layout="@layout/badge_favorites"/>
     </FrameLayout>
 
 

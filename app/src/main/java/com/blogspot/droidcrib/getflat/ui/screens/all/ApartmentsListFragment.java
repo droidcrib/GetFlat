@@ -261,24 +261,30 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         List<Card> newCardsQuery = (ArrayList<Card>) data;
         // mCardsList is empty
         if (mCardsList.size() == 0) {
+            Log.d(TAG, "onLoadFinished: mCardsList is empty, adding as is");
             mCardsList.addAll(newCardsQuery);
             mAdapter.notifyItemRangeInserted(0, newCardsQuery.size());
         } else {
+            Log.d(TAG, "onLoadFinished: mCardsList is NOT empty");
             for (int i = 0; i < newCardsQuery.size(); i++) {
                 // mCardsList not contains element
                 if (!mCardsList.contains(newCardsQuery.get(i))) {
+                    Log.d(TAG, "onLoadFinished: mCardsList not contains element");
                     // List newCardsQuery is sorted by Card creation time.
                     if (mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))) {
+                        Log.d(TAG, "onLoadFinished: mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))");
                         // Insert into beginning of the list
                         mCardsList.add(i, newCardsQuery.get(i));
                         isAddedToBeginning = true;
                     } else {
+                        Log.d(TAG, "NOT onLoadFinished: mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))");
                         // Insert into end of the list
                         mCardsList.add(newCardsQuery.get(i));
                     }
                     mAdapter.notifyItemInserted(i);
                 } else {
                     //Do nothing. mCardsList already contains element
+                    Log.d(TAG, "onLoadFinished: Do nothing. mCardsList already contains element");
                 }
             }
         }
