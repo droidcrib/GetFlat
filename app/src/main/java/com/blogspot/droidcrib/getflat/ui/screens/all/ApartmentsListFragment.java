@@ -121,8 +121,8 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
         View v = inflater.inflate(R.layout.fragment_list_apartments, container, false);
 
 
-        mFavoritesBadge =  (RelativeLayout)v.findViewById(R.id.favorites_badge);
-        mFavoritesCounter =  (TextView)v.findViewById(R.id.favorites_counter_text);
+        mFavoritesBadge = (RelativeLayout) v.findViewById(R.id.favorites_badge);
+        mFavoritesCounter = (TextView) v.findViewById(R.id.favorites_counter_text);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_all_apartments);
         progressBarFirst = (ProgressBar) v.findViewById(R.id.progress_get_first);
         progressBarMore = (ProgressBar) v.findViewById(R.id.progress_get_more);
@@ -271,13 +271,17 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
                 if (!mCardsList.contains(newCardsQuery.get(i))) {
                     Log.d(TAG, "onLoadFinished: mCardsList not contains element");
                     // List newCardsQuery is sorted by Card creation time.
-                    if (mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))) {
-                        Log.d(TAG, "onLoadFinished: mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))");
+                    if (mCardsList.size() > i && !(newCardsQuery.get(i).updateTime > mCardsList.get(i).updateTime)) {
+                        Log.d(TAG, "newCardsQuery.get(i).updateTime = " + newCardsQuery.get(i).updateTime);
+                        Log.d(TAG, "mCardsList.get(i).updateTime = " + mCardsList.get(i).updateTime);
                         // Insert into beginning of the list
                         mCardsList.add(i, newCardsQuery.get(i));
                         isAddedToBeginning = true;
                     } else {
-                        Log.d(TAG, "NOT onLoadFinished: mCardsList.size() > i && !newCardsQuery.get(i).equals(mCardsList.get(i))");
+                        if(mCardsList.size() > i) {
+                            Log.d(TAG, "newCardsQuery.get(i).updateTime = " + newCardsQuery.get(i).updateTime);
+                            Log.d(TAG, "mCardsList.get(i).updateTime = " + mCardsList.get(i).updateTime);
+                        }
                         // Insert into end of the list
                         mCardsList.add(newCardsQuery.get(i));
                     }
@@ -397,9 +401,9 @@ public class ApartmentsListFragment extends Fragment implements ApartmentsListVi
     public void updateFavoritesCounter() {
         int count = Card.queryFavorites().size();
 
-        if(count == 0) {
+        if (count == 0) {
             mFavoritesBadge.setVisibility(View.GONE);
-        } else if(count > 0 && count < 100){
+        } else if (count > 0 && count < 100) {
             mFavoritesBadge.setVisibility(View.VISIBLE);
             mFavoritesCounter.setText(String.valueOf(count));
         } else {
